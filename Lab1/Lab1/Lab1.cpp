@@ -3,12 +3,32 @@
 
 #include <iostream>
 #include <cstdlib> //why good practice to incl, doesnt this result in duplicates if in iostream?
+#include <regex>
+
+int getIntFromUser()
+{
+    while (true)
+    {
+        int intValue{};
+        std::cin >> intValue;
+
+        //check valid number //regEx?
+            // if valid number (entirely) break out of loop/return int
+                    return intValue;
+            // prob case1: if valid number but meaningless to program (eg. -1) try again
+            // prob case2: if valid number followed by invalid chars, 
+            //              discard contents after valid # & ret num
+            // prob case3: if invalid number ('input extraction fails'
+                    std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
+            // prob case4: if valid number; but overflows; treat same as prob case3
+    }
+        
+}
 
 int promptUserForMaxRange()
 {
     std::cout << "Enter the maximum range: ";
-    int max{};
-    std::cin >> max; //NOTE does not handle non-int gracefully (yet)
+    int max{ getIntFromUser() };
     return max;
 }
 
@@ -22,8 +42,7 @@ int pickRandomNumberInRange(int min, int max) // inclusive of min & max
 int promptUserForGuess(int maxRange)
 {
     std::cout << "Guess a number between 0 and " << maxRange << ": ";
-    int guess{};
-    std::cin >> guess; //NOTE does NOT handle non-int gracefully (yet)
+    int guess{ getIntFromUser() };
     return guess;
 }
 
