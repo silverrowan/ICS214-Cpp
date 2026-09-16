@@ -111,16 +111,6 @@ void playOneRound()
             std::cout << "guess higher..." << std::endl;
         }
     } while (guess != targetNumber);
-
-    bool again{ promptForPlayAgain() };
-    if (again == true)
-    {
-        playOneRound();
-    }
-    else
-    {
-        std::cout << "Thanks for playing!" << std::endl;
-    }
 }
 
 int main()
@@ -139,5 +129,14 @@ int main()
     srand( static_cast<unsigned int>(time(0)) );
 
     //play game
-    playOneRound();
+        playOneRound();
+        bool again{ promptForPlayAgain() };
+        if (again == true)
+        {
+            playOneRound();
+        }
+        else
+        {
+            std::cout << "Thanks for playing!" << std::endl;
+        }
 }
