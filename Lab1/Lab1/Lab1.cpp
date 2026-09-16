@@ -4,26 +4,29 @@
 #include <iostream>
 #include <cstdlib>
 
-int getIntFromUser() {
+void clearExcessCharacters() {
+    int numberCharIgnore = std::numeric_limits<std::streamsize>::max();
+    std::cin.ignore( numberCharIgnore, '\n');  // clear up to 100 characters out of the buffer, or until a '\n' character is removed
+}
 
+int getIntFromUser() {
     while (true) {
-        //prob when guess is = 0 
+        //problem when guess is = 0 
         int intValue{};
         std::cin >> intValue;
+        clearExcessCharacters(); //handles integer followed by invalid characters (error case 2)
 
         if (intValue < 0) { // valid integer, invalid for range (error case 1)
             std::cout << "Invalid input. Input must be a positive int. Please try again." << std::endl;
         }
-        else if (intValue) { // valid integer (success) (may include the followed by non num, check)
+        //else if (intValue == valid) { // valid num & successful extraction
+        else {
             return intValue;
-            //} else if () {
+        }
+        //} else if () {
             //    //OVERFLOWS. NOT SURE GOES HERE. SUSPECT IT GOES UNDER FAIL
             //} else if (  std::cin.fail() ) { // cin failed to parse, contains error case 2 & 3
-            //    if (intValue) { // valid nums followed by invalid (case 2)
-            //        //record valid num into intValue if req'd
-            //        //clear buffer
-            //        //set fail() back to false
-            //        return intValue;
+
             //    } else { //no Nums (case 3) -- but ALSO end up here for int overflow
             //        //set intValue to null?
             //        //clear buffer
@@ -44,7 +47,6 @@ int getIntFromUser() {
         //}
         }
     }    
-}
 
 int promptUserForMaxRange()
 {
