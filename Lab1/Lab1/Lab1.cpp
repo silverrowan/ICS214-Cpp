@@ -78,7 +78,7 @@ int getIntFromUserInRange( int min, int max ) {
 int promptUserForMaxRange()
 {
     std::cout << "Enter the maximum range: ";
-    int max{ getIntFromUserInRange( 0, INT_MAX) };
+    int max{ getIntFromUserInRange( 1, INT_MAX) };
     return max;
 }
 
