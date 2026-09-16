@@ -6,11 +6,30 @@
 #include <regex>
 
 int getIntFromUser()
-{
-    while (true)
-    {
+
+    while (true) {
         int intValue{};
         std::cin >> intValue;
+
+        if (intValue < 0 ) { // valid integer, invalid for range (error case 1)
+            std::cout << "Invalid input. Input must be a positive int. Please try again." << std::endl;
+        } else if ( intValue ) { // valid integer (success) (may include the followed by non num, check)
+            return intValue;
+        } else if () {
+            //OVERFLOWS. NOT SURE GOES HERE. SUSPECT IT GOES UNDER FAIL
+        } else if (  std::cin.fail() ) { // cin failed to parse, contains error case 2 & 3
+            if (intValue) { // valid nums followed by invalid (case 2)
+                //record valid num into intValue if req'd
+                //clear buffer
+                //set fail() back to false
+                return intValue;
+            } else { //no Nums (case 3) -- but ALSO end up here for int overflow
+                //set intValue to null?
+                //clear buffer
+                //set fail() back to false
+                std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
+                continue; //IF NEEDED. Prob not
+            }
 
         //check valid number //regEx?
             // if valid number (entirely) break out of loop/return int
@@ -46,7 +65,7 @@ int promptUserForGuess(int maxRange)
     return guess;
 }
 
-bool promptForPlayAgain()
+bool promptForPlayAgain() // change to while true
 {
     std::cout << "Do you wish to play again [y/n]: ";
     char response{};
@@ -63,8 +82,7 @@ bool promptForPlayAgain()
     else
     {
         std::cout << "invalid input - try again" << std::endl;
-        promptForPlayAgain();
-        //get a warning that not all control paths return a value - but eventually will resolve to y/Y/n/N which will return a value
+        return promptForPlayAgain();
     }
 }
 
