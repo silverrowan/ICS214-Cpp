@@ -5,8 +5,10 @@
 #include <cstdlib>
 
 void clearExcessCharacters() { //clears entire (remaining) buffer
-    int maxCharClear = std::numeric_limits<std::streamsize>::max();
-    std::cin.ignore( maxCharClear, '\n');  // clear up to 100 characters out of the buffer, or until a '\n' character is removed
+    //int maxCharClear = std::numeric_limits<std::streamsize>::max();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // clear up to 100 characters out of the buffer, or until a '\n' character is removed
+    //for some reason, didn't seem to quite work right when std::numeric_...::max() was moved into a variable as a string nor an int for this
+
 }
 
 int getIntFromUser() {
@@ -14,39 +16,30 @@ int getIntFromUser() {
         //problem when guess is = 0 
         int intValue{};
         std::cin >> intValue;
-        clearExcessCharacters(); //handles integer followed by invalid characters (error case 2)
 
-        if (intValue < 0) { // valid integer, invalid for range (error case 1)
-            std::cout << "Invalid input. Input must be a positive int. Please try again." << std::endl;
+        auto& checkCin = std::cin;
+        if (!std::cin) { // extraction failed (initial char invalid-error case 3, overflow-case 4, & eof)
+            if (std::cin.eof()) { //end of file (eof), entered by user (key combos)
+                std::exit(0); //exit program as successfull
+            }
+            else { //overflow & non-integer treated the same. 
+                std::cin.clear();
+                clearExcessCharacters();
+                std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
+            }
         }
-        //else if (intValue == valid) { // valid num & successful extraction
         else {
-            return intValue;
-        }
-        //} else if () {
-            //    //OVERFLOWS. NOT SURE GOES HERE. SUSPECT IT GOES UNDER FAIL
-            //} else if (  std::cin.fail() ) { // cin failed to parse, contains error case 2 & 3
+            clearExcessCharacters(); //handles integer followed by invalid characters (error case 2)
 
-            //    } else { //no Nums (case 3) -- but ALSO end up here for int overflow
-            //        //set intValue to null?
-            //        //clear buffer
-            //        //set fail() back to false
-            //        std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
-            //        continue; //IF NEEDED. Prob not
-                //}
-
-            //check valid number //regEx?
-                // if valid number (entirely) break out of loop/return int
-                        //return intValue;
-                // prob case1: if valid number but meaningless to program (eg. -1) try again
-                // prob case2: if valid number followed by invalid chars, 
-                //              discard contents after valid # & ret num
-                // prob case3: if invalid number ('input extraction fails'
-                        //std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
-                // prob case4: if valid number; but overflows; treat same as prob case3
-        //}
+            if (intValue < 0) { // valid integer, invalid for range (error case 1)
+                std::cout << "Invalid input. Input must be a positive int. Please try again." << std::endl;
+            }
+            else { //valid integer entry
+                return intValue;
+            }
         }
-    }    
+    }
+}
 
 int promptUserForMaxRange()
 {
