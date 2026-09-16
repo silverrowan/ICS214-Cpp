@@ -3,45 +3,47 @@
 
 #include <iostream>
 #include <cstdlib>
-#include <regex>
 
-int getIntFromUser()
+int getIntFromUser() {
 
     while (true) {
+        //prob when guess is = 0 
         int intValue{};
         std::cin >> intValue;
 
-        if (intValue < 0 ) { // valid integer, invalid for range (error case 1)
+        if (intValue < 0) { // valid integer, invalid for range (error case 1)
             std::cout << "Invalid input. Input must be a positive int. Please try again." << std::endl;
-        } else if ( intValue ) { // valid integer (success) (may include the followed by non num, check)
+        }
+        else if (intValue) { // valid integer (success) (may include the followed by non num, check)
             return intValue;
-        } else if () {
-            //OVERFLOWS. NOT SURE GOES HERE. SUSPECT IT GOES UNDER FAIL
-        } else if (  std::cin.fail() ) { // cin failed to parse, contains error case 2 & 3
-            if (intValue) { // valid nums followed by invalid (case 2)
-                //record valid num into intValue if req'd
-                //clear buffer
-                //set fail() back to false
-                return intValue;
-            } else { //no Nums (case 3) -- but ALSO end up here for int overflow
-                //set intValue to null?
-                //clear buffer
-                //set fail() back to false
-                std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
-                continue; //IF NEEDED. Prob not
-            }
+            //} else if () {
+            //    //OVERFLOWS. NOT SURE GOES HERE. SUSPECT IT GOES UNDER FAIL
+            //} else if (  std::cin.fail() ) { // cin failed to parse, contains error case 2 & 3
+            //    if (intValue) { // valid nums followed by invalid (case 2)
+            //        //record valid num into intValue if req'd
+            //        //clear buffer
+            //        //set fail() back to false
+            //        return intValue;
+            //    } else { //no Nums (case 3) -- but ALSO end up here for int overflow
+            //        //set intValue to null?
+            //        //clear buffer
+            //        //set fail() back to false
+            //        std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
+            //        continue; //IF NEEDED. Prob not
+                //}
 
-        //check valid number //regEx?
-            // if valid number (entirely) break out of loop/return int
-                    return intValue;
-            // prob case1: if valid number but meaningless to program (eg. -1) try again
-            // prob case2: if valid number followed by invalid chars, 
-            //              discard contents after valid # & ret num
-            // prob case3: if invalid number ('input extraction fails'
-                    std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
-            // prob case4: if valid number; but overflows; treat same as prob case3
-    }
-        
+            //check valid number //regEx?
+                // if valid number (entirely) break out of loop/return int
+                        //return intValue;
+                // prob case1: if valid number but meaningless to program (eg. -1) try again
+                // prob case2: if valid number followed by invalid chars, 
+                //              discard contents after valid # & ret num
+                // prob case3: if invalid number ('input extraction fails'
+                        //std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
+                // prob case4: if valid number; but overflows; treat same as prob case3
+        //}
+        }
+    }    
 }
 
 int promptUserForMaxRange()
@@ -129,7 +131,10 @@ int main()
     srand( static_cast<unsigned int>(time(0)) );
 
     //play game
-        playOneRound();
+    playOneRound();
+    
+    //play again? and continue if y
+    while (true) {
         bool again{ promptForPlayAgain() };
         if (again == true)
         {
@@ -139,4 +144,5 @@ int main()
         {
             std::cout << "Thanks for playing!" << std::endl;
         }
+    }
 }
