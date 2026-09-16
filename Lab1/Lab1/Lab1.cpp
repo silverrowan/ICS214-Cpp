@@ -4,9 +4,9 @@
 #include <iostream>
 #include <cstdlib>
 
-void clearExcessCharacters() {
-    int numberCharIgnore = std::numeric_limits<std::streamsize>::max();
-    std::cin.ignore( numberCharIgnore, '\n');  // clear up to 100 characters out of the buffer, or until a '\n' character is removed
+void clearExcessCharacters() { //clears entire (remaining) buffer
+    int maxCharClear = std::numeric_limits<std::streamsize>::max();
+    std::cin.ignore( maxCharClear, '\n');  // clear up to 100 characters out of the buffer, or until a '\n' character is removed
 }
 
 int getIntFromUser() {
