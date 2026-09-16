@@ -88,24 +88,23 @@ bool promptForPlayAgain() // change to while true
         char response{};
         std::cin >> response;
 
-        if ( !(response == 'y' || response == 'Y' || response == 'n' || response == 'N') ) // cin fails or invalid entry
-            // strange order is so that options that *start* with a correct option but continue do not
-            // count as correct entries. I suspect this is sub-optimal, but seems likely to be more 
-            // efficient than the example .eof() & .peek() method
+        auto& checkCin = std::cin;
+        auto* rawBuffer = checkCin.rdbuf();
+
+        if (std::cin.peek() == '\n')
         {
-            std::cout << "invalid input - try again" << std::endl;
-            clearExcessCharacters();
+            if (response == 'n' || response == 'N')
+            {
+                return false;
+            }
+            else if (response == 'y' || response == 'Y')
+            {
+                std::cout << std::endl;
+                return true;
+            }
         }
-        else if (response == 'n' || response == 'N')
-        {
-            return false;
-        }
-        else // equiv to(response == 'y' || response == 'Y')        
-        {
-            std::cout << std::endl;
-            return true;
-            
-        }
+        std::cout << "invalid input - try again" << std::endl;
+        clearExcessCharacters();        
     }
 }
 
