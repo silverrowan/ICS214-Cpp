@@ -25,31 +25,22 @@ int getIntFromUser() {
         int intValue{};
         std::cin >> intValue;
 
-        auto& checkCin = std::cin;
-        if (!std::cin) { // extraction failed (initial char invalid-error case 3, overflow-case 4, & eof)
-            if (std::cin.eof()) { //end of file (eof), entered by user (key combos)
-                std::exit(0); //exit program as successfull
-            }
-            else { //overflow & non-integer treated the same. (before creation of '...InRange()'
+        //auto& checkCin = std::cin;
+        if (!std::cin && std::cin.eof()) { // extraction failed (initial char invalid-error case 3, overflow-case 4, & 
+            //                                  end of file (eof), entered by user (key combos)
+            std::exit(0); //exit program as successfull
+        }
+        else if ( !std::cin ) { //overflow & non-integer treated the same. (before creation of '...InRange()'
                 std::cin.clear();
                 clearExcessCharacters();
-                if (intValue == INT_MAX) { //added after '...InRange()' added - to avoid treating the same as non-integer
-                    return INT_MAX + 1;
+                if (intValue == INT_MAX) {
+                    std::cout << "Maximum int is " << INT_MAX << std::endl;
                 }
-                else {
-                    std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
-                }
-            }
+                std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
         }
         else {
             clearExcessCharacters(); //handles integer followed by invalid characters (error case 2)
-
-            if (intValue < 0) { // valid integer, invalid for range (error case 1)
-                std::cout << "Invalid input. Input must be a positive int. Please try again." << std::endl;
-            }
-            else { //valid integer entry
-                return intValue;
-            }
+            return intValue;
         }
     }
 }
