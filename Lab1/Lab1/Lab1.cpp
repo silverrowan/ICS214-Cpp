@@ -1,5 +1,4 @@
 // Lab1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 #include <cstdlib>
@@ -200,6 +199,7 @@ int main()
         else
         {
             std::cout << "Thanks for playing!" << std::endl;
+            std::exit(0); //exit program as successfull
         }
     }
 }
