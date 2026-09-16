@@ -3,15 +3,17 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <climits>
 
 void clearExcessCharacters() { //clears entire (remaining) buffer
     //int maxCharClear = std::numeric_limits<std::streamsize>::max();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // clear up to 100 characters out of the buffer, or until a '\n' character is removed
     //for some reason, didn't seem to quite work right when std::numeric_...::max() was moved into a variable as a string nor an int for this
-
 }
 
 int getIntFromUser() {
+    //I would preffer to re-prompt, but that would mean passing in the prompt string
+    //      --but then could also combo the prompting functions for max range and guess
     while (true) {
         //problem when guess is = 0 
         int intValue{};
@@ -22,10 +24,15 @@ int getIntFromUser() {
             if (std::cin.eof()) { //end of file (eof), entered by user (key combos)
                 std::exit(0); //exit program as successfull
             }
-            else { //overflow & non-integer treated the same. 
+            else { //overflow & non-integer treated the same. (before creation of '...InRange()'
                 std::cin.clear();
                 clearExcessCharacters();
-                std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
+                if (intValue == INT_MAX) { //added after '...InRange()' added - to avoid treating the same as non-integer
+                    return INT_MAX + 1;
+                }
+                else {
+                    std::cout << "Invalid input. Input must be a valid int. Please try again." << std::endl;
+                }
             }
         }
         else {
@@ -41,10 +48,22 @@ int getIntFromUser() {
     }
 }
 
+int getIntFromUserInRange( int min, int max ) {
+    while (true) {
+        int input{ getIntFromUser() };
+        if ( input < min || input > max ) {
+            std::cout << "Invalid input. Range is [  " << min << " to " << max << " ]. Please try again.";
+        }
+        else {
+            return input;
+        }
+    }
+}
+
 int promptUserForMaxRange()
 {
     std::cout << "Enter the maximum range: ";
-    int max{ getIntFromUser() };
+    int max{ getIntFromUserInRange( 0, INT_MAX) };
     return max;
 }
 
@@ -58,7 +77,7 @@ int pickRandomNumberInRange(int min, int max) // inclusive of min & max
 int promptUserForGuess(int maxRange)
 {
     std::cout << "Guess a number between 0 and " << maxRange << ": ";
-    int guess{ getIntFromUser() };
+    int guess{ getIntFromUserInRange( 0, maxRange ) };
     return guess;
 }
 
