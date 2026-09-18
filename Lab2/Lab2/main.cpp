@@ -1,15 +1,14 @@
 
 #include <iostream>
+#include <string>
 
 enum class Weekday { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday };
 
 #include "dates.h"
 #include "TextInput.h"
-#include <string>
 
 // use Zeller’s congrunce algorithm to calculate and return a Weekday
 Weekday calculateWeekday(int month, int dayOfMonth, int year);
-
 //Get enum string from enum number
 std::string getWeekdayName(Weekday day);
 
@@ -29,11 +28,11 @@ int main()
 
 }
 
-int promptForYear() { return promptUserForInt("Year: "); }
+int promptForYear() { return promptUserForIntInRange("Year: ", 0, 9999); }
 
-int promptForMonth() { return promptUserForInt("Month (number): "); }
+int promptForMonth() { return promptUserForIntInRange("Month (number): ", 1, 12); }
 
-int promptForDayOfMonth() { return promptUserForInt("Day of the Month (number): "); }
+int promptForDayOfMonth() { return promptUserForIntInRange("Day of the Month (number): ", 1, 31); }
 
 void adjustMonthYearNums(int month, int year) {
     if (month == 01 || month == 02) {

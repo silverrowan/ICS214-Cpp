@@ -22,6 +22,7 @@ int getIntFromUser();
 int getIntFromUserInRange(int min, int max);
 
 int promptUserForInt(std::string prompt);
+int promptUserForIntInRange(std::string prompt, int min, int max);
 
 //std::string promptUserForString(std::string prompt);
 

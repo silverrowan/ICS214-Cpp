@@ -63,20 +63,25 @@ int getIntFromUserInRange(int min, int max) {
         }
     }
 }
-//
-//// Asks the user to provide the integer for the maximum range of the game, 
-//// and validates the response.
-//// input parameters: none; output: int of range maximum 
-//int promptUserForMaxRange()
-//{
-//    std::cout << "Enter the maximum range: ";
-//    int max{ getIntFromUserInRange(1, INT_MAX) };
-//    return max;
-//}
+
+// Asks the user to provide the integer for the maximum range of the game, 
+// and validates the response.
+// input parameters: none; output: int of range maximum 
+int promptUserForMaxRange()
+{
+    std::cout << "Enter the maximum range: ";
+    int max{ getIntFromUserInRange(1, INT_MAX) };
+    return max;
+}
 
 int promptUserForInt(std::string prompt) {
     std::cout << prompt;
     return getIntFromUser();
+}
+
+int promptUserForIntInRange(std::string prompt, int min, int max) {
+    std::cout << prompt;
+    return getIntFromUserInRange(min, max);
 }
 
 //std::string promptUserForString(std::string prompt) { //includes basic string validation
