@@ -71,6 +71,8 @@ Weekday calculateWeekday(int month, int dayOfMonth, int year) {
     using enum Weekday;
     Weekday weekdayEnum{ weekdayNum };
     return weekdayEnum;
+
+    std::string weekdayList[] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 }
 
 //std::string getWeekdayName(Weekday day) {
