@@ -139,7 +139,13 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Lab2.cpp" />
+    <ClCompile Include="dates.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="TextInput.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dates.h" />
+    <ClInclude Include="TextInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
