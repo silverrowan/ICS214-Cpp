@@ -55,7 +55,9 @@ int calculateWeekdayNum(int month, int dayOfMonth, int year) {
 
     int century{ year / 100 };
     int yearOfCentury{ year % 100 };
+    std::cout << "Before Transform: yr: " << year << " month: " << month << "\n";
     adjustMonthYearNums(month, year);
+    std::cout << "\nAfter Transform: yr: " << year << " month: " << month << "\n";
     int monthNum{ month };
     int monthNumCalculation{ (26 * (monthNum + 1)) / (10) }; //not sure what to call this - this is or represents - working on it
 
