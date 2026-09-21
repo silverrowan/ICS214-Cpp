@@ -12,9 +12,6 @@ int promptForMonth();
 // prompt the user for the day of the month (0-31) and return the result
 int promptForDayOfMonth();
 
-//Adjust month and year in preparation for calculateWeekday
-void adjustMonthYearNums(int month, int year);
-
 //// use Zeller’s congrunce algorithm to calculate and return a Weekday
 //Weekday calculateWeekday(int month, int dayOfMonth, int year);
 

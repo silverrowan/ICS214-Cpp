@@ -1,5 +1,4 @@
-//
-//#include <iostream>
+#include <iostream>
 //#include <cstdlib>
 //#include <climits>
 #include <string>
@@ -11,13 +10,6 @@ int promptForYear() { return promptUserForIntInRange("Year: ", 0, 9999); }
 int promptForMonth() { return promptUserForIntInRange("Month (number): ", 1, 12); }
 
 int promptForDayOfMonth() { return promptUserForIntInRange("Day of the Month (number): ", 1, 31); }
-
-void adjustMonthYearNums(int month, int year) {
-    if (month == 01 || month == 02) {
-        month += 12;
-        year -= 1;
-    } //will this adjust the variable after the function call? Test
-}
 
 int calculateWeekdayNum(int month, int dayOfMonth, int year) {
     // Zeller's congruence - to calc day of the week
@@ -47,15 +39,9 @@ Weekday calculateWeekday(int month, int dayOfMonth, int year) {
     using enum Weekday;
     Weekday weekdayEnum{ weekdayNum };
     return weekdayEnum;
-
-    std::string weekdayList[] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 }
 
-//std::string getWeekdayName(Weekday day) {
-    //using enum Weekday; //brings enumerators into the current scope
-    //Weekday variableName{ value1 };
-//}
-
+std::string getWeekdayName(Weekday day) {
 // There isn’t a straightforward way of printing out the text representation of an
 // enumerated type,so we’ll write our own
 // Given a Weekday, return a string to represent its name.
@@ -69,3 +55,7 @@ Weekday calculateWeekday(int month, int dayOfMonth, int year) {
 //To do this, you need to know how to create an array of string objects(see
 //    below) :
 //eg: std::string myArray[] = { "a", "b", “c” };.
+
+    std::string weekdayList[] = { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+    std::cout << weekdayList[day];
+}
