@@ -20,6 +20,14 @@ int main()
     int date{ promptForDayOfMonth() };
     int year{ promptForYear() };
 
+    std::cout << "Before Transform: yr: " << year << " month: " << month << "\n";
+    if (month == 1 || month == 2) {
+        month += 12;
+        year--;
+    }
+    //adjustMonthYearNums(month, year);
+    std::cout << "\nAfter Transform: yr: " << year << " month: " << month << "\n";
+
     int weekdayNum{ calculateWeekdayNum(month, date, year) };
     Weekday weekdayDay{ calculateWeekday(month, date, year) };
     std::cout << weekdayNum << "\n";
@@ -54,9 +62,6 @@ int calculateWeekdayNum(int month, int dayOfMonth, int year) {
 
     int century{ year / 100 };
     int yearOfCentury{ year % 100 };
-    std::cout << "Before Transform: yr: " << year << " month: " << month << "\n";
-    adjustMonthYearNums(month, year);
-    std::cout << "\nAfter Transform: yr: " << year << " month: " << month << "\n";
     int monthNum{ month };
     int monthNumCalculation{ (26 * (monthNum + 1)) / (10) }; //not sure what to call this - this is or represents - working on it
 
