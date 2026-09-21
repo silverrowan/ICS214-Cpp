@@ -30,7 +30,7 @@ int main()
 
     int weekdayNum{ calculateWeekdayNum(month, date, year) };
     Weekday weekdayDay{ calculateWeekday(month, date, year) };
-    std::cout << weekdayNum << "\n";
+    std::cout << "Weekday number: " << weekdayNum << "\n";
     //std::cout << weekdayDay;
     //Weekday weekDay{ calculateWeekday( promptForMonth(), promptForDayOfMonth(), promptForYear() ) };
 
