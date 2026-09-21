@@ -2,6 +2,7 @@
 #ifndef TEXTINPUT_H
 #define TEXTINPUT_H
 
+;
 // Clears all characters remaining in the stream buffer
 // input parameters: none; output: none
 void clearExcessCharacters();

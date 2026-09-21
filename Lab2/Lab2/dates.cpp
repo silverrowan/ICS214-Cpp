@@ -4,7 +4,7 @@
 #include <string>
 #include "TextInput.h"
 #include "dates.h"
-
+;
 int promptForYear() { return promptUserForIntInRange("Year: ", 0, 9999); }
 
 int promptForMonth() { return promptUserForIntInRange("Month (number): ", 1, 12); }
@@ -56,6 +56,9 @@ std::string getWeekdayName(Weekday day) {
 //    below) :
 //eg: std::string myArray[] = { "a", "b", “c” };.
 
+    // if we're writing our own way to output a string, what is the point of the enum?
+
     std::string weekdayList[] = { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
-    std::cout << weekdayList[day];
+    std::cout << weekdayList[ static_cast<int>(day) ];
+    return "temp";
 }
