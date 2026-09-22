@@ -1,6 +1,4 @@
 #include <iostream>
-//#include <cstdlib>
-//#include <climits>
 #include <string>
 #include "TextInput.h"
 #include "dates.h"
@@ -34,31 +32,34 @@ int calculateWeekdayNum(int month, int dayOfMonth, int year) {
     return dayOfWeekNum;
 }
 
+Weekday convertWeekdayNumToDay(int dayNum) {
+    switch ( dayNum ) {
+        case 0: return Weekday::Saturday;
+        case 1: return Weekday::Sunday;
+        case 2: return Weekday::Monday;
+        case 3: return Weekday::Tuesday;
+        case 4: return Weekday::Wednesday;
+        case 5: return Weekday::Thursday;
+        case 6: return Weekday::Friday;
+        default:
+            std::cout << "Invalid weekday value, number must be 0-6, inclusive";
+            // return void;
+            // better error handling would be nice, how to return error/nothing?
+    }
+}
+
 Weekday calculateWeekday(int month, int dayOfMonth, int year) {
     int weekdayNum = calculateWeekdayNum(month, dayOfMonth, year);
-    using enum Weekday;
-    Weekday weekdayEnum{ weekdayNum };
-    return weekdayEnum;
+    return convertWeekdayNumToDay(weekdayNum);
+    //using enum Weekday;
+    //Weekday weekdayEnum{ weekdayNum };
+    //return weekdayEnum;
 }
 
 std::string getWeekdayName(Weekday day) {
-// There isn’t a straightforward way of printing out the text representation of an
-// enumerated type,so we’ll write our own
-// Given a Weekday, return a string to represent its name.
-// You can do this in several ways:
-// 1. multiple if/else if statements
-// 2. a switch statement
-// 3. create an array of string literals, and index the array by
-// doing a static_cast on the Weekday to get its int representation.
-// 
-//The third option is the best(most elegant / extensible).
-//To do this, you need to know how to create an array of string objects(see
-//    below) :
-//eg: std::string myArray[] = { "a", "b", “c” };.
-
-    // if we're writing our own way to output a string, what is the point of the enum?
+    // if we're writing our own way to output a string, what is the point of the enum class?
+    // we seem to be bypassing it...
 
     std::string weekdayList[] = { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
-    std::cout << weekdayList[ static_cast<int>(day) ];
-    return "temp";
+    return weekdayList[static_cast<int>(day)];
 }

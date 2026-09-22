@@ -28,7 +28,11 @@ int main()
     std::cout << "\nAfter Transform: yr: " << year << " month: " << month << "\n";
 
     int weekdayNum{ calculateWeekdayNum(month, date, year) };
-    Weekday weekdayDay{ calculateWeekday(month, date, year) };
+    Weekday weekdayDay{ convertWeekdayNumToDay(weekdayNum) };
+    //Weekday weekdayDay{ calculateWeekday(month, date, year) };
     std::cout << "Weekday number: " << weekdayNum << "\n";
-    //std::cout << weekdayDay;
+    std::cout << "Weekday enum: " << getWeekdayName( weekdayDay ) << "\n";
+
+
+    getWeekdayName( weekdayDay );
 }
