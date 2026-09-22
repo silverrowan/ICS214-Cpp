@@ -9,7 +9,24 @@ int promptForMonth() { return promptUserForIntInRange("Month (number): ", 1, 12)
 
 int promptForDayOfMonth() { return promptUserForIntInRange("Day of the Month (number): ", 1, 31); }
 
-int calculateWeekdayNum(int month, int dayOfMonth, int year) {
+Date promptForDayMonthYear() {
+    Date standard = {
+        promptForMonth(),
+        promptForDayOfMonth(),
+        promptForYear()
+    };
+    return standard;
+}
+
+Date convertMonthsToZellers(Date standardMonths) {
+    if (standardMonths.month == 1 || standardMonths.month == 2) {
+        standardMonths.month += 12;
+        standardMonths.year--;
+    }
+    return standardMonths;
+}
+
+int calculateWeekdayNum(Date date) {
     // Zeller's congruence - to calc day of the week
     // h = (q + 26(m+1)/10 + k + k/4 + j/4 + 5j) % 7
     // 
@@ -20,24 +37,16 @@ int calculateWeekdayNum(int month, int dayOfMonth, int year) {
     // k = yearOfCentury ( year % 100 )
 
 
-    int century{ year / 100 };
-    int yearOfCentury{ year % 100 };
-    int monthNum{ month };
+    int century{ date.year / 100 };
+    int yearOfCentury{ date.year % 100 };
+    int monthNum{ date.month };
     int monthNumCalculation{ (26 * (monthNum + 1)) / (10) }; //not sure what to call this - this is or represents - working on it
 
-    int dayOfYearNum = (dayOfMonth + monthNumCalculation +
+    int dayOfYearNum = (date.day + monthNumCalculation +
         yearOfCentury + yearOfCentury / 4 + century / 4 + 5 * century);
     int dayOfWeekNum = dayOfYearNum % 7;
 
     return dayOfWeekNum;
-}
-
-std::array<int, 0> convertMonthsToZellers(int month, int dayOfMonth, int year) {
-    std::array dateArray{ [month, dayOfMonth, year] };
-    if (month == 1 || month == 2) {
-        month += 12;
-        year--;
-    }
 }
 
 Weekday convertWeekdayNumToDay(int dayNum) {
@@ -56,8 +65,8 @@ Weekday convertWeekdayNumToDay(int dayNum) {
     }
 }
 
-Weekday calculateWeekday(int month, int dayOfMonth, int year) {
-    int weekdayNum = calculateWeekdayNum(month, dayOfMonth, year);
+Weekday calculateWeekday(Date date) {
+    int weekdayNum = calculateWeekdayNum( date );
     return convertWeekdayNumToDay(weekdayNum);
     //using enum Weekday;
     //Weekday weekdayEnum{ weekdayNum };
@@ -69,4 +78,13 @@ std::string getWeekdayName(Weekday day) {
     // we seem to be bypassing it...
     std::string weekdayList[] = { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
     return weekdayList[static_cast<int>(day)];
+}
+
+void findWeekdayOfUserDate() {
+    Date date{ promptForDayMonthYear() };
+    Date zellersDate{ convertMonthsToZellers(date) };
+    int weekdayNum{ calculateWeekdayNum(zellersDate) };
+    Weekday weekdayDay{ convertWeekdayNumToDay(weekdayNum) };
+    std::string weekdayNameString{ getWeekdayName(weekdayDay) };
+    std::cout << "Weekday enum: " << weekdayNameString << "\n";
 }
