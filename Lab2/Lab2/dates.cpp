@@ -59,7 +59,6 @@ Weekday calculateWeekday(int month, int dayOfMonth, int year) {
 std::string getWeekdayName(Weekday day) {
     // if we're writing our own way to output a string, what is the point of the enum class?
     // we seem to be bypassing it...
-
     std::string weekdayList[] = { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
     return weekdayList[static_cast<int>(day)];
 }

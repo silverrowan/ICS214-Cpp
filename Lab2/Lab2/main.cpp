@@ -19,13 +19,13 @@ int main()
     int date{ promptForDayOfMonth() };
     int year{ promptForYear() };
 
-    std::cout << "Before Transform: yr: " << year << " month: " << month << "\n";
+    //std::cout << "Before Transform: yr: " << year << " month: " << month << "\n";
     if (month == 1 || month == 2) {
         month += 12;
         year--;
     }
     //adjustMonthYearNums(month, year);
-    std::cout << "\nAfter Transform: yr: " << year << " month: " << month << "\n";
+    //std::cout << "\nAfter Transform: yr: " << year << " month: " << month << "\n";
 
     int weekdayNum{ calculateWeekdayNum(month, date, year) };
     Weekday weekdayDay{ convertWeekdayNumToDay(weekdayNum) };

@@ -13,15 +13,30 @@ void clearExcessCharacters();
 // input parameters: none; output: int of user response
 int getIntFromUser();
 
-// In addition to standard validation of above function getIntFromUser()
-// checks that the integer is within a valid range, changes response when
-// integer overflows.
-// input parameters: int min - smallest acceptable integer (inclusive)
-//                  int max - largest acceptable integer (inclusive)
-// output: int of user response
+/// <summary>
+/// In addition to standard validation of above function getIntFromUser()
+/// checks that the integer is within a specified range. 
+/// </summary>
+/// <param name="min">smallest acceptable integer (inclusive)</param>
+/// <param name="max">largest acceptable integer (inclusive)</param>
+/// <returns>int of user response</returns>
 int getIntFromUserInRange(int min, int max);
 
+/// <summary>
+/// Prompts user with param prompt, and validates response is a valid integer.
+/// </summary>
+/// <param name="prompt">String to prompt the user with</param>
+/// <returns>int of user response</returns>
 int promptUserForInt(std::string prompt);
+
+/// <summary>
+/// Prompts user with param prompt, and validates response is both: 
+/// a valid integer, and within specified range.
+/// </summary>
+/// <param name="prompt">String to prompt the user with</param>
+/// <param name="min">Lowest acceptable int value</param>
+/// <param name="max">Greatest acceptable int value</param>
+/// <returns>int of user response</returns>
 int promptUserForIntInRange(std::string prompt, int min, int max);
 
 //std::string promptUserForString(std::string prompt);
