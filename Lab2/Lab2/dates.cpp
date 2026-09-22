@@ -2,7 +2,7 @@
 #include <string>
 #include "TextInput.h"
 #include "dates.h"
-;
+
 int promptForYear() { return promptUserForIntInRange("Year: ", 0, 9999); }
 
 int promptForMonth() { return promptUserForIntInRange("Month (number): ", 1, 12); }
