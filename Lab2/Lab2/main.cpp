@@ -6,11 +6,10 @@
 
 enum class Weekday;
 
-//// use Zeller’s congrunce algorithm to calculate and return a Weekday
-//Weekday calculateWeekday(int month, int dayOfMonth, int year);
-////Get enum string from enum number
-//std::string getWeekdayName(Weekday day);
-
+/// <summary>
+/// use Zeller’s congrunce algorithm to calculate and return a Weekday (string)
+/// </summary>
+/// <returns>error status code (0: success)</returns>
 int main()
 {
     std::cout << "Find the day of the week for: \n";
