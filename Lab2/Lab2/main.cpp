@@ -30,9 +30,7 @@ int main()
     int weekdayNum{ calculateWeekdayNum(month, date, year) };
     Weekday weekdayDay{ convertWeekdayNumToDay(weekdayNum) };
     //Weekday weekdayDay{ calculateWeekday(month, date, year) };
-    std::cout << "Weekday number: " << weekdayNum << "\n";
-    std::cout << "Weekday enum: " << getWeekdayName( weekdayDay ) << "\n";
-
-
-    getWeekdayName( weekdayDay );
+    //std::cout << "Weekday number: " << weekdayNum << "\n";
+    std::string weekdayNameString{ getWeekdayName(weekdayDay) };
+    std::cout << "Weekday enum: " << weekdayNameString << "\n";
 }
