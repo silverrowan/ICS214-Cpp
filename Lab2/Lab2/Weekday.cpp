@@ -32,6 +32,14 @@ int calculateWeekdayNum(int month, int dayOfMonth, int year) {
     return dayOfWeekNum;
 }
 
+std::array<int, 0> convertMonthsToZellers(int month, int dayOfMonth, int year) {
+    std::array dateArray{ [month, dayOfMonth, year] };
+    if (month == 1 || month == 2) {
+        month += 12;
+        year--;
+    }
+}
+
 Weekday convertWeekdayNumToDay(int dayNum) {
     switch ( dayNum ) {
         case 0: return Weekday::Saturday;
