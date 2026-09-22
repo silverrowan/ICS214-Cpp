@@ -84,7 +84,9 @@ void findWeekdayOfUserDate() {
     Date date{ promptForDayMonthYear() };
     Date zellersDate{ convertMonthsToZellers(date) };
     int weekdayNum{ calculateWeekdayNum(zellersDate) };
+
     Weekday weekdayDay{ convertWeekdayNumToDay(weekdayNum) };
     std::string weekdayNameString{ getWeekdayName(weekdayDay) };
+
     std::cout << "Weekday enum: " << weekdayNameString << "\n";
 }
