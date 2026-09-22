@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "TextInput.h"
-#include "dates.h"
+#include "Weekday.h"
 
 int promptForYear() { return promptUserForIntInRange("Year: ", 0, 9999); }
 

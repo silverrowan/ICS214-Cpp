@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include <string>
-#include "dates.h"
+#include "Weekday.h"
 #include "TextInput.h"
 
 enum class Weekday;

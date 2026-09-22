@@ -139,12 +139,12 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dates.cpp" />
+    <ClCompile Include="Weekday.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TextInput.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dates.h" />
+    <ClInclude Include="Weekday.h" />
     <ClInclude Include="TextInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
