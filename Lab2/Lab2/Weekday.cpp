@@ -39,8 +39,10 @@ int calculateWeekdayNum(Date date) {
 
     int century{ date.year / 100 };
     int yearOfCentury{ date.year % 100 };
-    int monthNum{ date.month };
-    int monthNumCalculation{ (26 * (monthNum + 1)) / (10) }; //not sure what to call this - this is or represents - working on it
+
+    Date zellersDate{ convertMonthsToZellers(date) };
+    int monthNum{ zellersDate.month };
+    int monthNumCalculation{ (26 * (monthNum + 1)) / (10) }; //not sure what to call this - this is or represents
 
     int dayOfYearNum = (date.day + monthNumCalculation +
         yearOfCentury + yearOfCentury / 4 + century / 4 + 5 * century);
@@ -82,10 +84,10 @@ std::string getWeekdayName(Weekday day) {
 
 void findWeekdayOfUserDate() {
     Date date{ promptForDayMonthYear() };
-    Date zellersDate{ convertMonthsToZellers(date) };
-    int weekdayNum{ calculateWeekdayNum(zellersDate) };
-
-    Weekday weekdayDay{ convertWeekdayNumToDay(weekdayNum) };
+    // Date zellersDate{ convertMonthsToZellers(date) };
+    // int weekdayNum{ calculateWeekdayNum(zellersDate) };
+    // Weekday weekdayDay{ convertWeekdayNumToDay(weekdayNum) };
+    Weekday weekdayDay{ calculateWeekday(date) };   
     std::string weekdayNameString{ getWeekdayName(weekdayDay) };
 
     std::cout << "Weekday enum: " << weekdayNameString << "\n";

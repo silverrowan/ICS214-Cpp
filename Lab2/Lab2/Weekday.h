@@ -24,14 +24,6 @@ int promptForDayOfMonth();
 Date promptForDayMonthYear();
 
 /// <summary>
-/// Converts Date to format needed for Zeller's Congruence
-/// January and February become months 13 & 14 of previous year
-/// </summary>
-/// <param name="standardMonths">Date as normally written numerically</param>
-/// <returns>Date struct { month, day, year } with Jan & Feb alterations</returns>
-Date convertMonthsToZellers(Date standardMonths);
-
-/// <summary>
 /// use Zeller’s congrunce algorithm to calculate and return a Weekday as integer
 /// January and February are months 13 & 14 of previous year, respectively
 /// </summary>
