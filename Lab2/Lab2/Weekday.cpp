@@ -51,28 +51,28 @@ int calculateWeekdayNum(Date date) {
     return dayOfWeekNum;
 }
 
-Weekday convertWeekdayNumToDay(int dayNum) {
-    switch ( dayNum ) {
-        case 0: return Weekday::Saturday;
-        case 1: return Weekday::Sunday;
-        case 2: return Weekday::Monday;
-        case 3: return Weekday::Tuesday;
-        case 4: return Weekday::Wednesday;
-        case 5: return Weekday::Thursday;
-        case 6: return Weekday::Friday;
-        default:
-            std::cout << "Invalid weekday value, number must be 0-6, inclusive";
-            // return void;
-            // better error handling would be nice, how to return error/nothing?
-    }
-}
+//Weekday convertWeekdayNumToDay(int dayNum) {
+//    switch ( dayNum ) {
+//        case 0: return Weekday::Saturday;
+//        case 1: return Weekday::Sunday;
+//        case 2: return Weekday::Monday;
+//        case 3: return Weekday::Tuesday;
+//        case 4: return Weekday::Wednesday;
+//        case 5: return Weekday::Thursday;
+//        case 6: return Weekday::Friday;
+//        default:
+//            std::cout << "Invalid weekday value, number must be 0-6, inclusive";
+//            // return void;
+//            // better error handling would be nice, how to return error/nothing?
+//            // could just ditch, but the whole formulat is magicish to me
+//    }
+//}
 
 Weekday calculateWeekday(Date date) {
     int weekdayNum = calculateWeekdayNum( date );
-    return convertWeekdayNumToDay(weekdayNum);
-    //using enum Weekday;
-    //Weekday weekdayEnum{ weekdayNum };
-    //return weekdayEnum;
+    // initial version I wrote
+    //return convertWeekdayNumToDay(weekdayNum);
+    return static_cast<Weekday>(weekdayNum);
 }
 
 std::string getWeekdayName(Weekday day) {
