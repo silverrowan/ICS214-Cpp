@@ -90,5 +90,5 @@ void findWeekdayOfUserDate() {
     Weekday weekdayDay{ calculateWeekday(date) };   
     std::string weekdayNameString{ getWeekdayName(weekdayDay) };
 
-    std::cout << "Weekday enum: " << weekdayNameString << "\n";
+    std::cout << "Day of the week is " << weekdayNameString << ".\n";
 }
