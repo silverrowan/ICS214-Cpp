@@ -10,10 +10,11 @@ int promptForMonth() { return promptUserForIntInRange("Month (number): ", 1, 12)
 int promptForDayOfMonth() { return promptUserForIntInRange("Day of the Month (number): ", 1, 31); }
 
 Date promptForDayMonthYear() {
+    int year{ promptForYear() };
     Date standard = {
         promptForMonth(),
         promptForDayOfMonth(),
-        promptForYear()
+        year
     };
     return standard;
 }
