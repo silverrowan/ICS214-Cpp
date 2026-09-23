@@ -44,8 +44,6 @@ int calculateWeekdayNum(Date date) {
     int century{ zellersDate.year / 100 };
     int yearOfCentury{ zellersDate.year % 100 };
 
-    Date zellersDate{ convertMonthsToZellers(date) };
-    int monthNum{ zellersDate.month };
     int monthNumCalculation{ (26 * (monthNum + 1)) / (10) }; //not sure what to call this - this is or represents
 
     int dayOfYearNum = (date.day + monthNumCalculation +
