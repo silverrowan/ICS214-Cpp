@@ -27,11 +27,9 @@ Date promptForDayMonthYear();
 /// use Zeller’s congrunce algorithm to calculate and return a Weekday as integer
 /// January and February are months 13 & 14 of previous year, respectively
 /// </summary>
-/// <param name="month">int values in range 3-14 </param>
-/// <param name="dayOfMonth">int values in range 1-31 </param>
-/// <param name="year">int values 0-9999 </param>
+/// <param name="date">Date as normally written numerically (jan=1, feb=2, etc)</param>
 /// <returns>int representing day of the week; 0=sat, 1=sun, 2=mon, 3=tues, 4=wed, 5=thur, 6=friday</returns>
-int calculateWeekdayNum(int month, int dayOfMonth, int year);
+int calculateWeekdayNum(Date date);
 
 /// <summary>
 /// use Zeller’s congrunce algorithm to calculate and return a Weekday as enum
@@ -40,7 +38,7 @@ int calculateWeekdayNum(int month, int dayOfMonth, int year);
 /// <param name="dayOfMonth">int values in range 1-31 </param>
 /// <param name="year">int values >=0 </param>
 /// <returns>enum Weekday::value for day of the week</returns>
-Weekday calculateWeekday(int month, int dayOfMonth, int year);
+Weekday calculateWeekday(Date date);
 
 /// <summary>
 // convert integer (from Zeller's congrunce) into appropriate Weekday enum value. 
