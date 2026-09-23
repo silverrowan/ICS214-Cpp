@@ -36,9 +36,13 @@ int calculateWeekdayNum(Date date) {
     // j = century ( integer division: year/100 )
     // k = yearOfCentury ( year % 100 )
 
+    //std::cout << "before zellers conversion call: month: " << date.month << " yr: " << date.year;
+    Date zellersDate{ convertMonthsToZellers(date) };
+    int monthNum{ zellersDate.month };
+    //std::cout << "after zellers conversion call: month: " << zellersDate.month << " yr: " << zellersDate.year;
 
-    int century{ date.year / 100 };
-    int yearOfCentury{ date.year % 100 };
+    int century{ zellersDate.year / 100 };
+    int yearOfCentury{ zellersDate.year % 100 };
 
     Date zellersDate{ convertMonthsToZellers(date) };
     int monthNum{ zellersDate.month };
