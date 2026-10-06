@@ -50,10 +50,11 @@ std::string getSuitString(Suit suit) {
 // - param 2: ? do we need any other parameters here to make this work? You decide. 
 // - return: a bool : true if ALL the elements in param 1 are true, false otherwise. 
 bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked) {
-    for (bool suit : suitsPicked) {
-        if (suit == false) { return false; }
-    }
-    return true;
+    //for (bool suit : suitsPicked) { //slightly slower
+    //    if (suit == false) { return false; }
+    //}
+    if (suitsPicked[0] == false || suitsPicked[1] == false || suitsPicked[2] == false || suitsPicked[3] == false) { return false; }
+    else { return true; }
 };
 
 // This is the function that does all the work behind solving the problem (including 
