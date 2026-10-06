@@ -13,7 +13,7 @@ int main()
     int numTrials = 0;
     int totalCardsDrawn = 0;
     for (int i = 0; i < 100000000; i++) {
-        int cardsDrawn = getPickCountNeededForFourSuits(false);
+        int cardsDrawn = getPickCountNeededForFourSuits(false, true);
 
         totalCardsDrawn += cardsDrawn;
         numTrials++;

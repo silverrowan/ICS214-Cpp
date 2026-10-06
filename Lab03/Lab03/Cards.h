@@ -1,13 +1,23 @@
 #ifndef CARDS_H
 #define CARDS_H
 
+#include <array>
+
 enum class Suit { clubs, diamonds, hearts, spades };
 enum class Rank { ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king };
+
+struct Card {
+    enum Suit;
+    enum Rank;
+};
 
 namespace Constants {
     constexpr int CARD_COUNT{ 52 };
     constexpr int NUM_RANKS{ 13 };
     constexpr int NUM_SUITS{ 4 };
+
+    const std::array<std::string, 4> suitArray = { "clubs", "diamonds", "hearts", "spades" };
+    const std::array<std::string, 13> ranks = { "ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king" };
 }
 
 // Pick a random card from the deck (represented by an int between 0-52)  
@@ -44,7 +54,7 @@ bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked);
 // - param 1: a bool called “verbose” (meaning wordy) that defaults to true.  
 //            If verbose is true, generate output cards picked & the pick count. 
 // - return: an int representing the number of card picks it takes to cover 4 suits. 
-int getPickCountNeededForFourSuits(bool verbose);
+int getPickCountNeededForFourSuits(bool verbose, bool withReplacement);
 
 void getPickEachCard();
 

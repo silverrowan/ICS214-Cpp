@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Cards.h"
-#include <array>
+
 
 int pickRandomNumberInRange(int min, int max) // inclusive of min & max
 {
@@ -26,8 +26,8 @@ Rank getRank(int index) {
 
 std::string getRankString(Rank rank) {
     //Rank rank = getRank(index);
-    std::array<std::string, 13> ranks = { "ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king" };
-    return ranks[ static_cast<int>(rank) ];
+    //std::array<std::string, 13> ranks = { "ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king" };
+    return Constants::ranks[ static_cast<int>(rank) ];
 }
 
 // Get the suit of a specific card index 
@@ -40,8 +40,8 @@ Suit getSuit(int index) {
 
 std::string getSuitString(Suit suit) {
     //Suit suit = getSuit(index);
-    std::array<std::string, 4> suitArray = { "clubs", "diamonds", "hearts", "spades" };
-    return suitArray[ static_cast<int>(suit) ];
+    //std::array<std::string, 4> suitArray = { "clubs", "diamonds", "hearts", "spades" };
+    return Constants::suitArray[ static_cast<int>(suit) ];
 }
 
 // A function to assess whether all elements in a boolean array are true 
@@ -66,31 +66,38 @@ bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked) {
 // - param 1: a bool called “verbose” (meaning wordy) that defaults to true.  
 //            If verbose is true, generate output cards picked & the pick count. 
 // - return: an int representing the number of card picks it takes to cover 4 suits. 
-int getPickCountNeededForFourSuits(bool verbose) {
-    std::array<bool, 4> suitsPicked = {false, false, false, false};
-    int cardsPulled = 0;
-    while (true) {
-        int cardIndex = pickRandomCard();
-        Suit suit = getSuit(cardIndex);
+int getPickCountNeededForFourSuits(bool verbose, bool withReplacement) {
+    if (withReplacement == true) {
+        std::array<bool, 4> suitsPicked = { false, false, false, false };
+        int cardsPulled = 0;
+        while (true) {
+            int cardIndex = pickRandomCard();
+            Suit suit = getSuit(cardIndex);
 
 
-        cardsPulled += 1;
+            cardsPulled += 1;
 
-        if (suitsPicked[ (int)(suit) ] == false) {
-            suitsPicked[ (int)(suit) ] = true;
-            if (verbose == true) {
-                Rank rank = getRank(cardIndex);
-                std::string rankString = getRankString(rank);
-                std::string suitString = getSuitString(suit);
-                std::cout << rankString << " of " << suitString << "\n";
+            if (suitsPicked[(int)(suit)] == false) {
+                suitsPicked[(int)(suit)] = true;
+                if (verbose == true) {
+                    Rank rank = getRank(cardIndex);
+                    std::string rankString = getRankString(rank);
+                    std::string suitString = getSuitString(suit);
+                    std::cout << rankString << " of " << suitString << "\n";
+                }
+                if (allArrayElementsAreTrue(suitsPicked) == true) { break; }
             }
-            if (allArrayElementsAreTrue(suitsPicked) == true) { break; }
         }
+        if (verbose == true) {
+            std::cout << "Number of picks: " << cardsPulled << "\n\n";
+        }
+        return cardsPulled;
     }
-    if (verbose == true) {
-        std::cout << "Number of picks: " << cardsPulled << "\n\n";
-    }
-    return cardsPulled;
+    //else { // without replacement
+
+    //    std::array<Card, 52> drawDeck{};
+    //    for ( Suit suit :  )
+    //}
 }
 
 void getPickEachCard() {
