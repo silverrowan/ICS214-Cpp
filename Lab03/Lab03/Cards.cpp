@@ -57,6 +57,11 @@ bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked) {
     else { return true; }
 };
 
+std::array<Card, 52> makeDeckArray() {
+    for ( Suit suit : Constants::suitArray )
+        // abandon this path - being a bigger pain that I want and already slow.
+}
+
 // This is the function that does all the work behind solving the problem (including 
 // sending output to the console). 
 // This function should create/use an array of Boolean values (all initially false)  
@@ -93,11 +98,10 @@ int getPickCountNeededForFourSuits(bool verbose, bool withReplacement) {
         }
         return cardsPulled;
     }
-    //else { // without replacement
-
-    //    std::array<Card, 52> drawDeck{};
-    //    for ( Suit suit :  )
-    //}
+    else { // without replacement
+        std::array<Card, 52> drawDeck = makeDeckArray();
+        for ( Suit suit :  )
+    }
 }
 
 void getPickEachCard() {
