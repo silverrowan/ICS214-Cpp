@@ -70,25 +70,25 @@ int getPickCountNeededForFourSuits(bool verbose) {
     int cardsPulled = 0;
     while (true) {
         int cardIndex = pickRandomCard();
-
-        Rank rank = getRank(cardIndex);
         Suit suit = getSuit(cardIndex);
-        std::string rankString = getRankString(rank);
-        std::string suitString = getSuitString(suit);
+
 
         cardsPulled += 1;
 
         if (suitsPicked[ (int)(suit) ] == false) {
             suitsPicked[ (int)(suit) ] = true;
-
-            std::cout << rankString << " of " << suitString << "\n";
+            if (verbose == true) {
+                Rank rank = getRank(cardIndex);
+                std::string rankString = getRankString(rank);
+                std::string suitString = getSuitString(suit);
+                std::cout << rankString << " of " << suitString << "\n";
+            }
             if (allArrayElementsAreTrue(suitsPicked) == true) { break; }
         }
-        else if (verbose == true) {
-            std::cout << rankString << " of " << suitString << "\n";
-        }
     }
-    std::cout << "Number of picks: " << cardsPulled << "\n\n";
+    if (verbose == true) {
+        std::cout << "Number of picks: " << cardsPulled << "\n\n";
+    }
     return cardsPulled;
 }
 
