@@ -1,7 +1,13 @@
 #include <iostream>
 #include "Cards.h"
 
-
+/// <summary>
+/// Picks a random integer between two numbers
+/// Internal function, not in header file.
+/// </summary>
+/// <param name="min">int, minimum value</param>
+/// <param name="max">int, maximum value</param>
+/// <returns>int, random number</returns>
 int pickRandomNumberInRange(int min, int max) // inclusive of min & max
 {
     int rangeSize{ max - min + 1 };
@@ -17,12 +23,11 @@ std::array<int, Constants::CARD_COUNT> makeDeck() {
     return deck;
 }
 
-// Pick a random card from the deck (represented by an int between 0-52)  
+//   
 // - params: none 
-// - return: an int between 0 - 51 
+// - return: an int  
 int pickRandomCard(std::array<int, Constants::CARD_COUNT> deck, int deckSize ) {
-    int deckIndex = pickRandomNumberInRange(0, deckSize-1);
-    return deck[deckIndex];
+    return pickRandomNumberInRange(0, deckSize-1);
 }
 
 // Get the rank of a specific card index 
@@ -74,73 +79,41 @@ bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked) {
 // - param 1: a bool called “verbose” (meaning wordy) that defaults to true.  
 //            If verbose is true, generate output cards picked & the pick count. 
 // - return: an int representing the number of card picks it takes to cover 4 suits. 
-int getPickCountNeededForFourSuits(bool verbose, bool withReplacement) {
+int getPickCountNeededForFourSuits(bool verbose, bool withReplacement, std::array<int, Constants::CARD_COUNT> deck) {
     int activeDeck { Constants::CARD_COUNT };
-    std::array<int, Constants::CARD_COUNT> deck = makeDeck();
     int cardsPulled = 0;
-        //if (withReplacement == true) {
-            std::array<bool, 4> suitsPicked = { false, false, false, false };
-            while (true) {
-                int cardIndex = pickRandomCard(deck, activeDeck);
-                Suit suit = getSuit(cardIndex);
-
-                cardsPulled += 1;
-
-                if (suitsPicked[(int)(suit)] == false) {
-                    suitsPicked[(int)(suit)] = true;
-                    if (verbose == true) {
-                        Rank rank = getRank(cardIndex);
-                        std::string rankString = getRankString(rank);
-                        std::string suitString = getSuitString(suit);
-                        std::cout << rankString << " of " << suitString << "\n";
-                    }
-                    if (withReplacement == false) {
-                        //swap picked card with card at end of the array and shrink active deck size, to cut off that (now) end card
-                        std::swap(deck[cardIndex], deck[activeDeck]);
-                        activeDeck--;
-                    }
-                    if (allArrayElementsAreTrue(suitsPicked) == true) { 
-                        break; 
-                    }
-                }
-                else {
-                    if (withReplacement == false) {
-                        //swap picked card with card at end of the array and shrink active deck size, to cut off that (now) end card
-                        std::swap(deck[cardIndex], deck[activeDeck]);
-                        activeDeck--;
-                    }
-                }
-            }
-        if (verbose == true) {
-            std::cout << "Number of picks: " << cardsPulled << "\n\n";
-        }
-        return cardsPulled;
-        }
-    //else { // without replacement
-
-    //    std::array<Card, 52> drawDeck{};
-    //    for ( Suit suit :  )
-    //}
-
-void getPickEachCard() {
     std::array<bool, 4> suitsPicked = { false, false, false, false };
-    int cardsPulled = 0;
-    for ( int i = 0 ; i < 52 ; i++) {
-        //int cardIndex = pickRandomCard();
-        int cardIndex = i;
 
-        Rank rank = getRank(cardIndex);
-        Suit suit = getSuit(cardIndex);
-        std::string rankString = getRankString(rank);
+    while (true) {
+        int cardIndex = pickRandomCard(deck, activeDeck);
+        int cardValue = deck[cardIndex];
+        Suit suit = getSuit(cardValue);
+
         cardsPulled += 1;
 
-        if (suitsPicked[ (int)(suit) ] == false) {
-        suitsPicked[ (int)(suit) ] = true;
-
-        std::string suitString = getSuitString(suit);
-        std::cout << rankString << " of " << suitString << "\n";
-            if (allArrayElementsAreTrue(suitsPicked) == true) { break; }
+        if (withReplacement == false) {
+            //swap picked card with card at end of the array and shrink active deck size, to cut off that (now) end card
+            std::swap(deck[cardIndex], deck[activeDeck-1]);
+            activeDeck--;
         }
+
+        if (suitsPicked[(int)(suit)] == false) {
+            suitsPicked[(int)(suit)] = true;
+            if (verbose == true) {
+                Rank rank = getRank(cardValue);
+                std::string rankString = getRankString(rank);
+                std::string suitString = getSuitString(suit);
+                std::cout << rankString << " of " << suitString << "\n";
+            }
+
+            if (allArrayElementsAreTrue(suitsPicked) == true) { 
+                break; 
+            }
+        }
+    } //end while loop
+
+    if (verbose == true) {
+        std::cout << "Number of picks: " << cardsPulled << "\n\n";
     }
-    std::cout << "Number of picks: " << cardsPulled << "\n\n";
-}
+    return cardsPulled;
+    }

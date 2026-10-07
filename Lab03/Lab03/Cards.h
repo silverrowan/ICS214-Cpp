@@ -6,24 +6,26 @@
 enum class Suit { clubs, diamonds, hearts, spades };
 enum class Rank { ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king };
 
-struct Card {
-    enum Suit;
-    enum Rank;
-};
-
 namespace Constants {
     constexpr int CARD_COUNT{ 52 };
     constexpr int NUM_RANKS{ 13 };
     constexpr int NUM_SUITS{ 4 };
-
-    const std::array<std::string, 4> suitArray = { "clubs", "diamonds", "hearts", "spades" };
-    const std::array<std::string, 13> ranks = { "ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king" };
 }
 
-// Pick a random card from the deck (represented by an int between 0-52)  
-// - params: none 
-// - return: an int between 0 - 51 
-int pickRandomCard();
+/// <summary>
+/// Pick a random card from the deck (represented by an int between 0-52)
+/// </summary>
+/// <param name="deck">array of the deck (at each index are the cards)</param>
+/// <param name="deckSize">the size of the deck, or active portion</param>
+/// <returns>int between 0 - deckSize, the deck position (index) of the card</returns>
+int pickRandomCard(std::array<int, Constants::CARD_COUNT> deck, int deckSize );
+
+/// <summary>
+/// builds the deck array
+/// Internal function, not in header file.
+/// </summary>
+/// <returns>int[], the deck array</returns>
+std::array<int, Constants::CARD_COUNT> makeDeck();
 
 // Get the rank of a specific card index 
 // - param 1: an int representing the card index 
@@ -54,7 +56,7 @@ bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked);
 // - param 1: a bool called “verbose” (meaning wordy) that defaults to true.  
 //            If verbose is true, generate output cards picked & the pick count. 
 // - return: an int representing the number of card picks it takes to cover 4 suits. 
-int getPickCountNeededForFourSuits(bool verbose, bool withReplacement);
+int getPickCountNeededForFourSuits(bool verbose, bool withReplacement, std::array<int, Constants::CARD_COUNT> deck);
 
 void getPickEachCard();
 
