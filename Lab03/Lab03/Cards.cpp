@@ -26,8 +26,10 @@ std::array<int, Constants::CARD_COUNT> makeDeck() {
 //   
 // - params: none 
 // - return: an int  
-int pickRandomCard(std::array<int, Constants::CARD_COUNT> deck, int deckSize ) {
-    return pickRandomNumberInRange(0, deckSize-1);
+int pickRandomCard( int activeDeckSize ) { // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< has a param <<<<<<<<<<<<<<<<<<<<<<
+
+    return rand() % activeDeckSize;  // [0..51]
+   // return pickRandomNumberInRange(0, activeDeckSize-1);
 }
 
 // Get the rank of a specific card index 
@@ -38,9 +40,10 @@ Rank getRank(int index) {
     return static_cast<Rank>(rankNum);
 };
 
-std::string getRankString(Rank rank) {
+std::string getRankString(Rank rank) { // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< doesint have description <<<<<<<<<<<<<<<<<<<<<<
     //Rank rank = getRank(index);
-    std::array<std::string, 13> ranks = { "ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king" };
+    //std::array<std::string, 13> ranks = { "ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king" };
+    std::string ranks[] = {"ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king"}; // <<<<<<<<<<<<<<<<<<<<<<< could move this into the Constants namespace <<<<<<<<<<<<<<<<<<<
     return ranks[ static_cast<int>(rank) ];
 }
 
@@ -52,9 +55,9 @@ Suit getSuit(int index) {
     return static_cast<Suit>(suitNum);
 };
 
-std::string getSuitString(Suit suit) {
+std::string getSuitString(Suit suit) { // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< doesint have description <<<<<<<<<<<<<<<<<<<<<<
     //Suit suit = getSuit(index);
-    std::array<std::string, 4> suitArray = { "clubs", "diamonds", "hearts", "spades" };
+    std::string suitArray[] = {"clubs", "diamonds", "hearts", "spades"}; // <<<<<<<<<<<<<<<<<<<<<<< could move this into the Constants namespace <<<<<<<<<<<<<<<<<<<
     return suitArray[ static_cast<int>(suit) ];
 }
 
@@ -63,11 +66,12 @@ std::string getSuitString(Suit suit) {
 // - param 1: an array of boolean values(decide if it should be const or not) 
 // - param 2: ? do we need any other here to make this work? You decide. 
 // - return: a bool : true if ALL the elements in param 1 are true, false otherwise. 
-bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked) {
+bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked) { // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< has only one param but describes 2 <<<<<<<<<<<<<<<<<<<<<<
     //for (bool suit : suitsPicked) { //slightly slower
     //    if (suit == false) { return false; } }
-    if (suitsPicked[0] == false || suitsPicked[1] == false || suitsPicked[2] == false || suitsPicked[3] == false) { return false; }
-    else { return true; }
+    return suitsPicked[0] && suitsPicked[1] && suitsPicked[2] && suitsPicked[3];
+   // if (suitsPicked[0] == false || suitsPicked[1] == false || suitsPicked[2] == false || suitsPicked[3] == false) { return false; }
+   // else { return true; }
 };
 
 // This is the function that does all the work behind solving the problem (including 
@@ -79,13 +83,13 @@ bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked) {
 // - param 1: a bool called “verbose” (meaning wordy) that defaults to true.  
 //            If verbose is true, generate output cards picked & the pick count. 
 // - return: an int representing the number of card picks it takes to cover 4 suits. 
-int getPickCountNeededForFourSuits(bool verbose, bool withReplacement, std::array<int, Constants::CARD_COUNT> deck) {
+int getPickCountNeededForFourSuits(bool verbose, bool withReplacement, std::array<int, Constants::CARD_COUNT>& deck) { // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< has 4 params <<<<<<<<<<<<<<<<<<<<<<
     int activeDeck { Constants::CARD_COUNT };
     int cardsPulled = 0;
     std::array<bool, 4> suitsPicked = { false, false, false, false };
 
     while (true) {
-        int cardIndex = pickRandomCard(deck, activeDeck);
+        int cardIndex = pickRandomCard( activeDeck);
         int cardValue = deck[cardIndex];
         Suit suit = getSuit(cardValue);
 
@@ -106,7 +110,7 @@ int getPickCountNeededForFourSuits(bool verbose, bool withReplacement, std::arra
                 std::cout << rankString << " of " << suitString << "\n";
             }
 
-            if (allArrayElementsAreTrue(suitsPicked) == true) { 
+            if (allArrayElementsAreTrue(suitsPicked) == true) { // <<<<<<<<<<<<<<<<<<<<<<<<<<<< could move this up into the while loop <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                 break; 
             }
         }

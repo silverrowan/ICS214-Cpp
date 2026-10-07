@@ -12,7 +12,7 @@ int main()
     //moved here out of the getpick...() cut down ~15s vs whatever checks are needed if generated each time
     static std::array<int, Constants::CARD_COUNT> deck = makeDeck();
 
-    for (int i = 0; i < 100000000; i++) {
+    for (int i = 0; i < 10'000'000; i++) {
         int cardsDrawn = getPickCountNeededForFourSuits(false, false, deck);
 
         totalCardsDrawn += cardsDrawn;

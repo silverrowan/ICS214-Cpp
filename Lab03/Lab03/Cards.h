@@ -18,7 +18,7 @@ namespace Constants {
 /// <param name="deck">array of the deck (at each index are the cards)</param>
 /// <param name="deckSize">the size of the deck, or active portion</param>
 /// <returns>int between 0 - deckSize, the deck position (index) of the card</returns>
-int pickRandomCard(std::array<int, Constants::CARD_COUNT> deck, int deckSize );
+int pickRandomCard( int deckSize );
 
 /// <summary>
 /// builds the deck array
@@ -56,7 +56,7 @@ bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked);
 // - param 1: a bool called “verbose” (meaning wordy) that defaults to true.  
 //            If verbose is true, generate output cards picked & the pick count. 
 // - return: an int representing the number of card picks it takes to cover 4 suits. 
-int getPickCountNeededForFourSuits(bool verbose, bool withReplacement, std::array<int, Constants::CARD_COUNT> deck);
+int getPickCountNeededForFourSuits(bool verbose, bool withReplacement, std::array<int, Constants::CARD_COUNT>& deck);
 
 void getPickEachCard();
 
