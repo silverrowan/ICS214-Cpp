@@ -83,7 +83,7 @@ bool allArrayElementsAreTrue(std::array<bool, 4> suitsPicked) { // <<<<<<<<<<<<<
 // - param 1: a bool called “verbose” (meaning wordy) that defaults to true.  
 //            If verbose is true, generate output cards picked & the pick count. 
 // - return: an int representing the number of card picks it takes to cover 4 suits. 
-int getPickCountNeededForFourSuits(bool verbose, bool withReplacement, std::array<int, Constants::CARD_COUNT>& deck) { // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< has 4 params <<<<<<<<<<<<<<<<<<<<<<
+int getPickCountNeededForFourSuits(bool verbose, bool withReplacement, auto& deck) { // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< has 4 params <<<<<<<<<<<<<<<<<<<<<<
     int activeDeck { Constants::CARD_COUNT };
     int cardsPulled = 0;
     std::array<bool, 4> suitsPicked = { false, false, false, false };

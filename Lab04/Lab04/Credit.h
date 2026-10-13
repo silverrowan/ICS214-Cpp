@@ -1,38 +1,41 @@
 #ifndef CREDIT_H
 #define CREDIT_H
 #include <string>
+#include <array>
 
-// Given an int, return the sum of its individual digits
-// hint: an easy way to parse an int into digits is by isolating
-// the ‘ones’ column (via %10), and reducing the number (via /10)
-// in a loop until it is 0.
-// - params: int - a number to analyze (eg: 123)
-// - return an int representing the sum of digits (eg: 123 returns 6)
+namespace Constants {
+	inline const std::array< std::string, 4 > validPrefixes = { "4", "5", "37", "6" };
+	const int ASCIICharToInt = -48;
+}
+
+/// <summary>
+/// Given an int, return the sum of its individual digits
+/// </summary>
+/// <param name="num">int - a number to analyze (eg: 123)</param>
+/// <returns>int representing the sum of digits (eg: 123 returns 6)</returns>
 int getSumOfDigits(int num);
 
-// Determine if a given card number starts with a given prefix
-// Hint: research how the string.substr() function works.
-// - param 1: a string representing the card number
-// - param 2: a string representing the prefix
-// - return: true if cardNumber starts with prefix (false otherwise)
+/// <summary>
+/// Determine if a given card number starts with a given prefix
+/// Hint: research how the string.substr() function works. (used [] access instead)
+/// </summary>
+/// <param name="cardNumber">string representing the card number</param>
+/// <param name="prefix">string representing the prefix</param>
+/// <returns>true if cardNumber starts with prefix (false otherwise)</returns>
 bool startsWith(std::string cardNumber, std::string prefix);
 
-// Determine if a cardNum has a valid prefix.
-// - param 1: a string representing the cardNumber
-// - return: true if cardNumber starts with string literals:
-// "4", "5", "6" or "37" (false otherwise)
-// You could use string literals in this function, but it would
-// much be cleaner to create a "Constants" namespace in your header
-// file and create a const array of strings there (validPrefixes).
-// that you can reference in this function.
-// hint: you can make use of startsWith() in this function.
+/// <summary>
+/// Determine if a cardNum has a valid prefix.
+/// </summary>
+/// <param name="cardNumber">string representing the cardNumber</param>
+/// <returns>true if cardNumber in one of the valid starting strings (false otherwise)</returns>
 bool hasValidPrefix(std::string cardNumber);
 
-// Add up the odd-place digits from right to left
-// - param 1: a string to represent the cardNumber
-// - return: the sum of odd-place digits from right to left in the card
-// number (step 1, part 3).
-// Eg: "34567" returns 15. (7+5+3)
+/// <summary>
+/// Add up the odd-place digits from right to left
+/// </summary>
+/// <param name="cardNumber">string to represent the cardNumber</param>
+/// <returns>sum of odd-place digits from right to left Eg: "34567" returns 15. (7+5+3)</returns>
 int sumOddDigitsRightToLeft(std::string cardNumber);
 
 // Add up the even-place digits from right to left

@@ -1,28 +1,17 @@
-#ifndef CREDIT_H
-#define CREDIT_H
+#include <iostream>
 #include <string>
+#include "Credit.h"
 
-// Given an int, return the sum of its individual digits
-// hint: an easy way to parse an int into digits is by isolating
-// the ‘ones’ column (via %10), and reducing the number (via /10)
-// in a loop until it is 0.
-// - params: int - a number to analyze (eg: 123)
-// - return an int representing the sum of digits (eg: 123 returns 6)
 int getSumOfDigits(int num) {
 	int sum{ 0 };
-	for (int i = 0; num>0 ; i++) {
+	for (int i = 0; num > 0 ; i++) {
 		sum += num % 10;
 		num /= 10;
 	}
 	return sum;
 }
 
-// Determine if a given card number starts with a given prefix
-// Hint: research how the string.substr() function works.
-// - param 1: a string representing the card number
-// - param 2: a string representing the prefix
-// - return: true if cardNumber starts with prefix (false otherwise)
-bool startsWith(std::string cardNumber, std::string prefix) {
+bool startsWith(const std::string cardNumber, const std::string prefix) {
 	for (int i = 0; i < prefix.size(); i++) {
 		bool isMatch{ true };
 		if (cardNumber[i] == prefix[i]) { continue; }
@@ -31,26 +20,33 @@ bool startsWith(std::string cardNumber, std::string prefix) {
 			return isMatch; 
 		}
 	}
+	return true;
 };
 
-//// Determine if a cardNum has a valid prefix.
-//// - param 1: a string representing the cardNumber
-//// - return: true if cardNumber starts with string literals:
-//// "4", "5", "6" or "37" (false otherwise)
-//// You could use string literals in this function, but it would
-//// much be cleaner to create a "Constants" namespace in your header
-//// file and create a const array of strings there (validPrefixes).
-//// that you can reference in this function.
-//// hint: you can make use of startsWith() in this function.
-//bool hasValidPrefix(std::string cardNumber);
-//
-//// Add up the odd-place digits from right to left
-//// - param 1: a string to represent the cardNumber
-//// - return: the sum of odd-place digits from right to left in the card
-//// number (step 1, part 3).
-//// Eg: "34567" returns 15. (7+5+3)
-//int sumOddDigitsRightToLeft(std::string cardNumber);
-//
+bool hasValidPrefix(std::string cardNumber) {
+	for (int i = 0; i < Constants::validPrefixes.size() ; i++ ) {
+		bool isValid = startsWith(cardNumber, Constants::validPrefixes[i]);
+		if (isValid) {
+			return isValid;
+		}
+	}
+	return false;
+}
+
+int convertCharToInt() {
+	//for (int i = cardNumber.size() - 1; i >= 0; i -= 2) {
+	//	sum += static_cast<int>(cardNumber[i]) + Constants::ASCIICharToInt;
+	//}
+}
+
+int sumOddDigitsRightToLeft(std::string cardNumber) {
+	int sum = 0;
+	for (int i = cardNumber.size()-1; i >= 0; i -= 2) {
+		sum += static_cast<int>(cardNumber[i]) + Constants::ASCIICharToInt;
+	}
+	return sum;
+}
+
 //// Add up the even-place digits from right to left
 //// - param 1: a string to represent the cardNumber
 //// - return: the sum of the (even-place digits * 2) from right to left
@@ -59,7 +55,26 @@ bool startsWith(std::string cardNumber, std::string prefix) {
 //// their digits together before being added into the sequence.
 //// Eg: "34567" returns 11. ((6*2 = 12, converted to 1+2 = 3) + (4*2)) equals 11
 //// hint: make use of getSumOfDigits()
-//int sumEvenDigitsRightToLeft(std::string cardNumber);
+int sumEvenDigitsRightToLeft(std::string cardNumber) {
+	int sum = 0;
+	std::cout << "~~~~~~~~~~~number to sum: " << cardNumber << "\n";
+	for (int i = cardNumber.size() - 2; i >= 0; i -= 2) {
+		int digit = static_cast<int>(cardNumber[i]) + Constants::ASCIICharToInt;
+		std::cout << "~~~~~~digit: " << digit << "\n";
+		digit *= 2;
+		std::cout << "Doubled digit: " << digit << "\n";
+		while (digit >= 10) {
+			std::cout << "entered while >10\n";
+			digit = getSumOfDigits(digit);
+			std::cout << "summed double digit: " << digit << "\n";
+		}
+		std::cout << "sum pre-digit: " << sum << "\n";
+		sum += digit;
+		std::cout << "sum post-digit: " << sum << "\n";
+	}
+	return sum;
+
+}
 //
 //// Determine if a card # is valid. Valid if:
 //// - between 13 & 16 digits
@@ -70,7 +85,18 @@ bool startsWith(std::string cardNumber, std::string prefix) {
 //// all the others.
 //// - param 1: a string to represent the cardNumber
 //// - return: true if the card number is valid (false otherwise)
-//bool isCardValid(std::string cardNumber);
+bool isCardValid(std::string cardNumber) {
+	//cardNumber = static_cast<int>(cardNumber);
+	//std::cout << cardNumber;
+	if (!(13 <= cardNumber.size() <= 16)) { return false; }
+	if (! hasValidPrefix(cardNumber)) { return false;  }
+
+	int oddSum{ sumOddDigitsRightToLeft(cardNumber) };
+	int evenSum{ sumEvenDigitsRightToLeft(cardNumber) };
+	int cardSum = oddSum + evenSum;
+	if (cardSum % 10 == 0) { return true; }
+	else { return false; }
+}
 
 //------------------
 // checkValid (sum -> %10=0) - overarching controlling function
@@ -83,5 +109,3 @@ bool startsWith(std::string cardNumber, std::string prefix) {
 // splitNumber ( change number into array of numbers)
 // sumAllPlaces()
 // sumOddRtoLPlaces()
-
-#endif // !CREDIT_H
