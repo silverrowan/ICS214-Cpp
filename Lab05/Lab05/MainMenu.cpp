@@ -59,6 +59,8 @@ Command getMenuCommand() {
 	case 0: command = Command::exit; break;
 	}
 	return command;
+	//I *am* wondering *why* the menu cmd has been broken down into 2
+	//switch statements....
 }
 
 // This function is called when a user picks a selection from the menu.
@@ -80,7 +82,7 @@ void handleMenuInput(Employee*& pHead, Command command)
 		std::getline(std::cin, name);
 		addNewEmployee(pHead, name);
 	}
-							 break;
+		break;
 	case Command::removeEmployee:
 		std::cout << ">> Remove Employee:\n";
 		std::cout << "Enter id:";
@@ -116,20 +118,19 @@ void handleMenuInput(Employee*& pHead, Command command)
 // TODO ------------------------------------------------------------------------
 void viewEmployees(Employee* pHead){
 	std::cout << "entered view employees\n";
-	std::cout << pHead << "\n";
 	std::string employeeList{};
 
-	if (!pHead) {
+	if (!pHead) { //
 		std::cout << "empty list.\n";
 		return;
 	}
+	Employee newEmp = *pHead;
 	//for (Employee in list) {
-	//	std::cout << employee << "\n";
+		std::cout << newEmp.id << "\n";
+		std::cout << newEmp.name << "\n";
+		std::cout << newEmp.pNext << "\n";
 	//}
-
-	//std::cout << EMPLOYEE_LIST
 }
-
 
 // Create a new employee struct on the heap.
 // Use a static local variable to generate unique employee id's with (initialize
