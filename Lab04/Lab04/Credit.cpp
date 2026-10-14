@@ -33,12 +33,6 @@ bool hasValidPrefix(std::string cardNumber) {
 	return false;
 }
 
-int convertCharToInt() {
-	//for (int i = cardNumber.size() - 1; i >= 0; i -= 2) {
-	//	sum += static_cast<int>(cardNumber[i]) + Constants::ASCIICharToInt;
-	//}
-}
-
 int sumOddDigitsRightToLeft(std::string cardNumber) {
 	int sum = 0;
 	for (int i = cardNumber.size()-1; i >= 0; i -= 2) {
@@ -55,26 +49,38 @@ int sumOddDigitsRightToLeft(std::string cardNumber) {
 //// their digits together before being added into the sequence.
 //// Eg: "34567" returns 11. ((6*2 = 12, converted to 1+2 = 3) + (4*2)) equals 11
 //// hint: make use of getSumOfDigits()
+//int sumEvenDigitsRightToLeft(std::string cardNumber) {
+//	int sum = 0;
+//	std::cout << "~~~~~~~~~~~number to sum: " << cardNumber << "\n";
+//	for (int i = cardNumber.size() - 2; i >= 0; i -= 2) {
+//		int digit = static_cast<int>(cardNumber[i]) + Constants::ASCIICharToInt;
+//		std::cout << "~~~~~~digit: " << digit << "\n";
+//		digit *= 2;
+//		std::cout << "Doubled digit: " << digit << "\n";
+//		while (digit >= 10) {
+//			std::cout << "entered while >10\n";
+//			digit = getSumOfDigits(digit);
+//			std::cout << "summed double digit: " << digit << "\n";
+//		}
+//		std::cout << "sum pre-digit: " << sum << "\n";
+//		sum += digit;
+//		std::cout << "sum post-digit: " << sum << "\n";
+//	}
+//	return sum;
+//}
 int sumEvenDigitsRightToLeft(std::string cardNumber) {
 	int sum = 0;
-	std::cout << "~~~~~~~~~~~number to sum: " << cardNumber << "\n";
 	for (int i = cardNumber.size() - 2; i >= 0; i -= 2) {
-		int digit = static_cast<int>(cardNumber[i]) + Constants::ASCIICharToInt;
-		std::cout << "~~~~~~digit: " << digit << "\n";
+		int digit = (cardNumber[i]) - '0';
 		digit *= 2;
-		std::cout << "Doubled digit: " << digit << "\n";
 		while (digit >= 10) {
-			std::cout << "entered while >10\n";
 			digit = getSumOfDigits(digit);
-			std::cout << "summed double digit: " << digit << "\n";
 		}
-		std::cout << "sum pre-digit: " << sum << "\n";
 		sum += digit;
-		std::cout << "sum post-digit: " << sum << "\n";
 	}
 	return sum;
-
 }
+
 //
 //// Determine if a card # is valid. Valid if:
 //// - between 13 & 16 digits
@@ -86,10 +92,9 @@ int sumEvenDigitsRightToLeft(std::string cardNumber) {
 //// - param 1: a string to represent the cardNumber
 //// - return: true if the card number is valid (false otherwise)
 bool isCardValid(std::string cardNumber) {
-	//cardNumber = static_cast<int>(cardNumber);
-	//std::cout << cardNumber;
-	if (!(13 <= cardNumber.size() <= 16)) { return false; }
-	if (! hasValidPrefix(cardNumber)) { return false;  }
+	std::cout << "numsize: " << cardNumber.size() << "\n";
+	if (cardNumber.size() < 13 || cardNumber.size() > 16) { return false; }
+	if (! hasValidPrefix(cardNumber)) { return false; }
 
 	int oddSum{ sumOddDigitsRightToLeft(cardNumber) };
 	int evenSum{ sumEvenDigitsRightToLeft(cardNumber) };
