@@ -92,7 +92,7 @@ int sumEvenDigitsRightToLeft(std::string cardNumber) {
 //// - param 1: a string to represent the cardNumber
 //// - return: true if the card number is valid (false otherwise)
 bool isCardValid(std::string cardNumber) {
-	std::cout << "numsize: " << cardNumber.size() << "\n";
+	//std::cout << "numsize: " << cardNumber.size() << "\n";
 	if (cardNumber.size() < 13 || cardNumber.size() > 16) { return false; }
 	if (! hasValidPrefix(cardNumber)) { return false; }
 
