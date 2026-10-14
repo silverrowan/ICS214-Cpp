@@ -78,7 +78,7 @@ void handleMenuInput(Employee*& pHead, Command command)
 		std::cout << "Enter name:";
 		std::string name;
 		std::getline(std::cin, name);
-		//addNewEmployee(pHead, name);
+		addNewEmployee(pHead, name);
 	}
 							 break;
 	case Command::removeEmployee:
@@ -142,8 +142,10 @@ void viewEmployees(Employee* pHead){
 // - param 1: a string - the employee's name.
 // - return: a pointer to the dynamically allocated Employee struct 
 // TODO ------------------------------------------------------------------------
-//createEmployee();
-
+Employee* createEmployee( int& prevNumEmployees, std::string name, Employee* prevPointer) {
+	Employee* pNewEmp = new Employee { ++prevNumEmployees, name, prevPointer };
+	return pNewEmp;
+}
 
 // Create a new employee node, then add it to the list
 // Use createEmployee() for node creation.
@@ -154,8 +156,10 @@ void viewEmployees(Employee* pHead){
 // - param 2: a string - the employee's name.
 // - return: nothing
 // TODO ------------------------------------------------------------------------
-//addNewEmployee(Employee*& pHead);
-
+void addNewEmployee(Employee*& pHead, std::string name) {
+	int startingEmployeeCount{ 0 };
+	pHead = createEmployee(startingEmployeeCount, name, pHead);
+}
 
 // Search through the list for a node with the given id.  
 // Tip: Use a pointer to iterate through the linked list and another
