@@ -7,6 +7,7 @@
 int main()
 {	
 	// a pointer to our linked list of employees.
+	int prevEmployeeCount{ 0 };
 	Employee* pEmployees = nullptr;
 
 	bool exitMainMenu{ false };		// init to default value
@@ -16,7 +17,7 @@ int main()
 	do {
 		displayMainMenu();
 		command = getMenuCommand();
-		handleMenuInput(pEmployees, command);
+		handleMenuInput(pEmployees, command, prevEmployeeCount);
 	} while (command != Command::exit);
 
 	// cleanup! - deallocate any employees in our linked list before setting the list to nullptr;

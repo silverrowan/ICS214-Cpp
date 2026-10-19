@@ -1,6 +1,11 @@
 #include <iostream>
 #include "MainMenu.h"
 
+//TODO
+// [x] do i need to add a check for number in range to getIntFromUser?
+	// no. It's in getMenuCommand - may need to update if anything adds one
+	// why is it setup to have 2 switch statements? (getMenu... handleMenu...)
+
 // clear any characters from the (keyboard) input buffer
 void ignoreLine() {
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -67,7 +72,7 @@ Command getMenuCommand() {
 // It determines what action to take depending on the menuItemSelected, 
 // and calls the appropriate function.
 // Returns true the selection was a request to exit menu, false otherwise.
-void handleMenuInput(Employee*& pHead, Command command)
+void handleMenuInput(Employee*& pHead, Command command, int& prevNumEmployees)
 {
 	switch (command)
 	{
@@ -80,7 +85,7 @@ void handleMenuInput(Employee*& pHead, Command command)
 		std::cout << "Enter name:";
 		std::string name;
 		std::getline(std::cin, name);
-		addNewEmployee(pHead, name);
+		addNewEmployee(prevNumEmployees, pHead, name);
 	}
 		break;
 	case Command::removeEmployee:
@@ -117,19 +122,21 @@ void handleMenuInput(Employee*& pHead, Command command)
 // return: nothing
 // TODO ------------------------------------------------------------------------
 void viewEmployees(Employee* pHead){
-	std::cout << "entered view employees\n";
-	std::string employeeList{};
+	//std::cout << "entered view employees\n";
+	//std::string employeeList{};
 
 	if (!pHead) { //
 		std::cout << "empty list.\n";
 		return;
 	}
 	Employee newEmp = *pHead;
-	//for (Employee in list) {
+	while (pHead) {
+		//for (Employee in list) {
 		std::cout << newEmp.id << "\n";
 		std::cout << newEmp.name << "\n";
 		std::cout << newEmp.pNext << "\n";
-	//}
+		pHead = newEmp.pNext;
+	}
 }
 
 // Create a new employee struct on the heap.
@@ -157,9 +164,11 @@ Employee* createEmployee( int& prevNumEmployees, std::string name, Employee* pre
 // - param 2: a string - the employee's name.
 // - return: nothing
 // TODO ------------------------------------------------------------------------
-void addNewEmployee(Employee*& pHead, std::string name) {
-	int startingEmployeeCount{ 0 };
-	pHead = createEmployee(startingEmployeeCount, name, pHead);
+void addNewEmployee(int& prevNumEmployees, Employee*& pHead, std::string name) {
+	std::cout << "entered addNewEmployee()";
+	std::cout << "old phead: " << pHead;
+	pHead = createEmployee(prevNumEmployees, name, pHead);
+	std::cout << "new phead: " << pHead;
 }
 
 // Search through the list for a node with the given id.  
