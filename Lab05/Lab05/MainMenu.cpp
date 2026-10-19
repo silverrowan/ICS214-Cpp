@@ -120,7 +120,6 @@ void handleMenuInput(Employee*& pHead, Command command, int& prevNumEmployees)
 // -param 1: (given) a pointer to an Employee struct (representing the front 
 //			 of the list of employees.
 // return: nothing
-// TODO ------------------------------------------------------------------------
 void viewEmployees(Employee* pHead){
 	//std::cout << "entered view employees\n";
 	//std::string employeeList{};
@@ -129,13 +128,11 @@ void viewEmployees(Employee* pHead){
 		std::cout << "empty list.\n";
 		return;
 	}
-	Employee newEmp = *pHead;
-	while (pHead) {
-		//for (Employee in list) {
-		std::cout << newEmp.id << "\n";
-		std::cout << newEmp.name << "\n";
-		std::cout << newEmp.pNext << "\n";
-		pHead = newEmp.pNext;
+	Employee* pNext = pHead;
+	while (pNext != nullptr) {
+		Employee newEmp = *pNext;
+		std::cout << "Id: " << newEmp.id << " Name: " << newEmp.name << "\n";
+		pNext = newEmp.pNext;
 	}
 }
 
@@ -149,9 +146,8 @@ void viewEmployees(Employee* pHead){
 //				-nullptr.
 // - param 1: a string - the employee's name.
 // - return: a pointer to the dynamically allocated Employee struct 
-// TODO ------------------------------------------------------------------------
-Employee* createEmployee( int& prevNumEmployees, std::string name, Employee* prevPointer) {
-	Employee* pNewEmp = new Employee { ++prevNumEmployees, name, prevPointer };
+Employee* createEmployee( int& prevNumEmployees, std::string name) {
+	Employee* pNewEmp = new Employee { ++prevNumEmployees, name };
 	return pNewEmp;
 }
 
@@ -163,11 +159,12 @@ Employee* createEmployee( int& prevNumEmployees, std::string name, Employee* pre
 //            by reference)
 // - param 2: a string - the employee's name.
 // - return: nothing
-// TODO ------------------------------------------------------------------------
 void addNewEmployee(int& prevNumEmployees, Employee*& pHead, std::string name) {
 	std::cout << "entered addNewEmployee()";
 	std::cout << "old phead: " << pHead;
-	pHead = createEmployee(prevNumEmployees, name, pHead);
+	Employee* prevPHead = pHead;
+	pHead = createEmployee(prevNumEmployees, name);
+	pHead->pNext = prevPHead;
 	std::cout << "new phead: " << pHead;
 }
 
