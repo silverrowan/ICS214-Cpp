@@ -91,7 +91,7 @@ void handleMenuInput(Employee*& pHead, Command command, int& prevNumEmployees)
 	case Command::removeEmployee:
 		std::cout << ">> Remove Employee:\n";
 		std::cout << "Enter id:";
-		//removeEmployee(pHead, getIntFromUser());
+		removeEmployee(pHead, getIntFromUser());
 		break;
 	case Command::exit:
 		std::cout << "Exiting\n";
@@ -178,7 +178,6 @@ void addNewEmployee(int& prevNumEmployees, Employee*& pHead, std::string name) {
 //			 the id passed in and a pointer to that node's parent. 
 //           If node not found, pointers inside NodeInfo should both be nullptr.
 //           If node is first in the list, NodeInfo.pParent should be nullptr.
-// TODO ------------------------------------------------------------------------
 NodeInfo getNodeInfo(Employee* pHead, int findId) {
 	//					  pNode, pParent
 	NodeInfo idNodeInfo{ nullptr, nullptr };
@@ -207,31 +206,6 @@ NodeInfo getNodeInfo(Employee* pHead, int findId) {
 	}
 }
 
-//NodeInfo goThroughList(Employee* pHead, int findId) {
-//	//					  pNode, pParent
-//	NodeInfo idNodeInfo{ nullptr, nullptr };
-//
-//	if (!pHead) {
-//		return idNodeInfo;
-//	}
-//	idNodeInfo.pNode = pHead;
-//	idNodeInfo.pParent = nullptr;
-//
-//	while (idNodeInfo.pNode) {
-//		Employee newEmp = *idNodeInfo.pNode;
-//		std::cout << "Id: " << newEmp.id << " Name: " << newEmp.name << "\n";
-//		if (newEmp.pNext) {
-//			idNodeInfo.pParent = idNodeInfo.pNode;
-//			idNodeInfo.pNode = newEmp.pNext;
-//		}
-//		else {
-//			return idNodeInfo;
-//		}
-//	}
-//	return idNodeInfo;
-//}
-
-
 // Removes an employee node with the given id from the list.
 // Try to find a node with the given id (use getNodeInfo()). 
 //	1) If node not found, output "Error: employee id:# not found\n". 
@@ -247,6 +221,28 @@ NodeInfo getNodeInfo(Employee* pHead, int findId) {
 // - param 2: an int (the id of the employee we're searching for). 
 // - return: nothing
 // TODO ------------------------------------------------------------------------
-//removeEmployee(Employee*& pHead);
+void removeEmployee(Employee*& pHead, int id) {
+	NodeInfo removeInfo = getNodeInfo(pHead, id);
+	Employee* pRemoveNode = removeInfo.pNode;
+	if (pRemoveNode) {
+		Employee* pNextLink = pRemoveNode->pNext;
+
+		if ((pRemoveNode) == pHead) {
+			pHead = pNextLink;
+		}
+		else {
+			Employee* pParentNode{ removeInfo.pParent };
+			//Employee parentNode = *pParentNode;
+			//Employee removeNode = *pRemoveNode;
+			(*pParentNode).pNext = pNextLink;
+		}
+		delete pRemoveNode;
+		pRemoveNode = nullptr;
+	}
+	else {
+		std::cout << "Error: employee id:# not found\n";
+		return;
+	}
+}
 
 

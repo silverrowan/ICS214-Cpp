@@ -47,4 +47,5 @@ void handleMenuInput(Employee*& pHead, Command command, int& prevNumEmployees);
 
 void viewEmployees(Employee* pHead);
 void addNewEmployee(int& prevNumEmployees, Employee*& pHead, std::string name);
+void removeEmployee(Employee*& pHead, int id);
 #endif
