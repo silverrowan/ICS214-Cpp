@@ -10,7 +10,7 @@
 #include <string>
 
 // A command set of operations that can be used with our Menu.
-enum class Command{ viewEmployees, addEmployee, removeEmployee, exit, invalid };
+enum class Command{ viewEmployees, addEmployee, removeEmployee, removeAllEmployees, exit, invalid };
 
 // a struct to represent an Employee (each instance forms a node of a linked list
 // used to store employees.
@@ -48,4 +48,5 @@ void handleMenuInput(Employee*& pHead, Command command, int& prevNumEmployees);
 void viewEmployees(Employee* pHead);
 void addNewEmployee(int& prevNumEmployees, Employee*& pHead, std::string name);
 void removeEmployee(Employee*& pHead, int id);
+void removeAllEmployees(Employee*& pHead);
 #endif

@@ -38,6 +38,7 @@ void displayMainMenu()
 	std::cout << "1) View Employees\n";
 	std::cout << "2) Add Employee\n";
 	std::cout << "3) Remove Employee\n";
+	std::cout << "4) Remove All Employees\n";
 	std::cout << "0) Exit\n";
 	std::cout << "-------------\n";
 	std::cout << "Select:";
@@ -61,6 +62,7 @@ Command getMenuCommand() {
 	case 1: command = Command::viewEmployees; break;
 	case 2: command = Command::addEmployee; break;
 	case 3: command = Command::removeEmployee; break;
+	case 4: command = Command::removeAllEmployees; break;
 	case 0: command = Command::exit; break;
 	}
 	return command;
@@ -72,7 +74,7 @@ Command getMenuCommand() {
 // It determines what action to take depending on the menuItemSelected, 
 // and calls the appropriate function.
 // Returns true the selection was a request to exit menu, false otherwise.
-void handleMenuInput(Employee*& pHead, Command command, int& prevNumEmployees)
+void handleMenuInput(Employee*& pHead, const Command command, int& prevNumEmployees)
 {
 	switch (command)
 	{
@@ -93,8 +95,12 @@ void handleMenuInput(Employee*& pHead, Command command, int& prevNumEmployees)
 		std::cout << "Enter id:";
 		removeEmployee(pHead, getIntFromUser());
 		break;
+	case Command::removeAllEmployees:
+		removeAllEmployees(pHead);
+		break;
 	case Command::exit:
 		std::cout << "Exiting\n";
+		removeAllEmployees(pHead);
 		break;
 	default:
 		std::cout << "Invalid input.\n";
@@ -120,11 +126,8 @@ void handleMenuInput(Employee*& pHead, Command command, int& prevNumEmployees)
 // -param 1: (given) a pointer to an Employee struct (representing the front 
 //			 of the list of employees.
 // return: nothing
-void viewEmployees(Employee* pHead){
-	//std::cout << "entered view employees\n";
-	//std::string employeeList{};
-
-	if (!pHead) { //
+void viewEmployees(Employee* pHead){ //its not editing pHead, why is it complaining that pNext = pHead when const pHead?
+	if (!pHead) {
 		std::cout << "empty list.\n";
 		return;
 	}
@@ -146,7 +149,7 @@ void viewEmployees(Employee* pHead){
 //				-nullptr.
 // - param 1: a string - the employee's name.
 // - return: a pointer to the dynamically allocated Employee struct 
-Employee* createEmployee( int& prevNumEmployees, std::string name) {
+Employee* createEmployee( int& prevNumEmployees, const std::string name) {
 	Employee* pNewEmp = new Employee { ++prevNumEmployees, name };
 	return pNewEmp;
 }
@@ -159,7 +162,7 @@ Employee* createEmployee( int& prevNumEmployees, std::string name) {
 //            by reference)
 // - param 2: a string - the employee's name.
 // - return: nothing
-void addNewEmployee(int& prevNumEmployees, Employee*& pHead, std::string name) {
+void addNewEmployee(int& prevNumEmployees, Employee*& pHead, const std::string name) {
 	std::cout << "entered addNewEmployee()";
 	std::cout << "old phead: " << pHead;
 	Employee* prevPHead = pHead;
@@ -178,7 +181,7 @@ void addNewEmployee(int& prevNumEmployees, Employee*& pHead, std::string name) {
 //			 the id passed in and a pointer to that node's parent. 
 //           If node not found, pointers inside NodeInfo should both be nullptr.
 //           If node is first in the list, NodeInfo.pParent should be nullptr.
-NodeInfo getNodeInfo(Employee* pHead, int findId) {
+NodeInfo getNodeInfo(Employee* pHead, const int findId) {
 	//					  pNode, pParent
 	NodeInfo idNodeInfo{ nullptr, nullptr };
 
@@ -193,7 +196,6 @@ NodeInfo getNodeInfo(Employee* pHead, int findId) {
 		if (newEmp.id == findId) {
 			return idNodeInfo;
 		}
-		//std::cout << "Id: " << newEmp.id << " Name: " << newEmp.name << "\n";
 		else if (newEmp.pNext) {
 			idNodeInfo.pParent = idNodeInfo.pNode;
 			idNodeInfo.pNode = newEmp.pNext;
@@ -221,7 +223,7 @@ NodeInfo getNodeInfo(Employee* pHead, int findId) {
 // - param 2: an int (the id of the employee we're searching for). 
 // - return: nothing
 // TODO ------------------------------------------------------------------------
-void removeEmployee(Employee*& pHead, int id) {
+void removeEmployee(Employee*& pHead, const int id) {
 	NodeInfo removeInfo = getNodeInfo(pHead, id);
 	Employee* pRemoveNode = removeInfo.pNode;
 	if (pRemoveNode) {
@@ -234,7 +236,8 @@ void removeEmployee(Employee*& pHead, int id) {
 			Employee* pParentNode{ removeInfo.pParent };
 			//Employee parentNode = *pParentNode;
 			//Employee removeNode = *pRemoveNode;
-			(*pParentNode).pNext = pNextLink;
+			//(*pParentNode).pNext = pNextLink;
+			pParentNode->pNext = pNextLink;
 		}
 		delete pRemoveNode;
 		pRemoveNode = nullptr;
@@ -245,4 +248,19 @@ void removeEmployee(Employee*& pHead, int id) {
 	}
 }
 
+void removeAllEmployees(Employee*& pHead) {
+	if (pHead) {
+		Employee* pRemoveNode = pHead;
+		while (pRemoveNode) {
+			Employee* pNext = pRemoveNode->pNext;
+			delete pRemoveNode;
+			pRemoveNode = pNext;
+			pHead = nullptr;
+		}
+		std::cout << "Removed all Employees.\n";
+	}
+	else {
+		std::cout << "No employees to remove\n";
+	}
+}
 
