@@ -179,7 +179,57 @@ void addNewEmployee(int& prevNumEmployees, Employee*& pHead, std::string name) {
 //           If node not found, pointers inside NodeInfo should both be nullptr.
 //           If node is first in the list, NodeInfo.pParent should be nullptr.
 // TODO ------------------------------------------------------------------------
-// getNodeInfo(Employee* pHead);
+NodeInfo getNodeInfo(Employee* pHead, int findId) {
+	//					  pNode, pParent
+	NodeInfo idNodeInfo{ nullptr, nullptr };
+
+	if (!pHead) {
+		return idNodeInfo;
+	}
+	idNodeInfo.pNode = pHead;
+	idNodeInfo.pParent = nullptr;
+
+	while (idNodeInfo.pNode) {
+		Employee newEmp = *idNodeInfo.pNode;
+		if (newEmp.id == findId) {
+			return idNodeInfo;
+		}
+		//std::cout << "Id: " << newEmp.id << " Name: " << newEmp.name << "\n";
+		else if (newEmp.pNext) {
+			idNodeInfo.pParent = idNodeInfo.pNode;
+			idNodeInfo.pNode = newEmp.pNext;
+		}
+		else {
+			idNodeInfo.pNode = nullptr;
+			idNodeInfo.pParent = nullptr;
+			return idNodeInfo;
+		}
+	}
+}
+
+//NodeInfo goThroughList(Employee* pHead, int findId) {
+//	//					  pNode, pParent
+//	NodeInfo idNodeInfo{ nullptr, nullptr };
+//
+//	if (!pHead) {
+//		return idNodeInfo;
+//	}
+//	idNodeInfo.pNode = pHead;
+//	idNodeInfo.pParent = nullptr;
+//
+//	while (idNodeInfo.pNode) {
+//		Employee newEmp = *idNodeInfo.pNode;
+//		std::cout << "Id: " << newEmp.id << " Name: " << newEmp.name << "\n";
+//		if (newEmp.pNext) {
+//			idNodeInfo.pParent = idNodeInfo.pNode;
+//			idNodeInfo.pNode = newEmp.pNext;
+//		}
+//		else {
+//			return idNodeInfo;
+//		}
+//	}
+//	return idNodeInfo;
+//}
 
 
 // Removes an employee node with the given id from the list.
