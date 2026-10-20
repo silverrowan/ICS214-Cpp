@@ -74,7 +74,7 @@ Command getMenuCommand() {
 // It determines what action to take depending on the menuItemSelected, 
 // and calls the appropriate function.
 // Returns true the selection was a request to exit menu, false otherwise.
-void handleMenuInput(Employee*& pHead, const Command command, int& prevEmployeId)
+void handleMenuInput(Employee*& pHead, const Command command)
 {
 	switch (command)
 	{

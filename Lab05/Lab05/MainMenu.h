@@ -43,7 +43,7 @@ Command getMenuCommand();
 // Given a Command, this will determine the appropriate function to call.
 // - param 1: (given) a pointer to the front of the list of employees (passed by reference)
 // - param 2: a Command (enum) representing the action to be taken.
-void handleMenuInput(Employee*& pHead, Command command, int& prevNumEmployees);
+void handleMenuInput(Employee*& pHead, Command command);
 
 void viewEmployees(Employee* pHead);
 void addNewEmployee(Employee*& pHead, std::string name);
