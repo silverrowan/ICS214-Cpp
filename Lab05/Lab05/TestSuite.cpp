@@ -2,7 +2,7 @@
 #include <string>
 #include "MainMenu.h"
 
-//#define TEST_SUITE
+#define TEST_SUITE
 #ifdef TEST_SUITE
 namespace TestSuite {
 

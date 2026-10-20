@@ -74,7 +74,7 @@ Command getMenuCommand() {
 // It determines what action to take depending on the menuItemSelected, 
 // and calls the appropriate function.
 // Returns true the selection was a request to exit menu, false otherwise.
-void handleMenuInput(Employee*& pHead, const Command command, int& prevNumEmployees)
+void handleMenuInput(Employee*& pHead, const Command command, int& prevEmployeId)
 {
 	switch (command)
 	{
@@ -87,7 +87,7 @@ void handleMenuInput(Employee*& pHead, const Command command, int& prevNumEmploy
 		std::cout << "Enter name:";
 		std::string name;
 		std::getline(std::cin, name);
-		addNewEmployee(prevNumEmployees, pHead, name);
+		addNewEmployee(pHead, name);
 	}
 		break;
 	case Command::removeEmployee:
@@ -131,9 +131,9 @@ void viewEmployees(Employee* pHead){ //its not editing pHead, why is it complain
 		std::cout << "empty list.\n";
 		return;
 	}
-	Employee* pNext = pHead;
-	while (pNext != nullptr) {
-		Employee newEmp = *pNext;
+	Employee* pNext{ pHead };
+	while (pNext) {
+		Employee newEmp{ *pNext };
 		std::cout << "Id: " << newEmp.id << " Name: " << newEmp.name << "\n";
 		pNext = newEmp.pNext;
 	}
@@ -149,8 +149,9 @@ void viewEmployees(Employee* pHead){ //its not editing pHead, why is it complain
 //				-nullptr.
 // - param 1: a string - the employee's name.
 // - return: a pointer to the dynamically allocated Employee struct 
-Employee* createEmployee( int& prevNumEmployees, const std::string name) {
-	Employee* pNewEmp = new Employee { ++prevNumEmployees, name };
+Employee* createEmployee(const std::string name) {
+	static int employeeCount{ -1 };
+	Employee* pNewEmp{ new Employee { ++employeeCount, name, nullptr} };
 	return pNewEmp;
 }
 
@@ -162,13 +163,10 @@ Employee* createEmployee( int& prevNumEmployees, const std::string name) {
 //            by reference)
 // - param 2: a string - the employee's name.
 // - return: nothing
-void addNewEmployee(int& prevNumEmployees, Employee*& pHead, const std::string name) {
-	std::cout << "entered addNewEmployee()";
-	std::cout << "old phead: " << pHead;
-	Employee* prevPHead = pHead;
-	pHead = createEmployee(prevNumEmployees, name);
+void addNewEmployee(Employee*& pHead, const std::string name) {
+	Employee* prevPHead{ pHead };
+	pHead = createEmployee(name);
 	pHead->pNext = prevPHead;
-	std::cout << "new phead: " << pHead;
 }
 
 // Search through the list for a node with the given id.  
@@ -192,7 +190,7 @@ NodeInfo getNodeInfo(Employee* pHead, const int findId) {
 	idNodeInfo.pParent = nullptr;
 
 	while (idNodeInfo.pNode) {
-		Employee newEmp = *idNodeInfo.pNode;
+		Employee newEmp{ *idNodeInfo.pNode };
 		if (newEmp.id == findId) {
 			return idNodeInfo;
 		}
@@ -224,19 +222,16 @@ NodeInfo getNodeInfo(Employee* pHead, const int findId) {
 // - return: nothing
 // TODO ------------------------------------------------------------------------
 void removeEmployee(Employee*& pHead, const int id) {
-	NodeInfo removeInfo = getNodeInfo(pHead, id);
-	Employee* pRemoveNode = removeInfo.pNode;
+	NodeInfo removeInfo{ getNodeInfo(pHead, id) };
+	Employee* pRemoveNode{ removeInfo.pNode };
 	if (pRemoveNode) {
-		Employee* pNextLink = pRemoveNode->pNext;
+		Employee* pNextLink{ pRemoveNode->pNext };
 
 		if ((pRemoveNode) == pHead) {
 			pHead = pNextLink;
 		}
 		else {
 			Employee* pParentNode{ removeInfo.pParent };
-			//Employee parentNode = *pParentNode;
-			//Employee removeNode = *pRemoveNode;
-			//(*pParentNode).pNext = pNextLink;
 			pParentNode->pNext = pNextLink;
 		}
 		delete pRemoveNode;
@@ -250,9 +245,9 @@ void removeEmployee(Employee*& pHead, const int id) {
 
 void removeAllEmployees(Employee*& pHead) {
 	if (pHead) {
-		Employee* pRemoveNode = pHead;
+		Employee* pRemoveNode{ pHead };
 		while (pRemoveNode) {
-			Employee* pNext = pRemoveNode->pNext;
+			Employee* pNext{ pRemoveNode->pNext };
 			delete pRemoveNode;
 			pRemoveNode = pNext;
 			pHead = nullptr;
