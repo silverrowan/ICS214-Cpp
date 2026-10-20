@@ -28,7 +28,7 @@ int main()
 	do {
 		displayMainMenu();
 		command = getMenuCommand();
-		handleMenuInput(pEmployees, command, prevEmployeeCount);
+		handleMenuInput(pEmployees, command);
 	} while (command != Command::exit);
 
 	return 0;

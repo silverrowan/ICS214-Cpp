@@ -1,17 +1,12 @@
 #include <iostream>
 #include "MainMenu.h"
 
-//TODO
-// [x] do i need to add a check for number in range to getIntFromUser?
-	// no. It's in getMenuCommand - may need to update if anything adds one
-	// why is it setup to have 2 switch statements? (getMenu... handleMenu...)
+// why is it setup to have 2 switch statements+enum? (getMenu... handleMenu...)
 
-// clear any characters from the (keyboard) input buffer
 void ignoreLine() {
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-// read and return an int from the console.  Keep trying if invalid until an int is returned.
 int getIntFromUser() {
 	while (true) {
 		int guess;
@@ -30,7 +25,6 @@ int getIntFromUser() {
 	}
 }
 
-// output the menu choices to the console.
 void displayMainMenu()
 {
 	std::cout << "\n";
@@ -44,8 +38,6 @@ void displayMainMenu()
 	std::cout << "Select:";
 }
 
-// Attempt to read an int from the keyboard.  
-// If there was a failure, clear the buffer and return -1.
 Command getMenuCommand() {
 	// read user input
 	int input{ -1 };  // default 
@@ -70,10 +62,6 @@ Command getMenuCommand() {
 	//switch statements....
 }
 
-// This function is called when a user picks a selection from the menu.
-// It determines what action to take depending on the menuItemSelected, 
-// and calls the appropriate function.
-// Returns true the selection was a request to exit menu, false otherwise.
 void handleMenuInput(Employee*& pHead, const Command command)
 {
 	switch (command)
@@ -108,24 +96,6 @@ void handleMenuInput(Employee*& pHead, const Command command)
 	}
 }
 
-// =============================================================================
-// Implement the functions below by following the given directions:	
-// As you implement these, you will have to add forward declarations for
-// each one in MainMenu.h
-// The function name has been given.
-// In some cases, the first parameter has been given.
-// =============================================================================
-
-// Output a list of all employees to the console.
-// If the list is empty (nullptr), print "empty list.\n" 
-// If it isn't empty, print each employee's id and name to the console:
-//    eg: [id: 5, name: Mary]\n
-// Create a pointer to traverse the list, point it at the front of the list,
-// process the node (output as shown above), and advance the pointer through the
-// list.  Repeat until you process the last node.
-// -param 1: (given) a pointer to an Employee struct (representing the front 
-//			 of the list of employees.
-// return: nothing
 void viewEmployees(Employee* pHead){ //its not editing pHead, why is it complaining that pNext = pHead when const pHead?
 	if (!pHead) {
 		std::cout << "empty list.\n";
@@ -139,46 +109,18 @@ void viewEmployees(Employee* pHead){ //its not editing pHead, why is it complain
 	}
 }
 
-// Create a new employee struct on the heap.
-// Use a static local variable to generate unique employee id's with (initialize
-// it and then increment it every time this function is called). 
-// Dynamically allocate memory for an employee struct from the heap.  
-//		 Initialize it with:
-//				-the unique id,
-//				-the name passed in as a paramter,
-//				-nullptr.
-// - param 1: a string - the employee's name.
-// - return: a pointer to the dynamically allocated Employee struct 
 Employee* createEmployee(const std::string name) {
 	static int employeeCount{ -1 };
 	Employee* pNewEmp{ new Employee { ++employeeCount, name, nullptr} };
 	return pNewEmp;
 }
 
-// Create a new employee node, then add it to the list
-// Use createEmployee() for node creation.
-// Insert the new employee node at the front of the linked list
-// It will help to draw this out!
-// - param 1: (given) a pointer to the front of the list of employees (passed
-//            by reference)
-// - param 2: a string - the employee's name.
-// - return: nothing
 void addNewEmployee(Employee*& pHead, const std::string name) {
 	Employee* prevPHead{ pHead };
 	pHead = createEmployee(name);
 	pHead->pNext = prevPHead;
 }
 
-// Search through the list for a node with the given id.  
-// Tip: Use a pointer to iterate through the linked list and another
-//      pointer to track the parent. 
-// - param 1: (given) a pointer to an Employee struct (representing the front  
-//			  of the list of employees
-// - param 2: an int (the id of the employee we're searching for). 
-// - return: a NodeInfo struct. It contains a pointer to the node that matches  
-//			 the id passed in and a pointer to that node's parent. 
-//           If node not found, pointers inside NodeInfo should both be nullptr.
-//           If node is first in the list, NodeInfo.pParent should be nullptr.
 NodeInfo getNodeInfo(Employee* pHead, const int findId) {
 	//					  pNode, pParent
 	NodeInfo idNodeInfo{ nullptr, nullptr };
@@ -206,25 +148,11 @@ NodeInfo getNodeInfo(Employee* pHead, const int findId) {
 	}
 }
 
-// Removes an employee node with the given id from the list.
-// Try to find a node with the given id (use getNodeInfo()). 
-//	1) If node not found, output "Error: employee id:# not found\n". 
-//  2) If node found, but parent is nullptr, the node is first in the list:
-//			-Set the pHead to point to the second node in the list.
-//			-Output "removed id:# \n" to the console
-//			-Deallocate the node (return it to the heap)
-//  3) otherwise the node was found and a parent exists
-//			-Set the parent's next pointer to the next pointer of the node we want to delete
-//			-Output a "removed id: #n" message to the console
-//			-Deallocate the node (return it to the heap).
-// - param 1: (given) a pointer to the front of the list of employees (passed by reference)
-// - param 2: an int (the id of the employee we're searching for). 
-// - return: nothing
-// TODO ------------------------------------------------------------------------
 void removeEmployee(Employee*& pHead, const int id) {
 	NodeInfo removeInfo{ getNodeInfo(pHead, id) };
 	Employee* pRemoveNode{ removeInfo.pNode };
 	if (pRemoveNode) {
+		std::cout << "removed id: " << id << "\n";
 		Employee* pNextLink{ pRemoveNode->pNext };
 
 		if ((pRemoveNode) == pHead) {
@@ -238,7 +166,7 @@ void removeEmployee(Employee*& pHead, const int id) {
 		pRemoveNode = nullptr;
 	}
 	else {
-		std::cout << "Error: employee id:# not found\n";
+		std::cout << "Error: employee id: " << id << " not found\n";
 		return;
 	}
 }

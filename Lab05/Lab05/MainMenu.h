@@ -45,8 +45,46 @@ Command getMenuCommand();
 // - param 2: a Command (enum) representing the action to be taken.
 void handleMenuInput(Employee*& pHead, Command command);
 
+// Outputs a list of all employees to the console.
+// in the format: id: x name:  abc
+// If the list is empty, prints "empty list.\n" 
+// -param 1: (given) a pointer to an Employee struct (representing the front 
+//			 of the list of employees.
+// return: nothing
 void viewEmployees(Employee* pHead);
+
+// Creates a new employee struct on the heap.
+// Generates id from an auto-increment
+// - param 1: a string - the employee's name.
+// - return: a pointer to the dynamically allocated Employee struct 
+Employee* createEmployee(const std::string name);
+
+// Create a new employee node, then add it to the front of the list
+// - param 1: a pointer to the front of the list of employees (passed
+//            by reference)
+// - param 2: a string - the employee's name.
+// - return: nothing
 void addNewEmployee(Employee*& pHead, std::string name);
+
+// Search through the list for a node with the given id.  
+// - param 1: (given) a pointer to an Employee struct (representing the front  
+//			  of the list of employees
+// - param 2: an int (the id of the employee we're searching for). 
+// - return: a NodeInfo struct. It contains a pointer to the node that matches  
+//			 the id passed in and a pointer to that node's parent. 
+//           If node not found, pointers inside NodeInfo should both be nullptr.
+//           If node is first in the list, NodeInfo.pParent should be nullptr.
+NodeInfo getNodeInfo(Employee* pHead, const int findId);
+
+// Removes an employee node with the given id from the list. And outputs a
+// message to the console. Deallocates the memory used for teh employee struct
+// - param 1: (given) a pointer to the front of the list of employees (passed by reference)
+// - param 2: an int (the id of the employee we're searching for). 
+// - return: nothing
 void removeEmployee(Employee*& pHead, int id);
+
+// Removes every employee in the list and deallocates the memory
+// - param 1: a reference to a pointer pointing to the head of the list
+// - return: nothing
 void removeAllEmployees(Employee*& pHead);
 #endif
