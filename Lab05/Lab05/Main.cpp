@@ -1,6 +1,4 @@
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
+#include "MemoryDebug.h"
 
 #include <iostream>
 #include "MainMenu.h"
@@ -30,6 +28,8 @@ int main()
 		command = getMenuCommand();
 		handleMenuInput(pEmployees, command);
 	} while (command != Command::exit);
+
+	//DBG_NEW int;
 
 	return 0;
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "MainMenu.h"
+#include "MemoryDebug.h"
 
 // why is it setup to have 2 switch statements+enum? (getMenu... handleMenu...)
 
@@ -96,12 +97,15 @@ void handleMenuInput(Employee*& pHead, const Command command)
 	}
 }
 
-void viewEmployees(Employee* pHead){ //its not editing pHead, why is it complaining that pNext = pHead when const pHead?
+void viewEmployees(const Employee* pHead){ //its not editing pHead, why is it complaining that pNext = pHead when const pHead?
+								// const type* pVar means the CONTENTS of the pointer cant be changed!
+								//			pointer itself can be changed still.
+								// type* const pVar means the POINTER ITSELF can't be changed
 	if (!pHead) {
 		std::cout << "empty list.\n";
 		return;
 	}
-	Employee* pNext{ pHead };
+	const Employee* pNext{ pHead };
 	while (pNext) {
 		Employee newEmp{ *pNext };
 		std::cout << "Id: " << newEmp.id << " Name: " << newEmp.name << "\n";
@@ -109,13 +113,13 @@ void viewEmployees(Employee* pHead){ //its not editing pHead, why is it complain
 	}
 }
 
-Employee* createEmployee(const std::string name) {
+Employee* createEmployee(const std::string& name) {
 	static int employeeCount{ -1 };
-	Employee* pNewEmp{ new Employee { ++employeeCount, name, nullptr} };
+	Employee* pNewEmp{ DBG_NEW Employee { ++employeeCount, name, nullptr} };
 	return pNewEmp;
 }
 
-void addNewEmployee(Employee*& pHead, const std::string name) {
+void addNewEmployee(Employee*& pHead, const std::string& name) {
 	Employee* prevPHead{ pHead };
 	pHead = createEmployee(name);
 	pHead->pNext = prevPHead;

@@ -57,14 +57,14 @@ void viewEmployees(Employee* pHead);
 // Generates id from an auto-increment
 // - param 1: a string - the employee's name.
 // - return: a pointer to the dynamically allocated Employee struct 
-Employee* createEmployee(const std::string name);
+Employee* createEmployee(const std::string& name);
 
 // Create a new employee node, then add it to the front of the list
 // - param 1: a pointer to the front of the list of employees (passed
 //            by reference)
 // - param 2: a string - the employee's name.
 // - return: nothing
-void addNewEmployee(Employee*& pHead, std::string name);
+void addNewEmployee(Employee*& pHead, const std::string& name);
 
 // Search through the list for a node with the given id.  
 // - param 1: (given) a pointer to an Employee struct (representing the front  
