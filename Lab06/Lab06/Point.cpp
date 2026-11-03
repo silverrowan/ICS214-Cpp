@@ -10,3 +10,9 @@ void Point::swapXY() {
 	setX(getY());
 	setY(temp);
 }
+
+std::string Point::toString() {
+	std::stringstream string{};
+	string << "[" << (getX()) << "," << getY() << "]";
+	return string.str();
+}

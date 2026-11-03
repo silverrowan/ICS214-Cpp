@@ -52,8 +52,9 @@ void Tetromino::printToConsole() {
 					break;
 				}
 			}
+			if (isPoint = false) { std::cout << '.'; }
+			else { std::cout << 'x'; }
 		}
+		std::cout << '\n';
 	}
-
-	std::cout << 
 }

@@ -88,36 +88,36 @@ public:
 	//   If the content == EMPTY_BLOCK, print a '.', otherwise print the content.
 	// - params: none
 	// - return: nothing
-	void printToConsole();
+	void printToConsole() const;
 
 	// get the content at a given point 
 	// assert the point is valid (use isValidPoint())
 	// - param 1: a Point (the XY of the content weant to retrieve)
 	// - return: an int, the content from the grid at the specified point 
-	int getContent();
+	int getContent( Point pt ) const;
 
 	// get the content at a given XY location
 	// assert the point is valid (use isValidPoint())
 	// - param 1: an int for X (column)
 	// - param 2: an int for Y (row)
 	// - return: an int, the content from the grid at the specified XY
-	int getContent();
+	int getContent(int x, int y) const;
 
 	// set the content at a given point (ignore invalid points)
 	// - param 1: a Point
 	// - param 2: an int representing the content we want to set at this location.
-	void setContent();
+	void setContent( Point pt);
 
 	// set the content at an x,y position (ignore invalid points)
 	// - param 1: an int for X (column)
 	// - param 2: an int for Y (row)
 	// - param 3: an int representing the content we want to set at this location	
-	void setContent();
+	void setContent(int x, int y, int content);
 
 	// set the content for a set of points (ignore invalid points)
 	// - param 1: a vector of Points representing locations
 	// - param 2: an int representing the content we want to set.
-	void setContent();
+	void setContent( std::vector<Point> pts, int content );
 
 	// Determine if (valid) all points passed in are empty
 	// *** IMPORTANT: Assume invalid x,y values can be passed to this method.
@@ -126,7 +126,7 @@ public:
 	// Using invalid points to index into the grid would cause undefined behaviour. 
 	// - param 1: a vector of Points representing locations to test
 	// - return: true if the content at ALL VALID points is EMPTY_BLOCK, false otherwise
-	bool areAllLocsEmpty();
+	bool areAllLocsEmpty(std::vector<Point> pts) const;
 
 	// Remove all completed rows from the board
 	//   use getCompletedRowIndices() and removeRows() 
@@ -137,32 +137,32 @@ public:
 	// A getter for the spawn location
 	// - params: none
 	// - returns: a Point, representing our private spawnLoc
-	Point getSpawnLoc();
+	Point getSpawnLoc() const;
 
 private:  // This is commented out to allow us to test. 
 
 	// Determine if a given Point is a valid grid location
 	// - param 1: a Point object
 	// - return: true if the point is a valid grid location, false otherwise
-	bool isValidPoint();
+	bool isValidPoint( Point pt);
 
 	// Determine if a given XY is a valid grid location
 	// - param 1: an int representing x
 	// - param 2: an int representing y
 	// - return: true if the x,y is a valid grid location, false otherwise
-	bool isValidPoint();
+	bool isValidPoint( int x, int y);
 
 	// return a bool indicating if a given row is full (no EMPTY_BLOCK in the row)
 	// assert the row index is valid
 	// - param 1: an int representing the row index we want to test
 	// - return: bool representing if the row is completed
-	bool isRowCompleted();
+	bool isRowCompleted( int rowIndex );
 
 	// fill a given grid row with specified content
 	// - param 1: an int representing a row index
 	// - param 2: an int representing content
 	// - return: nothing
-	void fillRow();
+	void fillRow(int rowIndex, int content);
 
 	// scan the board for completed rows.
 	// Iterate through grid rows and use isRowCompleted(rowIndex)
@@ -174,7 +174,7 @@ private:  // This is commented out to allow us to test.
 	// - param 1: an int representing the source row index
 	// - param 2: an int representing the target row index
 	// - return: nothing
-	void copyRowIntoRow();
+	void copyRowIntoRow( int sourceRowIndex, int targetRowIndex);
 
 	// In gameplay, when a full row is completed (filled with content)
 	// it gets "removed".  To be exact, the row itself is not removed
@@ -189,7 +189,7 @@ private:  // This is commented out to allow us to test.
 	//   3) call fillRow() on the first row (and place EMPTY_BLOCKs in it).
 	// - param 1: an int representing a row index
 	// - return: nothing
-	void removeRow();
+	void removeRow( int rowIndex );
 
 	// Given a vector of row indices, remove them. 
 	//   Ensure the indices of the vector in ascending order (sort it). Usually they 
@@ -198,7 +198,7 @@ private:  // This is commented out to allow us to test.
 	//   Iterate through the vector, call removeRow() on each row index. 
 	// - param 1: a vector of integers representing row indices we want to remove
 	// - return: nothing
-	void removeRows();
+	void removeRows(std::vector<int> rowIndexes);
 };
 
 #endif /* GAMEBOARD_H */

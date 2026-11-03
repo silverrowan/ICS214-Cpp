@@ -43,9 +43,6 @@ public:
 	// - set the color for the shape
 	void setShape(TetShape shape); 
 
-	void rotateClockwise();
-	void printToConsole();
-	
 	// 
 	// print a grid to display the current shape 
 	// to do this: print out a “grid” of text to represent a co-ordinate 

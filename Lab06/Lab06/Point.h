@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <sstream>
 #include <string>
 class Point
 {
@@ -47,10 +48,7 @@ public:
 	// the same way you use cout https://www.learncpp.com/cpp-tutorial/stream-classes-for-strings/ 
 	/// </summary>
 	/// <returns>string of coordinates</returns>
-	//std::string toString() {
-	//	std::string string = "[" + (getX()) + "," + static_cast<std::string>(getY()) + "]";
-	//	return string;
-	//}
+	std::string toString();
 
 	/// <summary>
 	/// Print out coordinates to terminal in format [x,y]

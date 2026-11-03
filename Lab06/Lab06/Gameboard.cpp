@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "Gameboard.h"
 
 	//static const int MAX_X = 10;		// gameboard x dimension
@@ -19,7 +20,7 @@ Gameboard::Gameboard() : grid{  } {}
 void Gameboard::empty() {
 	for (int i = 0; i < Gameboard::MAX_Y; i++) {
 		for (int k = 0; k < Gameboard::MAX_X; i++) {
-
+		}
 	}
 }
 
@@ -29,4 +30,4 @@ void Gameboard::empty() {
 //   If the content == EMPTY_BLOCK, print a '.', otherwise print the content.
 // - params: none
 // - return: nothing
-void printToConsole();
+//void printToConsole();
