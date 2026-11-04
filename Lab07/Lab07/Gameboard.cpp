@@ -82,11 +82,15 @@ void Gameboard::fillRow(int rowIndex, int content) {
 	}
 }
 
-// scan the board for completed rows.
-// Iterate through grid rows and use isRowCompleted(rowIndex)
-// - params: none
-// - return: a vector of completed row indices (integers).
-//std::vector<int> getCompletedRowIndices();
+std::vector<int> Gameboard::getCompletedRowIndices() {
+	std::vector<int> completedRows{};
+	for (int y = 0; y <= MAX_Y; y++) {
+		if (isRowCompleted(y)) {
+			completedRows.push_back( y );
+		}
+	}
+	return completedRows;
+}
 
 void Gameboard::removeRow(int rowIndex) {
 	assert(isRowCompleted( rowIndex ) && "Incomplete Row");
