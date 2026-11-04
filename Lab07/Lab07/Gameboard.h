@@ -55,6 +55,9 @@
 
 class Gameboard
 {
+	friend int main();
+	friend class TestSuite;
+
 public:
 	// CONSTANTS
 	static const int MAX_X = 10;		// gameboard x dimension - SIZE not value
