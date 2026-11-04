@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <string>
 #include <cassert>
+#include <algorithm>
 #include "Gameboard.h"
 #include "Point.h"
 #include "Tetromino.h"
@@ -102,7 +103,10 @@ void Gameboard::removeRow(int rowIndex) {
 }
 
 void Gameboard::removeRows(std::vector<int> rowIndexes) {
-	for (int i = 0; i < rowIndexes.size() ; i++) {
-		removeRow(rowIndexes[i]);
+	std::vector<int> rowIdxCopy(rowIndexes);
+	std::sort(rowIndexes.begin(), rowIndexes.end());
+
+	for (int i = 0; i < rowIdxCopy.size() ; i++) {
+		removeRow(rowIdxCopy[i]);
 	}
 }
