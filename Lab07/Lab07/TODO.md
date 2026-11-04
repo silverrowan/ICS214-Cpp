@@ -8,6 +8,7 @@ LAB 7 : Gameboard
 - [ ] check for constant, reference etc (best practice passing)
 - [x] check Gameboard::MAX_ y & x use correct <,>,= - max is INDEX not count
 	- [x] only isRowCompleted(), fillRow(), removeRow() checked
+	- [ ] reverse this, apparently the MAX is meant to be a size
 - [ ] test
 - [x] printToConsole();
 - [ ] areAllLocsEmpty();

@@ -57,7 +57,7 @@ class Gameboard
 {
 public:
 	// CONSTANTS
-	static const int MAX_X = 10;		// gameboard x dimension
+	static const int MAX_X = 10;		// gameboard x dimension - SIZE not value
 	static const int MAX_Y = 19;		// gameboard y dimension
 	static const int EMPTY_BLOCK = -1;	// contents of an empty block
 
