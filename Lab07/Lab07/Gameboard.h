@@ -95,7 +95,7 @@ public:
 	// assert the point is valid (use isValidPoint())
 	// - param 1: a Point (the XY of the content weant to retrieve)
 	// - return: an int, the content from the grid at the specified point 
-	int getContent(Point pt) const { return getContent( pt.getX(), pt.getY() ); }
+	int getContent(Point& pt) const { return getContent( pt.getX(), pt.getY() ); }
 
 	// get the content at a given XY location
 	// assert the point is valid (use isValidPoint())
@@ -107,7 +107,7 @@ public:
 	// set the content at a given point (ignore invalid points)
 	// - param 1: a Point
 	// - param 2: an int representing the content we want to set at this location.
-	void setContent(Point pt, int content) { setContent(pt.getX(), pt.getY(), content); }
+	void setContent(Point& pt, int content) { setContent(pt.getX(), pt.getY(), content); }
 
 	// set the content at an x,y position (ignore invalid points)
 	// - param 1: an int for X (column)
@@ -118,7 +118,7 @@ public:
 	// set the content for a set of points (ignore invalid points)
 	// - param 1: a vector of Points representing locations
 	// - param 2: an int representing the content we want to set.
-	void setContent( std::vector<Point> pts, int content );
+	void setContent( std::vector<Point>& pts, int content );
 
 	// Determine if (valid) all points passed in are empty
 	// *** IMPORTANT: Assume invalid x,y values can be passed to this method.
@@ -127,7 +127,7 @@ public:
 	// Using invalid points to index into the grid would cause undefined behaviour. 
 	// - param 1: a vector of Points representing locations to test
 	// - return: true if the content at ALL VALID points is EMPTY_BLOCK, false otherwise
-	bool areAllLocsEmpty(std::vector<Point> pts) const;
+	bool areAllLocsEmpty(std::vector<Point>& pts) const;
 
 	// Remove all completed rows from the board
 	//   use getCompletedRowIndices() and removeRows() 
@@ -145,7 +145,7 @@ public:
 	// Determine if a given Point is a valid grid location
 	// - param 1: a Point object
 	// - return: true if the point is a valid grid location, false otherwise
-	bool isValidPoint(Point pt) const { return isValidPoint(pt.getX(), pt.getY()); }
+	bool isValidPoint(Point& pt) const { return isValidPoint(pt.getX(), pt.getY()); }
 
 	// Determine if a given XY is a valid grid location
 	// - param 1: an int representing x
@@ -162,7 +162,7 @@ public:
 	// assert the row index is valid
 	// - param 1: an int representing the row index we want to test
 	// - return: bool representing if the row is completed
-	bool isRowCompleted( int rowIndex );
+	bool isRowCompleted( int rowIndex ) const;
 
 	// fill a given grid row with specified content
 	// - param 1: an int representing a row index
@@ -174,7 +174,7 @@ public:
 	// Iterate through grid rows and use isRowCompleted(rowIndex)
 	// - params: none
 	// - return: a vector of completed row indices (integers).
-	std::vector<int> getCompletedRowIndices();
+	std::vector<int> getCompletedRowIndices() const;
 
 	// copy a source row's contents into a target row.
 	// - param 1: an int representing the source row index
@@ -204,7 +204,7 @@ public:
 	//   Iterate through the vector, call removeRow() on each row index. 
 	// - param 1: a vector of integers representing row indices we want to remove
 	// - return: nothing
-	void removeRows(std::vector<int> rowIndexes);
+	void removeRows(std::vector<int>& rowIndexes);
 };
 
 #endif /* GAMEBOARD_H */

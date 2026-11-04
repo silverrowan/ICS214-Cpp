@@ -35,7 +35,7 @@ int Gameboard::getContent(int x, int y) const {
 }
 
 
-void Gameboard::setContent(std::vector<Point> pts, int content) {
+void Gameboard::setContent(std::vector<Point>& pts, int content) {
 	for (int i = 0; i < pts.size(); i++) {
 		Point targetPt = pts.at(i);
 		setContent(targetPt, content);
@@ -48,7 +48,7 @@ void Gameboard::setContent(int x, int y, int content) {
 	}
 }
 
-bool Gameboard::areAllLocsEmpty(std::vector<Point> pts) const {
+bool Gameboard::areAllLocsEmpty(std::vector<Point>& pts) const {
 	for (int i = 0; i < pts.size(); i++) {
 		if (isValidPoint(pts[i])) {
 			if (getContent(pts[i]) != EMPTY_BLOCK)
@@ -68,7 +68,7 @@ bool Gameboard::isValidPoint(int x, int y) const {
 	return (x < Gameboard::MAX_X && x >= 0 && isValidRow(y) );
 }
 
-bool Gameboard::isRowCompleted(int rowIndex) {
+bool Gameboard::isRowCompleted(int rowIndex) const {
 	assert(isValidRow(rowIndex) && "Not a valid gamboard row");
 	for (int x = 0; x < Gameboard::MAX_X; x++) {
 		if (getContent(x, rowIndex) == Gameboard::EMPTY_BLOCK) {
@@ -84,7 +84,7 @@ void Gameboard::fillRow(int rowIndex, int content) {
 	}
 }
 
-std::vector<int> Gameboard::getCompletedRowIndices() {
+std::vector<int> Gameboard::getCompletedRowIndices() const {
 	std::vector<int> completedRows{};
 	for (int y = 0; y < MAX_Y; y++) {
 		if (isRowCompleted(y)) {
@@ -114,7 +114,7 @@ void Gameboard::removeRow(int rowIndex) {
 	fillRow(0, EMPTY_BLOCK);
 }
 
-void Gameboard::removeRows(std::vector<int> rowIndexes) {
+void Gameboard::removeRows(std::vector<int>& rowIndexes) {
 	std::vector<int> rowIdxCopy(rowIndexes);
 	std::sort(rowIndexes.begin(), rowIndexes.end());
 
