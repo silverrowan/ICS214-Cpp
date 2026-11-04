@@ -101,11 +101,8 @@ void Gameboard::removeRow(int rowIndex) {
 	fillRow(0, EMPTY_BLOCK);
 }
 
-// Given a vector of row indices, remove them. 
-//   Ensure the indices of the vector in ascending order (sort it). Usually they 
-//   are but to make this method "bulletproof" we shouldn't make assumptions.  
-//   Best to make a copy and sort the copy (since param1 will likely be const). 
-//   Iterate through the vector, call removeRow() on each row index. 
-// - param 1: a vector of integers representing row indices we want to remove
-// - return: nothing
-//void removeRows(std::vector<int> rowIndexes);
+void Gameboard::removeRows(std::vector<int> rowIndexes) {
+	for (int i = 0; i < rowIndexes.size() ; i++) {
+		removeRow(rowIndexes[i]);
+	}
+}
