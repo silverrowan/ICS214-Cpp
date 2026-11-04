@@ -12,8 +12,8 @@ LAB 7 : Gameboard
 - [ ] test
 - [x] printToConsole();
 - [ ] areAllLocsEmpty();
-- [ ] removeCompletedRows();
+- [x] removeCompletedRows();
 - [x] getCompletedRowIndices();
 - [ ] copyRowIntoRow();
 - [x] removeRow();
-- [ ] removeRows();
+- [x] removeRows();

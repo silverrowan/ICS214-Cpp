@@ -61,7 +61,11 @@ void Gameboard::setContent(int x, int y, int content) {
 //   use getCompletedRowIndices() and removeRows() 
 // - params: none
 // - return: the count of completed rows removed
-//int removeCompletedRows();
+int Gameboard::removeCompletedRows() {
+	std::vector<int> removeRowsList{ getCompletedRowIndices() };
+	removeRows( removeRowsList );
+	return removeRowsList.size();
+}
 
 bool Gameboard::isValidPoint(int x, int y) const {
 	return (x <= Gameboard::MAX_X && x >= 0 && isValidRow(y) );
