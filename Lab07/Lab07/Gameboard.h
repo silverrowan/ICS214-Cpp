@@ -98,7 +98,7 @@ public:
 	// assert the point is valid (use isValidPoint())
 	// - param 1: a Point (the XY of the content weant to retrieve)
 	// - return: an int, the content from the grid at the specified point 
-	int getContent(Point& pt) const { return getContent( pt.getX(), pt.getY() ); }
+	int getContent(Point pt) const { return getContent( pt.getX(), pt.getY() ); }
 
 	// get the content at a given XY location
 	// assert the point is valid (use isValidPoint())
@@ -110,7 +110,7 @@ public:
 	// set the content at a given point (ignore invalid points)
 	// - param 1: a Point
 	// - param 2: an int representing the content we want to set at this location.
-	void setContent(Point& pt, int content) { setContent(pt.getX(), pt.getY(), content); }
+	void setContent(Point pt, int content) { setContent(pt.getX(), pt.getY(), content); }
 
 	// set the content at an x,y position (ignore invalid points)
 	// - param 1: an int for X (column)
@@ -148,7 +148,7 @@ public:
 	// Determine if a given Point is a valid grid location
 	// - param 1: a Point object
 	// - return: true if the point is a valid grid location, false otherwise
-	bool isValidPoint(Point& pt) const { return isValidPoint(pt.getX(), pt.getY()); }
+	bool isValidPoint(Point pt) const { return isValidPoint(pt.getX(), pt.getY()); }
 
 	// Determine if a given XY is a valid grid location
 	// - param 1: an int representing x
