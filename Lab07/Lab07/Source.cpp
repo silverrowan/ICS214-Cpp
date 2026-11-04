@@ -22,13 +22,23 @@ int main()
     //std::cout << b.isRowCompleted(1);
     //std::cout << b.isRowCompleted(3) << "\n";
 
-    //std::cout << "-------------------\n";
+    //std::cout << "-----------copyRow--------\n";
 
     //b.copyRowIntoRow(3,5);
-    //std::cout << b.getContent(3,0) << "\n";
-    //std::cout << b.getContent(3,5) << "\n";
-    //std::cout << b.getContent(3,9) << "\n";
-    //std::cout << b.isValidPoint(3,10) << "\n";
+    //std::cout << b.getContent(0, 3) << "\n";
+    //std::cout << b.getContent(5, 3) << "\n";
+    //std::cout << b.getContent(9, 3) << "\n";
+    //std::cout << b.isValidPoint(10, 3) << "\n";
     //b.printToConsole();
-    
+    //
+    //std::cout << "-----------removeRow--------\n";
+    //b.removeRow(3);
+    ////b.removeRow(2); //throws error as it should
+    //b.copyRowIntoRow(5, 6);
+    //b.copyRowIntoRow(5, 7);
+    //b.copyRowIntoRow(5, 8);
+    //b.printToConsole();
+    //std::cout << "-----------removeFullRow--------\n";
+    //std::vector<int> completed{ b.getCompletedRowIndices() }
+    //b.removeRows({7,8});
 }

@@ -31,7 +31,7 @@ int Gameboard::getContent(int x, int y) const {
 }
 
 
-void Gameboard::setContent(std::vector<Point>& pts, int content) {
+void Gameboard::setContent(const std::vector<Point>& pts, int content) {
 	for (int i = 0; i < pts.size(); i++) {
 		Point targetPt = pts.at(i);
 		setContent(targetPt, content);
@@ -44,7 +44,7 @@ void Gameboard::setContent(int x, int y, int content) {
 	}
 }
 
-bool Gameboard::areAllLocsEmpty(std::vector<Point>& pts) const {
+bool Gameboard::areAllLocsEmpty(const std::vector<Point>& pts) const {
 	for (int i = 0; i < pts.size(); i++) {
 		if (isValidPoint(pts[i])) {
 			if (getContent(pts[i]) != EMPTY_BLOCK)
@@ -57,7 +57,7 @@ bool Gameboard::areAllLocsEmpty(std::vector<Point>& pts) const {
 int Gameboard::removeCompletedRows() {
 	std::vector<int> removeRowsList{ getCompletedRowIndices() };
 	removeRows( removeRowsList );
-	return removeRowsList.size();
+	return static_cast<int>(removeRowsList.size());
 }
 
 bool Gameboard::isValidPoint(int x, int y) const {
@@ -110,9 +110,9 @@ void Gameboard::removeRow(int rowIndex) {
 	fillRow(0, EMPTY_BLOCK);
 }
 
-void Gameboard::removeRows(std::vector<int>& rowIndexes) {
+void Gameboard::removeRows(const std::vector<int>& rowIndexes) {
 	std::vector<int> rowIdxCopy(rowIndexes);
-	std::sort(rowIndexes.begin(), rowIndexes.end());
+	std::sort(rowIdxCopy.begin(), rowIdxCopy.end());
 
 	for (int i = 0; i < rowIdxCopy.size() ; i++) {
 		removeRow(rowIdxCopy[i]);
