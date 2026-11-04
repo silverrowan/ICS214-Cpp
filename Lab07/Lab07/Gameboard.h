@@ -67,6 +67,7 @@ private:
 	// the gameboard - a grid of X and Y offsets.  
 	//  ([0][0] is top left, [MAX_Y-1][MAX_X-1] is bottom right) 
 	int grid[MAX_Y][MAX_X];
+
 	// the gameboard offset to spawn a new tetromino at.
 	const Point spawnLoc{ MAX_X / 2, 0 };
 
@@ -74,7 +75,7 @@ public:
 	// METHODS -------------------------------------------------
 	// 
 	// constructor - empty() the grid
-	Gameboard();
+	Gameboard() : grid{ } { empty(); }
 
 	// fill the board with EMPTY_BLOCK 
 	//   (iterate through each rowIndex and fillRow() with EMPTY_BLOCK))
@@ -94,7 +95,7 @@ public:
 	// assert the point is valid (use isValidPoint())
 	// - param 1: a Point (the XY of the content weant to retrieve)
 	// - return: an int, the content from the grid at the specified point 
-	int getContent(Point pt) const { return grid[pt.getY()][pt.getX()]; }
+	int getContent(Point pt) const { return getContent( pt.getX(), pt.getY() ); }
 
 	// get the content at a given XY location
 	// assert the point is valid (use isValidPoint())
@@ -106,13 +107,13 @@ public:
 	// set the content at a given point (ignore invalid points)
 	// - param 1: a Point
 	// - param 2: an int representing the content we want to set at this location.
-	void setContent(Point pt, int content) { grid[pt.getY()][pt.getX()] = content; }
+	void setContent(Point pt, int content) { setContent(pt.getX(), pt.getY(), content); }
 
 	// set the content at an x,y position (ignore invalid points)
 	// - param 1: an int for X (column)
 	// - param 2: an int for Y (row)
 	// - param 3: an int representing the content we want to set at this location	
-	void setContent(int x, int y, int content) { grid[y][x] = content; }
+	void setContent(int x, int y, int content);
 
 	// set the content for a set of points (ignore invalid points)
 	// - param 1: a vector of Points representing locations
@@ -144,13 +145,13 @@ public:
 	// Determine if a given Point is a valid grid location
 	// - param 1: a Point object
 	// - return: true if the point is a valid grid location, false otherwise
-	bool isValidPoint( Point pt);
+	bool isValidPoint(Point pt) const { return isValidPoint(pt.getX(), pt.getY()); }
 
 	// Determine if a given XY is a valid grid location
 	// - param 1: an int representing x
 	// - param 2: an int representing y
 	// - return: true if the x,y is a valid grid location, false otherwise
-	bool isValidPoint( int x, int y);
+	bool isValidPoint( int x, int y) const ;
 
 	// return a bool indicating if a given row is full (no EMPTY_BLOCK in the row)
 	// assert the row index is valid

@@ -1,20 +1,10 @@
+#include <iostream>
 #include <iomanip>
+#include <string>
+#include <cassert>
 #include "Gameboard.h"
 #include "Point.h"
 #include "Tetromino.h"
-
-	//static const int MAX_X = 10;		// gameboard x dimension
-	//static const int MAX_Y = 19;		// gameboard y dimension
-	//static const int EMPTY_BLOCK = -1;	// contents of an empty block
-
-
-	// the gameboard - a grid of X and Y offsets.  
-	//  ([0][0] is top left, [MAX_Y-1][MAX_X-1] is bottom right) 
-	//int grid[MAX_Y][MAX_X];
-
-Gameboard::Gameboard() : grid{ } {
-	empty();
-}
 
 void Gameboard::empty() {
 	for (int y = 0; y < Gameboard::MAX_Y; y++) { //row/y
@@ -28,30 +18,62 @@ void Gameboard::empty() {
 //   If the content == EMPTY_BLOCK, print a '.', otherwise print the content.
 // - params: none
 // - return: nothing
-//void printToConsole();
+void Gameboard::printToConsole() const {
+	for (int y = 0; y < Gameboard::MAX_Y; y++) { //row/y
+		for (int x = 0; x < Gameboard::MAX_X; x++) { //col/x
+			int content{ getContent(x, y) };
+
+			char outChar{};
+			if (content == -1) { outChar = '.'; }
+			else { outChar = content; }
+
+			std::cout << std::setw(2) << outChar;
+		}
+		std::cout << '\n';
+	}
+}
+
+
+// get the content at a given XY location
+// assert the point is valid (use isValidPoint())
+// - param 1: an int for X (column)
+// - param 2: an int for Y (row)
+// - return: an int, the content from the grid at the specified XY
+int Gameboard::getContent(int x, int y) const {
+	assert(isValidPoint( x, y ) && "coordinates are invalid");
+
+	return grid[y][x]; 
+}
+
 
 void Gameboard::setContent(std::vector<Point> pts, int content) {
 	for (int i = 0; i < pts.size(); i++) {
 		Point targetPt = pts.at(i);
-		Gameboard::setContent( targetPt, content);
+		Gameboard::setContent(targetPt, content);
 	}
 }
 
-bool Gameboard::isValidPoint(Point pt) {
+void Gameboard::setContent(int x, int y, int content) {
+	if (isValidPoint(x, y)) {
+		grid[y][x] = content;
+	}
+}
+
+bool Gameboard::isValidPoint(Point pt) const {
 	int x = pt.getX();
 	int y = pt.getY();
 
 	return Gameboard::isValidPoint(x, y);
 }
 
-bool Gameboard::isValidPoint(int x, int y) {
+bool Gameboard::isValidPoint(int x, int y) const {
 	if (x > Gameboard::MAX_X || y > Gameboard::MAX_Y || x < 0 || y < 0) {
 		return false;
 	}
 	else { return true; }
 }
 
-bool isRowCompleted(int rowIndex) {
+bool Gameboard::isRowCompleted(int rowIndex) {
 	for (int x = 0; x < Gameboard::MAX_X; x++) {
 		if (getContent(x, rowIndex) == Gameboard::EMPTY_BLOCK) {
 			return false;
@@ -62,9 +84,15 @@ bool isRowCompleted(int rowIndex) {
 
 void Gameboard::fillRow(int rowIndex, int content) {
 	for (int x = 0; x < Gameboard::MAX_X; x++) { //col/x
-		setContent(x, rowIndex, Gameboard::EMPTY_BLOCK);
+		setContent(x, rowIndex, content);
 	}
 }
 
+void Gameboard::removeRow(int rowIndex) {
+	assert(isRowCompleted( rowIndex ) && "Incomplete Row");
 
-getContent(x, y)
+	for (int row = rowIndex; row > 0; row--) {
+		copyRowIntoRow(row - 1, row);
+	}
+	fillRow(0, EMPTY_BLOCK);
+}
