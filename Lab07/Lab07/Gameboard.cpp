@@ -12,15 +12,9 @@ void Gameboard::empty() {
 	}
 }
 
-// print the grid contents to the console (for debugging purposes)
-//   use std::setw(2) to space the contents out 
-//   (google it, you'll need to #include <iomanip>).
-//   If the content == EMPTY_BLOCK, print a '.', otherwise print the content.
-// - params: none
-// - return: nothing
 void Gameboard::printToConsole() const {
-	for (int y = 0; y <= Gameboard::MAX_Y; y++) { //row/y
-		for (int x = 0; x <= Gameboard::MAX_X; x++) { //col/x
+	for (int y = 0; y <= MAX_Y; y++) { //row/y
+		for (int x = 0; x <= MAX_X; x++) { //col/x
 			int content{ getContent(x, y) };
 
 			char outChar{};
