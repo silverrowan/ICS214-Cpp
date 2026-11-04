@@ -17,12 +17,8 @@ void Gameboard::printToConsole() const {
 	for (int y = 0; y < MAX_Y; y++) { //row/y
 		for (int x = 0; x < MAX_X; x++) { //col/x
 			int content{ getContent(x, y) };
-
-			char outChar{};
-			if (content == -1) { outChar = '.'; }
-			else { outChar = content; }
-
-			std::cout << std::setw(2) << outChar;
+			if (content == -1) { std::cout << std::setw(2) << '.'; }
+			else { std::cout << std::setw(2) << content; }
 		}
 		std::cout << '\n';
 	}
