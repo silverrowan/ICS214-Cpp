@@ -7,7 +7,7 @@
 #include "Tetromino.h"
 
 void Gameboard::empty() {
-	for (int y = 0; y < Gameboard::MAX_Y; y++) { //row/y
+	for (int y = 0; y <= Gameboard::MAX_Y; y++) { //row/y
 		fillRow(y, Gameboard::EMPTY_BLOCK);
 	}
 }
@@ -19,8 +19,8 @@ void Gameboard::empty() {
 // - params: none
 // - return: nothing
 void Gameboard::printToConsole() const {
-	for (int y = 0; y < Gameboard::MAX_Y; y++) { //row/y
-		for (int x = 0; x < Gameboard::MAX_X; x++) { //col/x
+	for (int y = 0; y <= Gameboard::MAX_Y; y++) { //row/y
+		for (int x = 0; x <= Gameboard::MAX_X; x++) { //col/x
 			int content{ getContent(x, y) };
 
 			char outChar{};
