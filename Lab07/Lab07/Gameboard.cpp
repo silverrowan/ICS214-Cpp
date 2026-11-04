@@ -97,6 +97,16 @@ std::vector<int> Gameboard::getCompletedRowIndices() {
 	return completedRows;
 }
 
+void Gameboard::copyRowIntoRow(int sourceRowIndex, int targetRowIndex) {
+	assert(isValidRow(targetRowIndex) && "Target row is not a valid row on the gameboard");
+	if (isValidRow(sourceRowIndex)) {
+		for (int x = 0; x < MAX_X; x++) {
+			setContent(x, targetRowIndex, getContent(x, sourceRowIndex));
+		}
+	}
+	else { fillRow(targetRowIndex, EMPTY_BLOCK); }
+}
+
 void Gameboard::removeRow(int rowIndex) {
 	assert(isValidRow(rowIndex) && "Not a valid row on the GameBoard");
 	assert(isRowCompleted( rowIndex ) && "Incomplete Row");
