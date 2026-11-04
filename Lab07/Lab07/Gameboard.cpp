@@ -56,10 +56,10 @@ void Gameboard::setContent(int x, int y, int content) {
 // - return: true if the content at ALL VALID points is EMPTY_BLOCK, false otherwise
 //bool areAllLocsEmpty(std::vector<Point> pts) const;
 
-	// Remove all completed rows from the board
-	//   use getCompletedRowIndices() and removeRows() 
-	// - params: none
-	// - return: the count of completed rows removed
+// Remove all completed rows from the board
+//   use getCompletedRowIndices() and removeRows() 
+// - params: none
+// - return: the count of completed rows removed
 //int removeCompletedRows();
 
 bool Gameboard::isValidPoint(int x, int y) const {
