@@ -48,19 +48,16 @@ void Gameboard::setContent(int x, int y, int content) {
 	}
 }
 
-// Determine if (valid) all points passed in are empty
-// *** IMPORTANT: Assume invalid x,y values can be passed to this method.
-// Invalid meaning outside the bounds of the grid.
-// * ONLY TEST VALID POINTS (use isValidPoint()). Ignore invalid Points.
-// Using invalid points to index into the grid would cause undefined behaviour. 
-// - param 1: a vector of Points representing locations to test
-// - return: true if the content at ALL VALID points is EMPTY_BLOCK, false otherwise
-//bool areAllLocsEmpty(std::vector<Point> pts) const;
+bool Gameboard::areAllLocsEmpty(std::vector<Point> pts) const {
+	for (int i = 0; i < pts.size(); i++) {
+		if (isValidPoint(pts[i])) {
+			if (getContent(pts[i]) != EMPTY_BLOCK)
+				return false;
+		}
+	}
+	return true;
+}
 
-// Remove all completed rows from the board
-//   use getCompletedRowIndices() and removeRows() 
-// - params: none
-// - return: the count of completed rows removed
 int Gameboard::removeCompletedRows() {
 	std::vector<int> removeRowsList{ getCompletedRowIndices() };
 	removeRows( removeRowsList );

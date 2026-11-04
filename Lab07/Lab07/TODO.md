@@ -11,7 +11,7 @@ LAB 7 : Gameboard
 	- [x] reverse this, apparently the MAX is meant to be a size
 - [ ] test
 - [x] printToConsole();
-- [ ] areAllLocsEmpty();
+- [x] areAllLocsEmpty();
 - [x] removeCompletedRows();
 - [x] getCompletedRowIndices();
 - [x] copyRowIntoRow();
