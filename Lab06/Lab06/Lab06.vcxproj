@@ -142,12 +142,14 @@
     <ClCompile Include="Gameboard.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TestSuite-7.cpp" />
     <ClCompile Include="TestSuite.cpp" />
     <ClCompile Include="Tetromino.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gameboard.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="TestSuite-7.h" />
     <ClInclude Include="TestSuite.h" />
     <ClInclude Include="Tetromino.h" />
   </ItemGroup>

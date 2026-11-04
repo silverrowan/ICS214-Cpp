@@ -6,13 +6,13 @@ void Point::setXY(int x, int y) {
 }
 
 void Point::swapXY() {
-	int temp = getX();
-	setX(getY());
-	setY(temp);
+	int temp{ getX() };
+	setX( getY() );
+	setY( temp );
 }
 
-std::string Point::toString() {
+std::string Point::toString() const {
 	std::stringstream string{};
-	string << "[" << (getX()) << "," << getY() << "]";
+	string << "[" << getX() << "," << getY() << "]";
 	return string.str();
 }

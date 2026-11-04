@@ -9,12 +9,10 @@ private:
 	int y{ -1 };
 
 public:
-	Point() {};
+	Point(int xIn = 0, int yIn = 0) : x{ xIn }, y{ yIn } {}
 
-	Point(int xIn, int yIn) : x{ xIn }, y{ yIn } {}
-
-	int getX() { return x; }
-	int getY() { return y; }
+	int getX() const { return x; }
+	int getY() const { return y; }
 	void setX(int x) { this->x = x; } // do these need to be refs? getters never should be, but setters?
 	void setY(int y) { this->y = y; }
 
@@ -34,13 +32,13 @@ public:
 	/// Multiply x coord by factor specified. Alters original.
 	/// </summary>
 	/// <param name="factor">int, multiplier</param>
-	void multiplyX(int factor) { x *= factor; }
+	void multiplyX(int factor) { setX( getX()*factor ) ; }
 
 	/// <summary>
 	/// Multiply y coord by factor specified. Alters original.
 	/// </summary>
 	/// <param name="factor">int, multiplier</param>
-	void multiplyY(int factor) { y *= factor; }
+	void multiplyY(int factor) { setY( getY()*factor ) ; }
 
 	/// <summary>
 	// return a string in the form "[x,y]" to represent the state of the Point instance  
@@ -48,11 +46,10 @@ public:
 	// the same way you use cout https://www.learncpp.com/cpp-tutorial/stream-classes-for-strings/ 
 	/// </summary>
 	/// <returns>string of coordinates</returns>
-	std::string toString();
+	std::string toString () const;
 
 	/// <summary>
 	/// Print out coordinates to terminal in format [x,y]
 	/// </summary>
-	void printCoords() { std::cout << "[" << (getX()) << "," << (getY()) << "]"; }
+	void printCoords() const { std::cout << "[" << (getX()) << "," << (getY()) << "]" ; }
 };
-

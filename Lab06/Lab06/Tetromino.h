@@ -7,41 +7,27 @@ enum class TetShape{ S, Z, L, J, O, I, T };
 
 class Tetromino
 {
-	//Creation / Initialization:
-	//std::vector<Point> v1;
-	//std::vector<Point> v2{ Point(0, 0), Point(1, 1) };
-	//Assignment:
-	//v1 = { Point(0, 0), Point(1, 1) };
-	//v2 = { {0, 0}, {1, 1} };
-	//Element Access(set / get) :
-	//	v1[2] = Point(0, 0);
-	//Adding a single element :
-	//v1.push_back(Point(3, 3));
-	//v2.push_back({ 3, 3 });
-	//Emptying a vector :
-	//v1.empty();
-
+	//FRIENDS
+	friend class TestSuite;
 
 private:
 	TetColor color{};
 	TetShape shape{};
 	std::vector<Point> blockLocs{};
 
-	//strings... TetColor { 'RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE_LIGHT', 'BLUE_DARK', 'PURPLE' };
-	//strings... class TetShape{ 'S', 'Z', 'L', 'J', 'O', 'I', 'T' };
-
-
 public:
-	Tetromino();
+	Tetromino() {
+		setShape( TetShape::O );
+	};
 
-	TetColor getColor() { return color; }
+	TetColor getColor() const { return color; }
 
-	TetShape getShape() { return shape; }
+	TetShape getShape() const { return shape; }
 
 	// -set the shape
 	// - set the blockLocs for the shape 
 	// - set the color for the shape
-	void setShape(TetShape shape); 
+	void setShape( TetShape shape ); 
 
 	// 
 	// print a grid to display the current shape 
@@ -58,7 +44,7 @@ public:
 	//  ..xx... 
 	//  ...x... 
 	//  ....... 
-	void printToConsole();
+	void printToConsole() const;
 
 
 	// rotate the shape 90 degrees around [0,0] (clockwise) 
@@ -70,6 +56,5 @@ public:
 	// a couple existing methods in the Point class to accomplish this.   
 	// make it so that the TetShape::O doesn’t rotate 
 	void rotateClockwise();
-
 };
 
