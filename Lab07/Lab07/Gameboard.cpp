@@ -8,14 +8,14 @@
 #include "Tetromino.h"
 
 void Gameboard::empty() {
-	for (int y = 0; y <= Gameboard::MAX_Y; y++) { //row/y
+	for (int y = 0; y < Gameboard::MAX_Y; y++) { //row/y
 		fillRow(y, Gameboard::EMPTY_BLOCK);
 	}
 }
 
 void Gameboard::printToConsole() const {
-	for (int y = 0; y <= MAX_Y; y++) { //row/y
-		for (int x = 0; x <= MAX_X; x++) { //col/x
+	for (int y = 0; y < MAX_Y; y++) { //row/y
+		for (int x = 0; x < MAX_X; x++) { //col/x
 			int content{ getContent(x, y) };
 
 			char outChar{};
@@ -68,12 +68,12 @@ int Gameboard::removeCompletedRows() {
 }
 
 bool Gameboard::isValidPoint(int x, int y) const {
-	return (x <= Gameboard::MAX_X && x >= 0 && isValidRow(y) );
+	return (x < Gameboard::MAX_X && x >= 0 && isValidRow(y) );
 }
 
 bool Gameboard::isRowCompleted(int rowIndex) {
 	assert(isValidRow(rowIndex) && "Not a valid gamboard row");
-	for (int x = 0; x <= Gameboard::MAX_X; x++) {
+	for (int x = 0; x < Gameboard::MAX_X; x++) {
 		if (getContent(x, rowIndex) == Gameboard::EMPTY_BLOCK) {
 			return false;
 		}
@@ -82,14 +82,14 @@ bool Gameboard::isRowCompleted(int rowIndex) {
 }
 
 void Gameboard::fillRow(int rowIndex, int content) {
-	for (int x = 0; x <= MAX_X; x++) { //col/x
+	for (int x = 0; x < MAX_X; x++) { //col/x
 		setContent(x, rowIndex, content);
 	}
 }
 
 std::vector<int> Gameboard::getCompletedRowIndices() {
 	std::vector<int> completedRows{};
-	for (int y = 0; y <= MAX_Y; y++) {
+	for (int y = 0; y < MAX_Y; y++) {
 		if (isRowCompleted(y)) {
 			completedRows.push_back( y );
 		}
