@@ -94,6 +94,7 @@ std::vector<int> Gameboard::getCompletedRowIndices() {
 }
 
 void Gameboard::removeRow(int rowIndex) {
+	assert(isValidRow(rowIndex) && "Not a valid row on the GameBoard");
 	assert(isRowCompleted( rowIndex ) && "Incomplete Row");
 
 	for (int row = rowIndex; row > 0; row--) {
