@@ -1,20 +1,34 @@
-// Lab07.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include "TestSuite.h"
+#include "Gameboard.h"
+#include "Tetromino.h"
+#include "Point.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    TestSuite::runTestSuite();
+
+    //Gameboard b;
+    //Point pt1{ 1,1 };
+    //Point pt2{ 2,2 };
+
+    //b.setContent(pt1, 1);
+    //b.setContent(pt2, 2);
+    //b.fillRow(3, 3);
+    //b.printToConsole();
+
+    //std::cout << b.getContent(pt1);
+    //std::cout << b.getContent(3,3);
+    //std::cout << b.isRowCompleted(1);
+    //std::cout << b.isRowCompleted(3) << "\n";
+
+    //std::cout << "-------------------\n";
+
+    //b.copyRowIntoRow(3,5);
+    //std::cout << b.getContent(3,0) << "\n";
+    //std::cout << b.getContent(3,5) << "\n";
+    //std::cout << b.getContent(3,9) << "\n";
+    //std::cout << b.isValidPoint(3,10) << "\n";
+    //b.printToConsole();
+    
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
