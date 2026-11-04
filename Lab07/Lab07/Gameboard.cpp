@@ -37,7 +37,7 @@ int Gameboard::getContent(int x, int y) const {
 void Gameboard::setContent(std::vector<Point> pts, int content) {
 	for (int i = 0; i < pts.size(); i++) {
 		Point targetPt = pts.at(i);
-		Gameboard::setContent(targetPt, content);
+		setContent(targetPt, content);
 	}
 }
 
@@ -77,7 +77,7 @@ bool Gameboard::isRowCompleted(int rowIndex) {
 }
 
 void Gameboard::fillRow(int rowIndex, int content) {
-	for (int x = 0; x <= Gameboard::MAX_X; x++) { //col/x
+	for (int x = 0; x <= MAX_X; x++) { //col/x
 		setContent(x, rowIndex, content);
 	}
 }
