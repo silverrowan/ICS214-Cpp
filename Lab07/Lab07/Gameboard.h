@@ -102,7 +102,7 @@ public:
 	// - param 1: an int for X (column)
 	// - param 2: an int for Y (row)
 	// - return: an int, the content from the grid at the specified XY
-	int getContent(int x, int y) const { return grid[y][x]; }
+	int getContent(int x, int y) const;
 
 	// set the content at a given point (ignore invalid points)
 	// - param 1: a Point

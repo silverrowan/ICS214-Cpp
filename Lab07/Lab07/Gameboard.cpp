@@ -27,12 +27,6 @@ void Gameboard::printToConsole() const {
 	}
 }
 
-
-// get the content at a given XY location
-// assert the point is valid (use isValidPoint())
-// - param 1: an int for X (column)
-// - param 2: an int for Y (row)
-// - return: an int, the content from the grid at the specified XY
 int Gameboard::getContent(int x, int y) const {
 	assert(isValidPoint( x, y ) && "coordinates are invalid");
 
