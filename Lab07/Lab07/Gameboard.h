@@ -153,6 +153,11 @@ public:
 	// - return: true if the x,y is a valid grid location, false otherwise
 	bool isValidPoint( int x, int y) const ;
 
+	// Determine if a given row is a valid grid location
+	// - param 1: an int representing y
+	// - return: true if the y is a valid grid location, false otherwise
+	bool isValidRow(int y) const { return !(y > Gameboard::MAX_Y || y < 0); }
+
 	// return a bool indicating if a given row is full (no EMPTY_BLOCK in the row)
 	// assert the row index is valid
 	// - param 1: an int representing the row index we want to test
