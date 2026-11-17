@@ -17,3 +17,11 @@ LAB 7 : Gameboard
 - [x] copyRowIntoRow();
 - [x] removeRow();
 - [x] removeRows();
+
+Lab 08:
+
+- [ ] seed randomizer (for Tetromino::getRandomShape, in main ln 38)
+- [ ] comments:
+	- [ ]Gameboard::getSpawnLoc()
+	- [ ] gameboard??? fill row helper funct
+- [ ] re-comment gameboard 'private' functions

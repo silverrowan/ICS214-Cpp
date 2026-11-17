@@ -14,6 +14,7 @@ const Point TetrisGame::ORIGIN_PIXELS{ Point(55, 126) };
 
 void TetrisGame::draw(){
 	drawGameboard();
+	drawTetromino(currentShape, ORIGIN_PIXELS);
 	//drawBlock(ORIGIN_PIXELS, 0, 0, TetColor::YELLOW);
 	//drawBlock(ORIGIN_PIXELS, 1, 0, TetColor::YELLOW);
 	//drawBlock(ORIGIN_PIXELS, 2, 1, TetColor::GREEN);
@@ -133,30 +134,31 @@ void TetrisGame::draw(){
 
 		int sprite_position{};
 
-		switch (color) { 
-			case TetColor::RED:
-				sprite_position = 0;
-				break;
-			case TetColor::ORANGE:
-				sprite_position = 1;
-				break;
-			case TetColor::YELLOW:
-				sprite_position = 2;
-				break;
-			case TetColor::GREEN:
-				sprite_position = 3;
-				break;
-			case TetColor::BLUE_LIGHT:
-				sprite_position = 4;
-				break;
-			case TetColor::BLUE_DARK:
-				sprite_position = 5;
-				break;
-			case TetColor::PURPLE:
-				sprite_position = 6;
-				break;
-		}
-		int spriteStartX{ initSpriteX + (sprite_position * BLOCK_WIDTH) };
+		//switch (color) { 
+		//	case TetColor::RED:
+		//		sprite_position = 0;
+		//		break;
+		//	case TetColor::ORANGE:
+		//		sprite_position = 1;
+		//		break;
+		//	case TetColor::YELLOW:
+		//		sprite_position = 2;
+		//		break;
+		//	case TetColor::GREEN:
+		//		sprite_position = 3;
+		//		break;
+		//	case TetColor::BLUE_LIGHT:
+		//		sprite_position = 4;
+		//		break;
+		//	case TetColor::BLUE_DARK:
+		//		sprite_position = 5;
+		//		break;
+		//	case TetColor::PURPLE:
+		//		sprite_position = 6;
+		//		break;
+		//}
+		//int spriteStartX{ initSpriteX + (sprite_position * BLOCK_WIDTH) };
+		int spriteStartX{ initSpriteX + (static_cast<int>(color) * BLOCK_WIDTH) };
 		//int spriteWidth{ spriteStartX + BLOCK_HEIGHT };
 		int spriteWidth{ BLOCK_WIDTH };
 		blockSprite.setTextureRect(  sf::IntRect({ spriteStartX, spriteStartY }, { spriteWidth, spriteEndY }) );
@@ -192,7 +194,15 @@ void TetrisGame::draw(){
 	// param 1: GridTetromino tetromino
 	// param 2: Point topLeft
 	// return: nothing
-	void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topLeft){}
+	void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topLeft){
+		//tetromino.getBlockLocs();
+		std::vector<Point> blocks{ tetromino.getBlockLocsMappedToGrid() };
+
+		for (int i = 0; i < blocks.size(); i++) {
+			Point block = blocks[i];
+			drawBlock(ORIGIN_PIXELS, block.getX(), block.getY(), tetromino.getColor());
+		}
+	}
 
 	// update the score display
 	// form a string "score: ##" to display the current score

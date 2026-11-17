@@ -2,8 +2,8 @@
 #include <vector>
 #include "Point.h"
 
-enum class TetColor { RED, ORANGE, YELLOW, GREEN, BLUE_LIGHT, BLUE_DARK, PURPLE };
-enum class TetShape{ S, Z, L, J, O, I, T };
+enum class TetColor { RED, ORANGE, YELLOW, GREEN, BLUE_LIGHT, BLUE_DARK, PURPLE, COUNT };
+enum class TetShape{ S, Z, L, J, O, I, T, COUNT };
 
 class Tetromino
 {
@@ -17,7 +17,7 @@ private:
 
 public:
 	Tetromino() {
-		setShape( TetShape::O );
+		setShape(TetShape::O);
 	};
 
 	TetColor getColor() const { return color; }
@@ -29,7 +29,7 @@ public:
 	// -set the shape
 	// - set the blockLocs for the shape 
 	// - set the color for the shape
-	void setShape( TetShape shape ); 
+	void setShape(TetShape shape);
 
 	// 
 	// print a grid to display the current shape 
@@ -48,7 +48,6 @@ public:
 	//  ....... 
 	void printToConsole() const;
 
-
 	// rotate the shape 90 degrees around [0,0] (clockwise) 
 	// to do this: 
 	//  
@@ -58,5 +57,7 @@ public:
 	// a couple existing methods in the Point class to accomplish this.   
 	// make it so that the TetShape::O doesn’t rotate 
 	void rotateClockwise();
+
+	static TetShape getRandomShape();
 };
 

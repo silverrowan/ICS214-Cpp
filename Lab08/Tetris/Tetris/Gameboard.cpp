@@ -10,7 +10,6 @@
 void Gameboard::empty() {
 	for (int y = 0; y < Gameboard::MAX_Y; y++) { //row/y
 		fillRow(y, Gameboard::EMPTY_BLOCK);
-		//fillRow(y, 3);
 	}
 }
 
@@ -30,7 +29,6 @@ int Gameboard::getContent(int x, int y) const {
 
 	return grid[y][x]; 
 }
-
 
 void Gameboard::setContent(const std::vector<Point>& pts, int content) {
 	for (int i = 0; i < static_cast<int>(pts.size()); i++) {

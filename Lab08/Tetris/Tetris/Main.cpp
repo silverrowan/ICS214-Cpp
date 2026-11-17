@@ -34,6 +34,9 @@ int main()
 	// set up a tetris game
 	TetrisGame game(window, blockSprite, gameboardOffset, nextShapeOffset);
 
+	//seed randomizer
+	//TODO
+
 	// set up a clock so we can determine seconds per game loop
 	sf::Clock clock;		
 

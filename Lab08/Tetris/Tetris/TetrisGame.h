@@ -70,7 +70,11 @@ public:
 	//   setup scoreText
 	// - params: already specified
 	TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :
-		window{ window }, blockSprite{ blockSprite }, gameboardOffset{ gameboardOffset }, nextShapeOffset{ nextShapeOffset } {
+			window{ window }, blockSprite{ blockSprite }, gameboardOffset{ gameboardOffset }, nextShapeOffset{ nextShapeOffset } {
+		Gameboard board{ Gameboard() };
+		currentShape.setShape(Tetromino::getRandomShape());
+		Point spawn_loc = board.getSpawnLoc();
+		currentShape.setGridLoc(spawn_loc);
 	} // do i mark as const if initialized in initialization list and not modified after?
 
 	//TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :

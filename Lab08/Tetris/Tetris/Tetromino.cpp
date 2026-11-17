@@ -65,3 +65,8 @@ void Tetromino::rotateClockwise() {
 		block.swapXY();
 	}
 }
+
+TetShape Tetromino::getRandomShape() {
+	int random_shape = std::rand() % static_cast<int>(TetShape::COUNT);
+	return static_cast<TetShape>(random_shape);
+}
