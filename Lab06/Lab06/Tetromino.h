@@ -24,6 +24,7 @@ public:
 
 	TetShape getShape() const { return shape; }
 
+	std::vector<Point> getBlockLocs() const { return blockLocs; }
 	// -set the shape
 	// - set the blockLocs for the shape 
 	// - set the color for the shape
