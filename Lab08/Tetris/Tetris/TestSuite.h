@@ -9,7 +9,7 @@
 //#define POINT
 //#define TETROMINO
 //#define GAMEBOARD
-//#define GRIDTETROMINO
+#define GRIDTETROMINO
 
 #include <string>
 

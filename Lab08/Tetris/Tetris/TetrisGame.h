@@ -22,6 +22,8 @@
 #include <SFML/Graphics.hpp>
 
 
+//any point in marking functions const class-params when all params passed in are const?
+
 class TetrisGame
 {
 public:
@@ -30,24 +32,25 @@ public:
 	static const int BLOCK_HEIGHT;			  // pixel height of a tetris block, int to 32
 	static const double MAX_SECONDS_PER_TICK; // the slowest "tick" rate (in seconds), init to 0.75
 	static const double MIN_SECONDS_PER_TICK; // the fastest "tick" rate (in seconds), init to 0.20
+	static const Point ORIGIN_PIXELS; //origin point of the grid, pixel offset
 
 private:	
 	// MEMBER VARIABLES
 
 	// State members ---------------------------------------------
-	int score;					// the current game score.
-    Gameboard board;			// the gameboard (grid) to represent where all the blocks are.
-    GridTetromino nextShape;	// the tetromino shape that is "on deck".
-    GridTetromino currentShape;	// the tetromino that is currently falling.
+	int score{};					// the current game score.
+	Gameboard board{};			// the gameboard (grid) to represent where all the blocks are.
+	GridTetromino nextShape{};	// the tetromino shape that is "on deck".
+	GridTetromino currentShape{};	// the tetromino that is currently falling.
 	
 	// Graphics members ------------------------------------------
 	sf::Sprite& blockSprite;		// the sprite used for all the blocks.
 	sf::RenderWindow& window;		// the window that we are drawing on.
-	const Point gameboardOffset;	// pixel XY offset of the gameboard on the screen
-	const Point nextShapeOffset;	// pixel XY offset to the nextShape
+	const Point gameboardOffset{};	// pixel XY offset of the gameboard on the screen
+	const Point nextShapeOffset{};	// pixel XY offset to the nextShape
 
-	sf::Font scoreFont;				// SFML font for displaying the score.
-	sf::Text scoreText;				// SFML text object for displaying the score
+	sf::Font scoreFont{};				// SFML font for displaying the score.
+	sf::Text scoreText{};				// SFML text object for displaying the score
 									
 	// Time members ----------------------------------------------
 	// Note: a "tick" is the amount of time it takes a block to fall one line.
@@ -66,7 +69,14 @@ public:
 	//   load font from file: fonts/RedOctober.ttf
 	//   setup scoreText
 	// - params: already specified
-	TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset);
+	TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :
+		window{ window }, blockSprite{ blockSprite }, gameboardOffset{ gameboardOffset }, nextShapeOffset{ nextShapeOffset } {
+	} // do i mark as const if initialized in initialization list and not modified after?
+
+	//TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :
+	//	window{ window }, blockSprite{ blockSprite }, gameboardOffset{ gameboardOffset }, nextShapeOffset{ nextShapeOffset } {
+	//} // do i mark as const if initialized in initialization list and not modified after?
+
 
 	// Draw anything to do with the game,
 	//   includes the board, currentShape, nextShape, score
@@ -79,12 +89,12 @@ public:
 	// handles keypress events (up, left, right, down, space)
 	// - param 1: sf::Event event
 	// - return: nothing
-	void onKeyPressed();
+	void onKeyPressed(const sf::Event& event);
 
 	// called every game loop to handle ticks & tetromino placement (locking)
 	// - param 1: float secondsSinceLastLoop
 	// return: nothing
-	void processGameLoop();
+	void processGameLoop(float secondsSinceLastLoop);
 
 	// A tick() forces the currentShape to move (if there were no tick,
 	// the currentShape would float in position forever). This should
@@ -95,6 +105,8 @@ public:
 	void tick();
 
 private:
+
+	void drawGameboardRow(int y);
 	// reset everything for a new game (use existing functions) 
 	//  - set the score to 0 and call updateScoreDisplay()
 	//  - call determineSecondsPerTick() to determine the tick rate.
@@ -124,7 +136,7 @@ private:
 	//      if so - rotate the original tetromino.
 	// - param 1: GridTetromino shape
 	// - return: bool, true/false to indicate successful movement
-	bool attemptRotate();
+	bool attemptRotate(GridTetromino shape);
    
 	// test if a move is legal on the tetromino, if so, move it.
 	//  To do this:
@@ -136,13 +148,13 @@ private:
 	// - param 2: int x;
 	// - param 3: int y;
 	// - return: true/false to indicate successful movement
-	bool attemptMove();												
+	bool attemptMove(GridTetromino shape, int x, int y);
 
 	// drops the tetromino vertically as far as it can 
 	//   legally go.  Use attemptMove(). This can be done in 1 line.
 	// - param 1: GridTetromino shape
 	// - return: nothing;
-	void drop();
+	void drop(GridTetromino shape);
 
 	// copy the contents (color) of the tetromino's mapped block locs to the grid.
 		//	 1) get the tetromino's mapped locs via tetromino.getBlockLocsMappedToGrid()
@@ -151,7 +163,7 @@ private:
 		//      to true
 		// - param 1: GridTetromino shape
 		// - return: nothing
-	void lock();
+	void lock(GridTetromino shape); // ? modified gridtet or no?
 	
 	// Graphics methods ==============================================
 	
@@ -172,7 +184,7 @@ private:
 	// param 3: int yOffset
 	// param 4: TetColor color
 	// return: nothing
-	void drawBlock();
+	void drawBlock(const Point& topLeft, int xOffset, int yOffset, const TetColor color);
 										
 	// Draw the gameboard blocks on the window
 	//   Iterate through each row & col, use drawBlock() to 
@@ -188,7 +200,7 @@ private:
 	// param 1: GridTetromino tetromino
 	// param 2: Point topLeft
 	// return: nothing
-	void drawTetromino();
+	void drawTetromino(const GridTetromino& tetromino, const Point& topLeft);
 	
 	// update the score display
 	// form a string "score: ##" to display the current score
@@ -205,7 +217,7 @@ private:
 	// - param 1: GridTetromino shape
 	// - return: bool, true if shape is within borders (isWithinBorders()) and 
 	//           the shape's mapped board locs are empty (false otherwise).
-	bool isPositionLegal() const;
+	bool isPositionLegal(GridTetromino shape) const;
 
 	
 	// Determine if the shape is within the left, right, & bottom gameboard borders
@@ -215,7 +227,7 @@ private:
 	// - param 1: GridTetromino shape
 	// - return: bool, true if the shape is within the left, right, and lower border
 	//	         of the grid, but *NOT* the top border (false otherwise)
-	bool isWithinBorders() const;
+	bool isWithinBorders(GridTetromino shape) const;
 
 
 	// set secsPerTick 

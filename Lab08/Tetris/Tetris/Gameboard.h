@@ -80,6 +80,7 @@ public:
 	// constructor - empty() the grid
 	Gameboard() : grid{ } { empty(); }
 
+
 	// fill the board with EMPTY_BLOCK 
 	//   (iterate through each rowIndex and fillRow() with EMPTY_BLOCK))
 	// - params: none
