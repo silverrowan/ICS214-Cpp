@@ -10,6 +10,7 @@
 void Gameboard::empty() {
 	for (int y = 0; y < Gameboard::MAX_Y; y++) { //row/y
 		fillRow(y, Gameboard::EMPTY_BLOCK);
+		//fillRow(y, 3);
 	}
 }
 
@@ -32,7 +33,7 @@ int Gameboard::getContent(int x, int y) const {
 
 
 void Gameboard::setContent(const std::vector<Point>& pts, int content) {
-	for (int i = 0; i < pts.size(); i++) {
+	for (int i = 0; i < static_cast<int>(pts.size()); i++) {
 		Point targetPt = pts.at(i);
 		setContent(targetPt, content);
 	}
@@ -45,7 +46,7 @@ void Gameboard::setContent(int x, int y, int content) {
 }
 
 bool Gameboard::areAllLocsEmpty(const std::vector<Point>& pts) const {
-	for (int i = 0; i < pts.size(); i++) {
+	for (int i = 0; i < static_cast<int>( pts.size() ); i++) {
 		if (isValidPoint(pts[i])) {
 			if (getContent(pts[i]) != EMPTY_BLOCK)
 				return false;
@@ -114,7 +115,7 @@ void Gameboard::removeRows(const std::vector<int>& rowIndexes) {
 	std::vector<int> rowIdxCopy(rowIndexes);
 	std::sort(rowIdxCopy.begin(), rowIdxCopy.end());
 
-	for (int i = 0; i < rowIdxCopy.size() ; i++) {
+	for (int i = 0; i < static_cast<int>(rowIdxCopy.size()) ; i++) {
 		removeRow(rowIdxCopy[i]);
 	}
 }
