@@ -12,7 +12,6 @@ const int TetrisGame::BLOCK_HEIGHT{ 32 };			  // pixel height of a tetris block,
 const double TetrisGame::MAX_SECONDS_PER_TICK{ 0.75 }; // the slowest "tick" rate (in seconds), init to 0.75
 const double TetrisGame::MIN_SECONDS_PER_TICK{ 0.2 }; // the fastest "tick" rate (in seconds), init to 0.20
 
-
 TetrisGame::TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :
 		window{ window }, blockSprite{ blockSprite }, gameboardOffset{ gameboardOffset }, nextShapeOffset{ nextShapeOffset } {
 	if (!scoreFont.loadFromFile("fonts/RedOctober.ttf"))
@@ -26,7 +25,6 @@ TetrisGame::TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const 
 
 	reset();
 } // do i mark as const if initialized in initialization list and not modified after?
-
 
 void TetrisGame::draw(){
 	drawGameboard();
@@ -154,7 +152,6 @@ void TetrisGame::lock(GridTetromino& shape){
 // Graphics methods ==============================================
 
 void TetrisGame::drawBlock(const Point& topLeft, int xOffset, int yOffset, const TetColor color){
-		
 	topLeft;
 	int initSpriteX{};
 	int initSpriteY{};
@@ -189,7 +186,6 @@ void TetrisGame::drawGameboardRow(int y) {
 }
 
 void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topLeft){
-	//tetromino.getBlockLocs();
 	std::vector<Point> blocks{ tetromino.getBlockLocsMappedToGrid() };
 
 	for (int i = 0; i < blocks.size(); i++) {
