@@ -21,7 +21,25 @@ LAB 7 : Gameboard
 Lab 08:
 
 - [x] seed randomizer (for Tetromino::getRandomShape, in main ln 38)
-- [ ] comments:
-	- [ ]Gameboard::getSpawnLoc()
-	- [ ] gameboard??? fill row helper funct
-- [ ] re-comment gameboard 'private' functions
+- [x] comments:
+	- [x]Gameboard::getSpawnLoc()
+	- [x] gameboard??? fill row helper funct
+- [x] re-comment gameboard 'private' functions
+- [x] check each header for complete comments - each function and variable
+	- [x] Gameboard
+	- [x] GridTetromino
+	- [x] Point
+	- [x] TetrisGame
+	- [x] Tetromino
+- [ ] check each function for const/ref/etc
+	- [ ] Gameboard
+	- [ ] GridTetromino
+	- [ ] Point
+	- [ ] TetrisGame
+	- [ ] Tetromino
+- [ ] check all asserts needed are present
+	- [ ] Gameboard
+	- [ ] GridTetromino
+	- [ ] Point
+	- [ ] TetrisGame
+	- [ ] Tetromino
