@@ -9,7 +9,7 @@ LAB 7 : Gameboard
 - [x] check Gameboard::MAX_ y & x use correct <,>,= - max is INDEX not count
 	- [x] only isRowCompleted(), fillRow(), removeRow() checked
 	- [x] reverse this, apparently the MAX is meant to be a size
-- [ ] test
+- [x] test
 - [x] printToConsole();
 - [x] areAllLocsEmpty();
 - [x] removeCompletedRows();
@@ -20,7 +20,7 @@ LAB 7 : Gameboard
 
 Lab 08:
 
-- [ ] seed randomizer (for Tetromino::getRandomShape, in main ln 38)
+- [x] seed randomizer (for Tetromino::getRandomShape, in main ln 38)
 - [ ] comments:
 	- [ ]Gameboard::getSpawnLoc()
 	- [ ] gameboard??? fill row helper funct
