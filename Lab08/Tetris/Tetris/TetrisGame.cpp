@@ -2,9 +2,7 @@
 #include <cmath>
 #include <assert.h>
 
-
 //any point in marking functions const class-params when all params passed in are const?
-
 
 	// STATIC CONSTANTS
 const int TetrisGame::BLOCK_WIDTH{ 32 };			  // pixel width of a tetris block, init to 32
@@ -67,14 +65,21 @@ void TetrisGame::processGameLoop(float secondsSinceLastLoop) {
 		if (spawnNextShape()) {
 			pickNextShape();
 			int remove_ct = board.removeCompletedRows();
+			calculateScore(remove_ct);
 			total_rows_removed += remove_ct;
-			score += std::round( std::pow( 1 / (secondsPerTick), remove_ct ));
+			//score += std::round( std::pow( 1 / (secondsPerTick), remove_ct ));
 			determineSecondsPerTick();
 		}
 		else {
 			std::cout << "Game over!\nscore: " << score <<"\n";
 			reset();
 		}
+	}
+}
+
+void TetrisGame::calculateScore( int rows_removed ) {
+	if (rows_removed) {
+		score += std::round((1 / secondsPerTick) * rows_removed * rows_removed);
 	}
 }
 

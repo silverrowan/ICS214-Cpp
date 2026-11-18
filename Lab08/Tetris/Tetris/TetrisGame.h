@@ -210,6 +210,8 @@ private:
 
 	// State & gameplay/logic methods ================================
 
+	void calculateScore(int rows_removed);
+
 	// Determine if a Tetromino can legally be placed at its current position
 	// on the gameboard.
 	//   Tip: Make use of Gameboard's areLocsEmpty() and pass it the shape's mapped locs.
