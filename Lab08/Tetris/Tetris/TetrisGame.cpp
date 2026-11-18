@@ -40,6 +40,7 @@ void TetrisGame::draw(){
 	drawGameboard();
 	drawTetromino(currentShape, gameboardOffset);
 	drawTetromino(nextShape, nextShapeOffset);
+	updateScoreDisplay();
 	window.draw(scoreText); //why is this different than the draw we've been using so far?
 }
 
@@ -262,7 +263,6 @@ void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topL
 // params: none:
 // return: nothing
 void TetrisGame::updateScoreDisplay(){
-	std::cout << "entered updateScoreDisplay\n";
 	std::stringstream scoreTextBuild{};
 	scoreTextBuild << "Score: " << score;
 	scoreText.setString(scoreTextBuild.str() );
