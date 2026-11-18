@@ -42,7 +42,7 @@ public:
 	// a setter for the tetromino's location
 	// param 1: a Point (the new gridLoc)
 	// return: nothing
-	void setGridLoc(Point p) { gridLoc = p; }
+	void setGridLoc(Point p) { gridLoc = p; } // Testing fails if use ref
 
 	// transpose the gridLoc of this shape
 	//	(1,0) represents a move to the right (x+1)

@@ -24,19 +24,19 @@ Lab 08:
 - [x] comments:
 	- [x]Gameboard::getSpawnLoc()
 	- [x] gameboard??? fill row helper funct
-- [x] re-comment gameboard 'private' functions
+- [ ] re-comment gameboard 'private' functions
 - [x] check each header for complete comments - each function and variable
 	- [x] Gameboard
 	- [x] GridTetromino
 	- [x] Point
 	- [x] TetrisGame
 	- [x] Tetromino
-- [ ] check each function for const/ref/etc
-	- [ ] Gameboard
-	- [ ] GridTetromino
-	- [ ] Point
-	- [ ] TetrisGame
-	- [ ] Tetromino
+- [x] check each function for const/ref/etc
+	- [x] Gameboard
+	- [x] GridTetromino
+	- [x] Point
+	- [x] TetrisGame
+	- [x] Tetromino
 - [ ] check all asserts needed are present
 	- [ ] Gameboard
 	- [ ] GridTetromino

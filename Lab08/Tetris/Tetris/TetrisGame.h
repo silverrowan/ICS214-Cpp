@@ -181,20 +181,20 @@ private:
 	// param 3: int yOffset
 	// param 4: TetColor color
 	// return: nothing
-	void drawBlock(const Point& topLeft, int xOffset, int yOffset, const TetColor color);
+	void drawBlock(const Point& topLeft, int xOffset, int yOffset, const TetColor color) const; // Testing breaks if TetColor is ref
 										
 	// Draw the gameboard blocks on the window
 	//   Iterate through each row & col, use drawBlock() to 
 	//   draw a block if it isn't empty.
 	// params: none
 	// return: nothing
-	void drawGameboard();
+	void drawGameboard() const;
 
 	// helper function for drawGameboard()
 	// iterate through blocks in a row, drawing each()
 	// params: int y: row index
 	// return: none
-	void drawGameboardRow(int y);
+	void drawGameboardRow(int y) const;
 	
 	// Draw a tetromino on the window
 	//	 Iterate through each mapped loc & drawBlock() for each.
@@ -203,7 +203,7 @@ private:
 	// param 1: GridTetromino tetromino
 	// param 2: Point topLeft
 	// return: nothing
-	void drawTetromino(const GridTetromino& tetromino, const Point& topLeft);
+	void drawTetromino(const GridTetromino& tetromino, const Point& topLeft) const ;
 	
 	// update the score display
 	// form a string "score: ##" to display the current score
@@ -225,7 +225,7 @@ private:
 	// - param 1: GridTetromino shape
 	// - return: bool, true if shape is within borders (isWithinBorders()) and 
 	//           the shape's mapped board locs are empty (false otherwise).
-	bool isPositionLegal(GridTetromino& shape) const;
+	bool isPositionLegal(const GridTetromino& shape) const;
 	
 	// Determine if the shape is within the left, right, & bottom gameboard borders
 	//   * Ignore the upper border because we want shapes to be able to drop
@@ -234,7 +234,7 @@ private:
 	// - param 1: GridTetromino shape
 	// - return: bool, true if the shape is within the left, right, and lower border
 	//	         of the grid, but *NOT* the top border (false otherwise)
-	bool isWithinBorders(GridTetromino& shape) const;
+	bool isWithinBorders(const GridTetromino& shape) const;
 
 	// set secsPerTick 
 	//   - basic: use MAX_SECS_PER_TICK

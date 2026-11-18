@@ -77,12 +77,6 @@ void TetrisGame::processGameLoop(float secondsSinceLastLoop) {
 	}
 }
 
-void TetrisGame::calculateScore( int rows_removed ) {
-	if (rows_removed) {
-		score += std::round((1 / secondsPerTick) * rows_removed * rows_removed);
-	}
-}
-
 void TetrisGame::tick(){
 	if (!attemptMove(currentShape, 0, 1)) {
 		lock(currentShape);
@@ -156,7 +150,7 @@ void TetrisGame::lock(GridTetromino& shape){
 
 // Graphics methods ==============================================
 
-void TetrisGame::drawBlock(const Point& topLeft, int xOffset, int yOffset, const TetColor color){
+void TetrisGame::drawBlock(const Point& topLeft, int xOffset, int yOffset, const TetColor color) const {
 	topLeft;
 	int initSpriteX{};
 	int initSpriteY{};
@@ -175,13 +169,13 @@ void TetrisGame::drawBlock(const Point& topLeft, int xOffset, int yOffset, const
 	window.draw( blockSprite );
 }
 
-void TetrisGame::drawGameboard(){
+void TetrisGame::drawGameboard() const {
 	for (int y = 0; y < Gameboard::MAX_Y; y++) {
 		drawGameboardRow(y);
 	}  
 }
 
-void TetrisGame::drawGameboardRow(int y) {
+void TetrisGame::drawGameboardRow(int y) const {
 	for (int x = 0; x < Gameboard::MAX_X; x++) {
 		int block{ board.getContent(x, y) };
 		if (block != Gameboard::EMPTY_BLOCK ) {
@@ -190,7 +184,7 @@ void TetrisGame::drawGameboardRow(int y) {
 	}
 }
 
-void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topLeft){
+void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topLeft) const {
 	std::vector<Point> blocks{ tetromino.getBlockLocsMappedToGrid() };
 
 	for (int i = 0; i < blocks.size(); i++) {
@@ -207,7 +201,13 @@ void TetrisGame::updateScoreDisplay(){
 
 // State & gameplay/logic methods ================================
 
-bool TetrisGame::isPositionLegal(GridTetromino& shape) const {
+void TetrisGame::calculateScore(int rows_removed) {
+	if (rows_removed) {
+		score += std::round((1 / secondsPerTick) * rows_removed * rows_removed);
+	}
+}
+
+bool TetrisGame::isPositionLegal(const GridTetromino& shape) const {
 	if (!isWithinBorders(shape)) {
 		return false;
 	}
@@ -219,7 +219,7 @@ bool TetrisGame::isPositionLegal(GridTetromino& shape) const {
 	}
 }
 
-bool TetrisGame::isWithinBorders(GridTetromino& shape) const {
+bool TetrisGame::isWithinBorders(const GridTetromino& shape) const {
 	std::vector<Point> shapes{ shape.getBlockLocsMappedToGrid() };
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i].getX() >= Gameboard::MAX_X || shapes[i].getX() < 0) {

@@ -2,8 +2,8 @@
 #include <vector>
 #include "Point.h"
 
-enum class TetColor { RED, ORANGE, YELLOW, GREEN, BLUE_LIGHT, BLUE_DARK, PURPLE, COUNT };
-enum class TetShape{ S, Z, L, J, O, I, T, COUNT };
+enum class TetColor { RED, ORANGE, YELLOW, GREEN, BLUE_LIGHT, BLUE_DARK, PURPLE, COUNT }; // enum class for color of the tetromino
+enum class TetShape{ S, Z, L, J, O, I, T, COUNT }; // enum class for shape of the tetromino (block arrangement)
 
 class Tetromino
 {

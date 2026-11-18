@@ -11,7 +11,7 @@ void Point::swapXY() {
 	setY( temp );
 }
 
-std::string Point::toString() const {
+const std::string Point::toString() const {
 	std::stringstream string{};
 	string << "[" << getX() << "," << getY() << "]";
 	return string.str();

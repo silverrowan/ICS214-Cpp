@@ -68,12 +68,12 @@ public:
 	void multiplyY(int factor) { setY( getY()*factor ) ; }
 
 	/// <summary>
-	// return a string in the form "[x,y]" to represent the state of the Point instance  
-	// (for debugging) You could use stringstream if you want to try a forming a string in  
-	// the same way you use cout https://www.learncpp.com/cpp-tutorial/stream-classes-for-strings/ 
+	/// return a string in the form "[x,y]" to represent the state of the Point instance  
+	/// (for debugging) You could use stringstream if you want to try a forming a string in  
+	/// the same way you use cout https://www.learncpp.com/cpp-tutorial/stream-classes-for-strings/ 
 	/// </summary>
 	/// <returns>string of coordinates</returns>
-	std::string toString () const;
+	const std::string toString () const;
 
 	/// <summary>
 	/// Print out coordinates to terminal in format [x,y]

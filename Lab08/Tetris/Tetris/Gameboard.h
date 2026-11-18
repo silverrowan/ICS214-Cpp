@@ -56,7 +56,7 @@
 class Gameboard
 {
 	//friend int main();
-	//friend class TestSuite;
+	friend class TestSuite;
 
 public:
 	// CONSTANTS
@@ -137,7 +137,7 @@ public:
 	// A getter for the spawn location
 	// - params: none
 	// - returns: a Point, representing our private spawnLoc
-	Point getSpawnLoc() const { return spawnLoc; }
+	const Point& getSpawnLoc() const { return spawnLoc; }
 
 private:  // This is commented out to allow us to test. 
 
