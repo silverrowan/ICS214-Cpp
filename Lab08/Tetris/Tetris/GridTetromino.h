@@ -23,7 +23,9 @@ private:
 					// This loc changes each time the tetromino moves.
 
 public:
-	// constructor, initialize gridLoc to 0,0
+	/// <summary>
+	/// constructor, initializes gridLoc to 0,0
+	/// </summary>
 	GridTetromino() : gridLoc{ Point() }, Tetromino() {};
 
 	// a getter for the tetromino's location
@@ -59,7 +61,6 @@ public:
 	// params: none:
 	// return: a vector of Point objects.
 	const std::vector<Point> getBlockLocsMappedToGrid() const;
-
 };
 
 #endif /* GRIDTETROMINO_H */

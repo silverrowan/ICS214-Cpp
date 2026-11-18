@@ -55,31 +55,26 @@
 
 class Gameboard
 {
-	friend int main();
-	friend class TestSuite;
+	//friend int main();
+	//friend class TestSuite;
 
 public:
 	// CONSTANTS
 	static const int MAX_X = 10;		// gameboard x dimension - SIZE not value
-	static const int MAX_Y = 19;		// gameboard y dimension
+	static const int MAX_Y = 19;		// gameboard y dimension - SIZE not value
 	static const int EMPTY_BLOCK = -1;	// contents of an empty block
 
 private:
 	// MEMBER VARIABLES -------------------------------------------------
 
-	// the gameboard - a grid of X and Y offsets.  
-	//  ([0][0] is top left, [MAX_Y-1][MAX_X-1] is bottom right) 
-	int grid[MAX_Y][MAX_X];
-
-	// the gameboard offset to spawn a new tetromino at.
-	const Point spawnLoc{ MAX_X / 2, 0 };
+	int grid[MAX_Y][MAX_X]; // gameboard grid of blocks (X and Y offsets.; ([0][0] is top left, [MAX_Y-1][MAX_X-1] is bottom right) 
+	const Point spawnLoc{ MAX_X / 2, 0 }; // the gameboard offset to spawn a new tetromino at.
 
 public:
 	// METHODS -------------------------------------------------
 	// 
 	// constructor - empty() the grid
 	Gameboard() : grid{ } { empty(); }
-
 
 	// fill the board with EMPTY_BLOCK 
 	//   (iterate through each rowIndex and fillRow() with EMPTY_BLOCK))
@@ -144,7 +139,7 @@ public:
 	// - returns: a Point, representing our private spawnLoc
 	Point getSpawnLoc() const { return spawnLoc; }
 
-//private:  // This is commented out to allow us to test. 
+private:  // This is commented out to allow us to test. 
 
 	// Determine if a given Point is a valid grid location
 	// - param 1: a Point object

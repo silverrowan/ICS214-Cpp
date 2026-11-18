@@ -4,7 +4,7 @@
 
 //any point in marking functions const class-params when all params passed in are const?
 
-	// STATIC CONSTANTS
+// STATIC CONSTANTS
 const int TetrisGame::BLOCK_WIDTH{ 32 };			  // pixel width of a tetris block, init to 32
 const int TetrisGame::BLOCK_HEIGHT{ 32 };			  // pixel height of a tetris block, int to 32
 const double TetrisGame::MAX_SECONDS_PER_TICK{ 0.75 }; // the slowest "tick" rate (in seconds), init to 0.75

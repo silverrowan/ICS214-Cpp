@@ -1,10 +1,7 @@
-
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "TetrisGame.h"
 #include "TestSuite.h"
-
 
 int main()
 {	

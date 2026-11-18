@@ -21,7 +21,6 @@
 #include "GridTetromino.h"
 #include <SFML/Graphics.hpp>
 
-
 //any point in marking functions const class-params when all params passed in are const?
 
 class TetrisGame
@@ -59,23 +58,24 @@ private:
 
 	double secondsSinceLastTick{ 0.0 };			// update this every game loop until it is >= secsPerTick,
 												// we then know to trigger a tick.  Reduce this var (by a tick) & repeat.
+
 	bool shapePlacedSinceLastGameLoop{ false };	// Tracks whether we have placed (locked) a shape on
 												// the gameboard in the current gameloop	
 public:
 	// MEMBER FUNCTIONS
 
-	// constructor
-	//   initialize/assign private member vars names that match param names
-	//   reset() the game
-	//   load font from file: fonts/RedOctober.ttf
-	//   setup scoreText
-	// - params: already specified
+	/// <summary>
+	/// constructor, initialize private member variables.
+	/// loads & sets up score & font resource
+	/// resets the game
+	/// </summary>
+	/// <param name="window">ref, window drawn on</param>
+	/// <param name="blockSprite">ref, sprite used for all blocks</param>
+	/// <param name="gameboardOffset">Point, origin point of the gameboard grid</param>
+	/// <param name="nextShapeOffset">Point, point for positioning the 'next' tetromino</param>
 	TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset); // do i mark as const if initialized in initialization list and not modified after?
 
-	//TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :
-	//	window{ window }, blockSprite{ blockSprite }, gameboardOffset{ gameboardOffset }, nextShapeOffset{ nextShapeOffset } {
 	//} // do i mark as const if initialized in initialization list and not modified after?
-
 
 	// Draw anything to do with the game,
 	//   includes the board, currentShape, nextShape, score
@@ -104,8 +104,6 @@ public:
 	void tick();
 
 private:
-
-	void drawGameboardRow(int y);
 	// reset everything for a new game (use existing functions) 
 	//  - set the score to 0 and call updateScoreDisplay()
 	//  - call determineSecondsPerTick() to determine the tick rate.
@@ -191,6 +189,12 @@ private:
 	// params: none
 	// return: nothing
 	void drawGameboard();
+
+	// helper function for drawGameboard()
+	// iterate through blocks in a row, drawing each()
+	// params: int y: row index
+	// return: none
+	void drawGameboardRow(int y);
 	
 	// Draw a tetromino on the window
 	//	 Iterate through each mapped loc & drawBlock() for each.
@@ -210,6 +214,9 @@ private:
 
 	// State & gameplay/logic methods ================================
 
+	//contains the logic used to update the score (when rows are cleared)
+	// params: none
+	// return: none
 	void calculateScore(int rows_removed);
 
 	// Determine if a Tetromino can legally be placed at its current position
@@ -219,7 +226,6 @@ private:
 	// - return: bool, true if shape is within borders (isWithinBorders()) and 
 	//           the shape's mapped board locs are empty (false otherwise).
 	bool isPositionLegal(GridTetromino& shape) const;
-
 	
 	// Determine if the shape is within the left, right, & bottom gameboard borders
 	//   * Ignore the upper border because we want shapes to be able to drop
@@ -230,15 +236,12 @@ private:
 	//	         of the grid, but *NOT* the top border (false otherwise)
 	bool isWithinBorders(GridTetromino& shape) const;
 
-
 	// set secsPerTick 
 	//   - basic: use MAX_SECS_PER_TICK
 	//   - advanced: base it on score (higher score results in lower secsPerTick)
 	// params: none
 	// return: nothing
 	void determineSecondsPerTick() { secondsPerTick = MAX_SECONDS_PER_TICK; }
-
-
 };
 
 #endif /* TETRISGAME_H */

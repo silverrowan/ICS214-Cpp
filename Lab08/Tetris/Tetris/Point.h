@@ -5,15 +5,42 @@
 class Point
 {
 private:
-	int x{ -1 };
-	int y{ -1 };
+	int x{ -1 }; // x-coordinate; starts at 0, ends at MAX_X-1 (left to right)
+	int y{ -1 }; // y-coordinate; starts at 0, ends at MAX_Y-1 (top-down)
 
 public:
+
+	/// <summary>
+	/// constructor; initialize member vars 
+	/// </summary>
+	/// <param name="xIn">int, x-coordinate</param>
+	/// <param name="yIn">int, y-coordinate</param>
 	Point(int xIn = 0, int yIn = 0) : x{ xIn }, y{ yIn } {}
 
-	int getX() const { return x; }
-	int getY() const { return y; }
-	void setX(int x) { this->x = x; } // do these need to be refs? getters never should be, but setters?
+	// do we need to do comments for setters/getters?
+
+	/// <summary>
+	/// returns value of x-coordinate
+	/// </summary>
+	/// <returns>int x; x-coordinate </returns>
+	int getX() const { return x; } 
+	
+	/// <summary>
+	/// returns value of y-coordinate
+	/// </summary>
+	/// <returns>in y; y-coordinate</returns>
+	int getY() const { return y; } 
+
+	/// <summary>
+	/// sets (new) value for x-coordinate
+	/// </summary>
+	/// <param name="x">int; x coordinate (index)</param>
+	void setX(int x) { this->x = x; } 
+
+	/// <summary>
+	/// sets (new) value for y-coordinate
+	/// </summary>
+	/// <param name="y">int, y coordinate (index)</param>
 	void setY(int y) { this->y = y; }
 
 	/// <summary>
