@@ -10,6 +10,7 @@ const int TetrisGame::BLOCK_HEIGHT{ 32 };			  // pixel height of a tetris block,
 const double TetrisGame::MAX_SECONDS_PER_TICK{ 0.75 }; // the slowest "tick" rate (in seconds), init to 0.75
 const double TetrisGame::MIN_SECONDS_PER_TICK{ 0.2 }; // the fastest "tick" rate (in seconds), init to 0.20
 const Point TetrisGame::ORIGIN_PIXELS{ Point(55, 126) };
+//int secondsPerTick = 30;
 
 
 TetrisGame::TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :
@@ -66,8 +67,11 @@ void TetrisGame::draw(){
 	// called every game loop to handle ticks & tetromino placement (locking)
 	// - param 1: float secondsSinceLastLoop
 	// return: nothing
-	void TetrisGame::processGameLoop(float secondsSinceLastLoop){
-		
+	void TetrisGame::processGameLoop(float secondsSinceLastLoop) {
+		if (secondsSinceLastLoop >= secondsPerTick) { 
+			tick(); 
+			secondsSinceLastTick -= secondsPerTick;
+		}
 	}
 
 	// A tick() forces the currentShape to move (if there were no tick,
@@ -76,7 +80,9 @@ void TetrisGame::draw(){
 	// the currentShape (it can move no further).
 	// - params: none
 	// - return: nothing
-	void TetrisGame::tick(){}
+	void TetrisGame::tick(){
+		std::cout << "tick ";
+	}
 
 	// reset everything for a new game (use existing functions) 
 	//  - set the score to 0 and call updateScoreDisplay()
