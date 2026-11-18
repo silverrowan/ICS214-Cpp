@@ -11,18 +11,10 @@ const int TetrisGame::BLOCK_WIDTH{ 32 };			  // pixel width of a tetris block, i
 const int TetrisGame::BLOCK_HEIGHT{ 32 };			  // pixel height of a tetris block, int to 32
 const double TetrisGame::MAX_SECONDS_PER_TICK{ 0.75 }; // the slowest "tick" rate (in seconds), init to 0.75
 const double TetrisGame::MIN_SECONDS_PER_TICK{ 0.2 }; // the fastest "tick" rate (in seconds), init to 0.20
-//const Point TetrisGame::gameboardOffset{ Point(55, 126) };
 
 
 TetrisGame::TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :
 		window{ window }, blockSprite{ blockSprite }, gameboardOffset{ gameboardOffset }, nextShapeOffset{ nextShapeOffset } {
-	//Gameboard board{ Gameboard() };
-
-	//board.setContent(Gameboard::MAX_X / 2, Gameboard::MAX_Y / 2, 1);
-	//currentShape.setShape();
-	//Point spawn_loc = board.getSpawnLoc();
-	//currentShape.setGridLoc(spawn_loc);
-
 	if (!scoreFont.loadFromFile("fonts/RedOctober.ttf"))
 	{
 		assert(false && "Missing font: RedOctover.ttf");
@@ -44,10 +36,6 @@ void TetrisGame::draw(){
 	window.draw(scoreText); //why is this different than the draw we've been using so far?
 }
 
-// Event and game loop processing
-// handles keypress events (up, left, right, down, space)
-// - param 1: sf::Event event
-// - return: nothing
 void TetrisGame::onKeyPressed(const sf::Event& event){
 	switch (event.key.code) {
 		case sf::Keyboard::Up:
@@ -68,17 +56,11 @@ void TetrisGame::onKeyPressed(const sf::Event& event){
 			drop(currentShape);
 			lock(currentShape);
 	}
-	//else if (event.KeyPressed == sf::Keyboard:: )
-
 }
 
-// called every game loop to handle ticks & tetromino placement (locking
-// - param 1: float secondsSinceLastLoop
-// return: nothing
 void TetrisGame::processGameLoop(float secondsSinceLastLoop) {
 	secondsSinceLastTick += secondsSinceLastLoop;
 	if (secondsSinceLastTick >= secondsPerTick) {
-		//std::cout << secondsSinceLastLoop << "   ";
 		tick(); 
 		secondsSinceLastTick -= secondsPerTick;
 	}
@@ -98,26 +80,12 @@ void TetrisGame::processGameLoop(float secondsSinceLastLoop) {
 	}
 }
 
-// A tick() forces the currentShape to move (if there were no tick,
-// the currentShape would float in position forever). This should
-// call attemptMove() on the currentShape.  If not successful, lock() 
-// the currentShape (it can move no further).
-// - params: none
-// - return: nothing
 void TetrisGame::tick(){
 	if (!attemptMove(currentShape, 0, 1)) {
 		lock(currentShape);
 	}
 }
 
-// reset everything for a new game (use existing functions) 
-//  - set the score to 0 and call updateScoreDisplay()
-//  - call determineSecondsPerTick() to determine the tick rate.
-//  - clear the gameboard,
-//  - pick & spawn next shape
-//  - pick next shape again (for the "on-deck" shape)
-// - params: none
-// - return: nothing
 void TetrisGame::reset(){
 	score = 0;
 	updateScoreDisplay();
@@ -128,23 +96,11 @@ void TetrisGame::reset(){
 	pickNextShape();
 }
 
-// assign nextShape.setShape a new random shape  
-// - params: none
-// - return: nothing
 void TetrisGame::pickNextShape(){
 	nextShape.setShape(Tetromino::getRandomShape());
 }
 
-// copy the nextShape into the currentShape (through assignment)
-//   position the currentShape to its spawn location.
-// - params: none
-// - return: bool, true/false based on isPositionLegal()
 bool TetrisGame::spawnNextShape() {
-	//board.setContent(Gameboard::MAX_X / 2, Gameboard::MAX_Y / 2, 1);
-//currentShape.setShape();
-//currentShape.setGridLoc(spawn_loc);
-	//reset();
-
 	Point spawn_loc = board.getSpawnLoc();
 	GridTetromino temp{ nextShape };
 	temp.setGridLoc(spawn_loc);
@@ -187,26 +143,19 @@ void TetrisGame::drop(GridTetromino& shape) {
 	while (attemptMove(shape, 0, 1)) {}
 }
 
-// copy the contents (color) of the tetromino's mapped block locs to the grid.
-	//	 1) get the tetromino's mapped locs via tetromino.getBlockLocsMappedToGrid()
-	//   2) use the board's setContent() method to set the content at the mapped locations.
-	//   3) record the fact that we placed a shape by setting shapePlacedSinceLastGameLoop
-	//      to true
-	// - param 1: GridTetromino shape
-	// - return: nothing
 void TetrisGame::lock(GridTetromino& shape){
 	auto newBlocks = shape.getBlockLocsMappedToGrid();
 	for (int i = 0; i < newBlocks.size(); i++) {
 		board.setContent(newBlocks, static_cast<int>(shape.getColor()));
 	}
 	shapePlacedSinceLastGameLoop = true;
-} // ? modified gridtet or no?
+}
 
 // Graphics methods ==============================================
 
 void TetrisGame::drawBlock(const Point& topLeft, int xOffset, int yOffset, const TetColor color){
 		
-	topLeft; //  of gameboard (in pixels
+	topLeft;
 	int initSpriteX{};
 	int initSpriteY{};
 
@@ -217,7 +166,6 @@ void TetrisGame::drawBlock(const Point& topLeft, int xOffset, int yOffset, const
 		
 	//requires the enum order matches the order of sprites in the file
 	int spriteStartX{ initSpriteX + (static_cast<int>(color) * BLOCK_WIDTH) };
-	//int spriteWidth{ spriteStartX + BLOCK_HEIGHT };
 	int spriteWidth{ BLOCK_WIDTH };
 	blockSprite.setTextureRect(  sf::IntRect({ spriteStartX, spriteStartY }, { spriteWidth, spriteEndY }) );
 
@@ -240,13 +188,6 @@ void TetrisGame::drawGameboardRow(int y) {
 	}
 }
 
-// Draw a tetromino on the window
-//	 Iterate through each mapped loc & drawBlock() for each.
-//   The topLeft determines a 'base point' from which to calculate block offsets
-//      If the Tetromino is on the gameboard: use gameboardOffset
-// param 1: GridTetromino tetromino
-// param 2: Point topLeft
-// return: nothing
 void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topLeft){
 	//tetromino.getBlockLocs();
 	std::vector<Point> blocks{ tetromino.getBlockLocsMappedToGrid() };
@@ -257,11 +198,6 @@ void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topL
 	}
 }
 
-// update the score display
-// form a string "score: ##" to display the current score
-// user scoreText.setString() to display it.
-// params: none:
-// return: nothing
 void TetrisGame::updateScoreDisplay(){
 	std::stringstream scoreTextBuild{};
 	scoreTextBuild << "Score: " << score;
