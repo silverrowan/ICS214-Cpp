@@ -62,13 +62,13 @@ void TetrisGame::processGameLoop(float secondsSinceLastLoop) {
 		secondsSinceLastTick -= secondsPerTick;
 	}
 	if (shapePlacedSinceLastGameLoop) {
+		//board.printToConsole();
 		shapePlacedSinceLastGameLoop = false;
 		if (spawnNextShape()) {
 			pickNextShape();
 			int remove_ct = board.removeCompletedRows();
 			calculateScore(remove_ct);
 			total_rows_removed += remove_ct;
-			//score += std::round( std::pow( 1 / (secondsPerTick), remove_ct ));
 			determineSecondsPerTick();
 		}
 		else {
@@ -186,7 +186,7 @@ void TetrisGame::drawGameboardRow(int y) const {
 }
 
 void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topLeft) const {
-	// assert(isPositionLegal(tetromino) && "not a valid position"); // - breaks w/ next shape
+	// assert(isPositionLegal(tetromino) && "not a valid position"); // - breaks w/ drawing 'nextShape'
 	std::vector<Point> blocks{ tetromino.getBlockLocsMappedToGrid() };
 
 	for (int i = 0; i < blocks.size(); i++) {

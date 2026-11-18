@@ -38,13 +38,13 @@ public:
 	// - param 2: int y
 	// return: nothing
 	void setGridLoc(int x, int y) { gridLoc = Point(x, y); }
-		//not asserting b/c of abv 0 init
+		//not asserting b/c of abv 0 init of curr_shape (@ very start of using shape)
 
 	// a setter for the tetromino's location
 	// param 1: a Point (the new gridLoc)
 	// return: nothing
 	void setGridLoc(Point p) { gridLoc = p; } // Testing fails if use ref
-		//not asserting b/c of abv 0 init
+		//not asserting b/c of abv 0 init of curr_shape (@ very start of using shape)
 
 	// transpose the gridLoc of this shape
 	//	(1,0) represents a move to the right (x+1)

@@ -139,7 +139,7 @@ public:
 	// - returns: a Point, representing our private spawnLoc
 	const Point& getSpawnLoc() const { return spawnLoc; }
 
-private:  // This is commented out to allow us to test. 
+private:  // This is commented out to allow us to test. (before 'friends')
 
 	// Determine if a given Point is a valid grid location
 	// - param 1: a Point object

@@ -21,8 +21,6 @@
 #include "GridTetromino.h"
 #include <SFML/Graphics.hpp>
 
-//any point in marking functions const class-params when all params passed in are const?
-
 class TetrisGame
 {
 public:
