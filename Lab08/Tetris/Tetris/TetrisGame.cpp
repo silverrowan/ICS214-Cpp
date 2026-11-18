@@ -17,10 +17,21 @@ const double TetrisGame::MIN_SECONDS_PER_TICK{ 0.2 }; // the fastest "tick" rate
 TetrisGame::TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :
 		window{ window }, blockSprite{ blockSprite }, gameboardOffset{ gameboardOffset }, nextShapeOffset{ nextShapeOffset } {
 	//Gameboard board{ Gameboard() };
+
 	//board.setContent(Gameboard::MAX_X / 2, Gameboard::MAX_Y / 2, 1);
 	//currentShape.setShape();
 	//Point spawn_loc = board.getSpawnLoc();
 	//currentShape.setGridLoc(spawn_loc);
+
+	if (!scoreFont.loadFromFile("fonts/RedOctober.ttf"))
+	{
+		assert(false && "Missing font: RedOctover.ttf");
+	};
+	scoreText.setFont(scoreFont);
+	scoreText.setCharacterSize(18);
+	scoreText.setFillColor(sf::Color::White);
+	scoreText.setPosition(425, 325);
+
 	reset();
 } // do i mark as const if initialized in initialization list and not modified after?
 
@@ -29,7 +40,7 @@ void TetrisGame::draw(){
 	drawGameboard();
 	drawTetromino(currentShape, gameboardOffset);
 	drawTetromino(nextShape, nextShapeOffset);
-	window.draw(scoreText);
+	window.draw(scoreText); //why is this different than the draw we've been using so far?
 }
 
 // Event and game loop processing
@@ -78,7 +89,7 @@ void TetrisGame::processGameLoop(float secondsSinceLastLoop) {
 			total_rows_removed += remove_ct;
 			score += std::round( std::pow( 1 / (secondsPerTick), remove_ct ));
 			determineSecondsPerTick();
-}
+		}
 		else {
 			std::cout << "Game over!\nscore: " << score <<"\n";
 			reset();
@@ -251,9 +262,10 @@ void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topL
 // params: none:
 // return: nothing
 void TetrisGame::updateScoreDisplay(){
-	std::stringstream scoretext{};
-	scoretext << "Score: " << score;
-	scoreText.setString( scoretext.str() );
+	std::cout << "entered updateScoreDisplay\n";
+	std::stringstream scoreTextBuild{};
+	scoreTextBuild << "Score: " << score;
+	scoreText.setString(scoreTextBuild.str() );
 }
 
 // State & gameplay/logic methods ================================
@@ -281,11 +293,3 @@ bool TetrisGame::isWithinBorders(GridTetromino& shape) const {
 		}
 	}
 	return true; }
-
-
-// set secsPerTick 
-//   - basic: use MAX_SECS_PER_TICK
-//   - advanced: base it on score (higher score results in lower secsPerTick)
-// params: none
-// return: nothing
-void TetrisGame::determineSecondsPerTick(){}

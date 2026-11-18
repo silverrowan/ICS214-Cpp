@@ -234,7 +234,7 @@ private:
 	//   - advanced: base it on score (higher score results in lower secsPerTick)
 	// params: none
 	// return: nothing
-	void determineSecondsPerTick();
+	void determineSecondsPerTick() { secondsPerTick = MAX_SECONDS_PER_TICK; }
 
 
 };
