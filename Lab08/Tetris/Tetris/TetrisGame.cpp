@@ -1,4 +1,6 @@
 #include "TetrisGame.h"
+#include <cmath>
+#include <assert.h>
 
 
 //any point in marking functions const class-params when all params passed in are const?
@@ -9,22 +11,25 @@ const int TetrisGame::BLOCK_WIDTH{ 32 };			  // pixel width of a tetris block, i
 const int TetrisGame::BLOCK_HEIGHT{ 32 };			  // pixel height of a tetris block, int to 32
 const double TetrisGame::MAX_SECONDS_PER_TICK{ 0.75 }; // the slowest "tick" rate (in seconds), init to 0.75
 const double TetrisGame::MIN_SECONDS_PER_TICK{ 0.2 }; // the fastest "tick" rate (in seconds), init to 0.20
-const Point TetrisGame::ORIGIN_PIXELS{ Point(55, 126) };
+//const Point TetrisGame::gameboardOffset{ Point(55, 126) };
 
 
 TetrisGame::TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :
 		window{ window }, blockSprite{ blockSprite }, gameboardOffset{ gameboardOffset }, nextShapeOffset{ nextShapeOffset } {
 	//Gameboard board{ Gameboard() };
 	//board.setContent(Gameboard::MAX_X / 2, Gameboard::MAX_Y / 2, 1);
-	currentShape.setShape(Tetromino::getRandomShape());
-	Point spawn_loc = board.getSpawnLoc();
-	currentShape.setGridLoc(spawn_loc);
+	//currentShape.setShape();
+	//Point spawn_loc = board.getSpawnLoc();
+	//currentShape.setGridLoc(spawn_loc);
+	reset();
 } // do i mark as const if initialized in initialization list and not modified after?
 
 
 void TetrisGame::draw(){
 	drawGameboard();
-	drawTetromino(currentShape, ORIGIN_PIXELS);
+	drawTetromino(currentShape, gameboardOffset);
+	drawTetromino(nextShape, nextShapeOffset);
+	window.draw(scoreText);
 }
 
 // Event and game loop processing
@@ -65,6 +70,20 @@ void TetrisGame::processGameLoop(float secondsSinceLastLoop) {
 		tick(); 
 		secondsSinceLastTick -= secondsPerTick;
 	}
+	if (shapePlacedSinceLastGameLoop) {
+		shapePlacedSinceLastGameLoop = false;
+		if (spawnNextShape()) {
+			pickNextShape();
+			int remove_ct = board.removeCompletedRows();
+			total_rows_removed += remove_ct;
+			score += std::round( std::pow( 1 / (secondsPerTick), remove_ct ));
+			determineSecondsPerTick();
+}
+		else {
+			std::cout << "Game over!\nscore: " << score <<"\n";
+			reset();
+		}
+	}
 }
 
 // A tick() forces the currentShape to move (if there were no tick,
@@ -87,18 +106,44 @@ void TetrisGame::tick(){
 //  - pick next shape again (for the "on-deck" shape)
 // - params: none
 // - return: nothing
-void TetrisGame::reset(){}
+void TetrisGame::reset(){
+	score = 0;
+	updateScoreDisplay();
+	determineSecondsPerTick();
+	board.empty();
+	pickNextShape();
+	spawnNextShape();
+	pickNextShape();
+}
 
 // assign nextShape.setShape a new random shape  
 // - params: none
 // - return: nothing
-void TetrisGame::pickNextShape(){}
+void TetrisGame::pickNextShape(){
+	nextShape.setShape(Tetromino::getRandomShape());
+}
 
 // copy the nextShape into the currentShape (through assignment)
 //   position the currentShape to its spawn location.
 // - params: none
 // - return: bool, true/false based on isPositionLegal()
-bool TetrisGame::spawnNextShape() { return true; }
+bool TetrisGame::spawnNextShape() {
+	//board.setContent(Gameboard::MAX_X / 2, Gameboard::MAX_Y / 2, 1);
+//currentShape.setShape();
+//currentShape.setGridLoc(spawn_loc);
+	//reset();
+
+	Point spawn_loc = board.getSpawnLoc();
+	GridTetromino temp{ nextShape };
+	temp.setGridLoc(spawn_loc);
+	if (isPositionLegal(temp)) {
+		currentShape = temp;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
 bool TetrisGame::attemptRotate(GridTetromino& shape) { 
 	GridTetromino temp{ shape };
@@ -178,7 +223,7 @@ void TetrisGame::drawGameboardRow(int y) {
 	for (int x = 0; x < Gameboard::MAX_X; x++) {
 		int block{ board.getContent(x, y) };
 		if (block != Gameboard::EMPTY_BLOCK ) {
-			drawBlock(ORIGIN_PIXELS, x, y, static_cast<TetColor>(block));
+			drawBlock(gameboardOffset, x, y, static_cast<TetColor>(block));
 		}
 	}
 }
@@ -196,7 +241,7 @@ void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topL
 
 	for (int i = 0; i < blocks.size(); i++) {
 		Point block = blocks[i];
-		drawBlock(ORIGIN_PIXELS, block.getX(), block.getY(), tetromino.getColor());
+		drawBlock(topLeft, block.getX(), block.getY(), tetromino.getColor());
 	}
 }
 
@@ -205,7 +250,11 @@ void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topL
 // user scoreText.setString() to display it.
 // params: none:
 // return: nothing
-void TetrisGame::updateScoreDisplay(){}
+void TetrisGame::updateScoreDisplay(){
+	std::stringstream scoretext{};
+	scoretext << "Score: " << score;
+	scoreText.setString( scoretext.str() );
+}
 
 // State & gameplay/logic methods ================================
 

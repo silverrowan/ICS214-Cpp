@@ -42,7 +42,8 @@ private:
 	Gameboard board{};			// the gameboard (grid) to represent where all the blocks are.
 	GridTetromino nextShape{};	// the tetromino shape that is "on deck".
 	GridTetromino currentShape{};	// the tetromino that is currently falling.
-	
+	int total_rows_removed{};
+
 	// Graphics members ------------------------------------------
 	sf::Sprite& blockSprite;		// the sprite used for all the blocks.
 	sf::RenderWindow& window;		// the window that we are drawing on.
