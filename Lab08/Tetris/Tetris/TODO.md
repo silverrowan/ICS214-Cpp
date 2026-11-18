@@ -24,7 +24,7 @@ Lab 08:
 - [x] comments:
 	- [x]Gameboard::getSpawnLoc()
 	- [x] gameboard??? fill row helper funct
-- [ ] re-comment gameboard 'private' functions
+- [x] re-comment gameboard 'private' functions - breaks testing until added 'friend'
 - [x] check each header for complete comments - each function and variable
 	- [x] Gameboard
 	- [x] GridTetromino
@@ -37,9 +37,9 @@ Lab 08:
 	- [x] Point
 	- [x] TetrisGame
 	- [x] Tetromino
-- [ ] check all asserts needed are present
-	- [ ] Gameboard
-	- [ ] GridTetromino
-	- [ ] Point
-	- [ ] TetrisGame
-	- [ ] Tetromino
+- [x] check all asserts needed are present
+	- [x] Gameboard
+	- [x] GridTetromino
+	- [x] Point
+	- [x] TetrisGame
+	- [x] Tetromino

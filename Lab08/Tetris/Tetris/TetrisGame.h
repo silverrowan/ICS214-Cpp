@@ -103,6 +103,12 @@ public:
 	// - return: nothing
 	void tick();
 
+	/// <summary>
+	/// return board instance
+	/// </summary>
+	/// <returns>Gameboard, board</returns>
+	Gameboard getBoard() { return board; }
+
 private:
 	// reset everything for a new game (use existing functions) 
 	//  - set the score to 0 and call updateScoreDisplay()

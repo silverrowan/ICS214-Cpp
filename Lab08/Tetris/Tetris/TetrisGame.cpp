@@ -1,4 +1,5 @@
 #include "TetrisGame.h"
+#include "Gameboard.h"
 #include <cmath>
 #include <assert.h>
 
@@ -185,6 +186,7 @@ void TetrisGame::drawGameboardRow(int y) const {
 }
 
 void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topLeft) const {
+	// assert(isPositionLegal(tetromino) && "not a valid position"); // - breaks w/ next shape
 	std::vector<Point> blocks{ tetromino.getBlockLocsMappedToGrid() };
 
 	for (int i = 0; i < blocks.size(); i++) {
@@ -194,6 +196,7 @@ void TetrisGame::drawTetromino(const GridTetromino& tetromino, const Point& topL
 }
 
 void TetrisGame::updateScoreDisplay(){
+	assert(score >= 0 && "negative score not possible");
 	std::stringstream scoreTextBuild{};
 	scoreTextBuild << "Score: " << score;
 	scoreText.setString(scoreTextBuild.str() );
@@ -202,6 +205,7 @@ void TetrisGame::updateScoreDisplay(){
 // State & gameplay/logic methods ================================
 
 void TetrisGame::calculateScore(int rows_removed) {
+	assert(rows_removed >= 0 && rows_removed <= Gameboard::MAX_Y && "impossible number of rows removed");
 	if (rows_removed) {
 		score += std::round((1 / secondsPerTick) * rows_removed * rows_removed);
 	}

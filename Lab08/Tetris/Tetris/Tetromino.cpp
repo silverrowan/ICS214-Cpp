@@ -1,6 +1,8 @@
 #include "Tetromino.h"
+#include <assert.h>
 
-void Tetromino::setShape(TetShape shape) { 
+void Tetromino::setShape(TetShape shape) {
+	assert(static_cast<int>(shape) >= 0 && shape < TetShape::COUNT);
 	this->shape = shape; 
 	
 	switch (shape) {

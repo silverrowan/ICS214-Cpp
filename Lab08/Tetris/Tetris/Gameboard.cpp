@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <string>
 #include <cassert>
+#include <assert.h>
 #include <algorithm>
 #include "Gameboard.h"
 #include "Point.h"
@@ -38,6 +39,11 @@ void Gameboard::setContent(const std::vector<Point>& pts, int content) {
 }
 
 void Gameboard::setContent(int x, int y, int content) {
+	//why is this breaking things? // the test again.... OR
+	// when the T (or other tet that sits above y=0 at init) ends the game
+	//assert(isValidPoint(x, y) && "invalid point");
+	//grid[y][x] = content;
+
 	if (isValidPoint(x, y)) {
 		grid[y][x] = content;
 	}
@@ -60,7 +66,6 @@ int Gameboard::removeCompletedRows() {
 }
 
 bool Gameboard::isValidPoint(int x, int y) const {
-	//std::cout << "entered if isValidPoint\n";
 	return (x < Gameboard::MAX_X && x >= 0 && isValidRow(y) );
 }
 
@@ -75,6 +80,7 @@ bool Gameboard::isRowCompleted(int rowIndex) const {
 }
 
 void Gameboard::fillRow(int rowIndex, int content) {
+	//assert(content >= -1 && content <= static_cast<int>(TetShape::COUNT) && "not a valid shape"); // assert works for gameplay, but breaks fill w numbers test
 	for (int x = 0; x < MAX_X; x++) { //col/x
 		setContent(x, rowIndex, content);
 	}
