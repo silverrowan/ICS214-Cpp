@@ -8,6 +8,9 @@
 
 int main()
 {	
+	//seed randomizer
+	srand(static_cast<unsigned int>(time(0)));
+
 	// run some sanity tests on our classes to ensure they're working as expected.
 	TestSuite::runTestSuite();
 
@@ -33,9 +36,6 @@ int main()
 
 	// set up a tetris game
 	TetrisGame game(window, blockSprite, gameboardOffset, nextShapeOffset);
-
-	//seed randomizer
-	//TODO
 
 	// set up a clock so we can determine seconds per game loop
 	sf::Clock clock;		

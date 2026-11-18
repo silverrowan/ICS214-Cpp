@@ -60,6 +60,7 @@ int Gameboard::removeCompletedRows() {
 }
 
 bool Gameboard::isValidPoint(int x, int y) const {
+	//std::cout << "entered if isValidPoint\n";
 	return (x < Gameboard::MAX_X && x >= 0 && isValidRow(y) );
 }
 
