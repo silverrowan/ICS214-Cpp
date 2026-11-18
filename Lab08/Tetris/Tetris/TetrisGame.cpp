@@ -10,7 +10,6 @@ const int TetrisGame::BLOCK_HEIGHT{ 32 };			  // pixel height of a tetris block,
 const double TetrisGame::MAX_SECONDS_PER_TICK{ 0.75 }; // the slowest "tick" rate (in seconds), init to 0.75
 const double TetrisGame::MIN_SECONDS_PER_TICK{ 0.2 }; // the fastest "tick" rate (in seconds), init to 0.20
 const Point TetrisGame::ORIGIN_PIXELS{ Point(55, 126) };
-//int secondsPerTick = 30;
 
 
 TetrisGame::TetrisGame(sf::RenderWindow& window, sf::Sprite& blockSprite, const Point& gameboardOffset, const Point& nextShapeOffset) :
@@ -44,7 +43,9 @@ void TetrisGame::onKeyPressed(const sf::Event& event){
 			attemptMove(currentShape, -1, 0);
 			break;
 		case sf::Keyboard::Down:
-			attemptMove(currentShape, 0, 1);
+			if (!attemptMove(currentShape, 0, 1)) {
+				lock(currentShape);
+			}
 			break;
 		case sf::Keyboard::Space:
 			drop(currentShape);
@@ -54,11 +55,13 @@ void TetrisGame::onKeyPressed(const sf::Event& event){
 
 }
 
-// called every game loop to handle ticks & tetromino placement (locking)
+// called every game loop to handle ticks & tetromino placement (locking
 // - param 1: float secondsSinceLastLoop
 // return: nothing
 void TetrisGame::processGameLoop(float secondsSinceLastLoop) {
-	if (secondsSinceLastLoop >= secondsPerTick) { 
+	secondsSinceLastTick += secondsSinceLastLoop;
+	if (secondsSinceLastTick >= secondsPerTick) {
+		//std::cout << secondsSinceLastLoop << "   ";
 		tick(); 
 		secondsSinceLastTick -= secondsPerTick;
 	}
