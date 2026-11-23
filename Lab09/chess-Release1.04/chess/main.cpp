@@ -23,7 +23,7 @@ int main()
         ChessGame game;
 
         // TODO: comment these in once derived classes are concrete.
-        //game.addItemToBoard(new Blocker(), { 3,1 });
+        game.addItemToBoard(new Blocker(), { 3,1 });
         //game.addItemToBoard(new King(ChessPiece::Color::black), { 4,0 });
         //game.addItemToBoard(new Knight(ChessPiece::Color::white), {1,0});
 
