@@ -23,8 +23,8 @@ std::string ChessPiece::getImageFilepath() {
 	return ss.str();
 }
 
-bool ChessPiece::isValidMove(const Point& destination) const {
-	std::vector<Point> validMoves = getValidMoves();
+bool ChessPiece::isValidMove(const Point& destination) {
+	std::vector<Point>& validMoves = getValidMoves();
 	for (int i = 0; i < validMoves.size(); i++) {
 		if (validMoves[i] == destination) {
 			return true;

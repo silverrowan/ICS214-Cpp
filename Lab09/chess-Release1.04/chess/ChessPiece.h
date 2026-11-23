@@ -36,7 +36,7 @@ public:
 		return col == Color::white ? Color::black : Color::white;
 	}
 
-	virtual std::vector<Point> getValidMoves() = 0;
+	virtual std::vector<Point>& getValidMoves() = 0;
 
-	bool isValidMove(const Point& destination) const;
+	bool isValidMove(const Point& destination);
 };
