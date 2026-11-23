@@ -105,7 +105,7 @@ public:
 	/// return board instance
 	/// </summary>
 	/// <returns>Gameboard, board</returns>
-	Gameboard getBoard() { return board; }
+	Gameboard getBoard() const { return board; }
 
 private:
 	// reset everything for a new game (use existing functions) 

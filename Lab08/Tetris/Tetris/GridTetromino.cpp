@@ -1,7 +1,6 @@
 #include "GridTetromino.h"
 #include "Gameboard.h"
 #include "TetrisGame.h"
-#include <assert.h>
 
 void GridTetromino::move(int xOffset, int yOffset) {
 	Point position = getGridLoc();

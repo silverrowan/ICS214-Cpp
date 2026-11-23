@@ -17,10 +17,10 @@ int main()
 	sf::Texture backgroundTexture;	// the background texture
 
 	//load images;
-	backgroundTexture.loadFromFile("../images/background.png");// load the background sprite
+	backgroundTexture.loadFromFile("./images/background.png");// load the background sprite
 	backgroundSprite.setTexture(backgroundTexture);
 
-	blockTexture.loadFromFile("../images/tiles.png");	// load the tetris block sprite
+	blockTexture.loadFromFile("./images/tiles.png");	// load the tetris block sprite
 	blockSprite.setTexture(blockTexture);	
 
 	// create the game window
