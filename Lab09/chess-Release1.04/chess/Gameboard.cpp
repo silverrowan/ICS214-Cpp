@@ -47,7 +47,7 @@ void Gameboard::drawActiveChessPieceHighlights(sf::RenderWindow& window, const C
         std::vector<Point> validMoves;
 
         // TODO: Comment this line in once getValidMoves() has been implemented in concrete ChessPiece classes.
-        //validMoves = pActiveChessPiece->getValidMoves();
+        validMoves = pActiveChessPiece->getValidMoves();
 
         for (auto& validMoveLoc : validMoves) {
             drawSquare(window, validMoveLoc, Constants::colorPotentialMove);
@@ -107,6 +107,13 @@ bool Gameboard::isValid(const Point& squareLoc) const {
         squareLoc.getY() < MAX_Y;
 }
 
+GameboardItem* Gameboard::getItem(const Point& loc)  const {
+    if (isValid(loc)) {
+        return grid[loc.getY()][loc.getX()];
+    }
+    return nullptr;
+}
+
 void Gameboard::setItemAt(const Point& squareLoc, GameboardItem* pItem) {
 
     // inform the board of the item (or nullptr)
@@ -129,13 +136,18 @@ void Gameboard::captureItem(const Point& squareLoc) {
     }
 }
 
-bool Gameboard::containsBlockerAt(const Point& squareLoc) const {   
-    // TODO
+bool Gameboard::containsBlockerAt(const Point& squareLoc) const {
+    if (dynamic_cast<Blocker*>(getItem(squareLoc))) {
+        return true;
+    }
     return false;
 }
 
 bool Gameboard::containsChessPieceOfColorAt(const Point& squareLoc, ChessPiece::Color color) const {
-    // TODO
+    ChessPiece* targetItem = dynamic_cast<ChessPiece*>( getItem(squareLoc) );
+    if ( targetItem ) {
+        return color == (*targetItem).getColor();
+    }
     return false;
 }
 

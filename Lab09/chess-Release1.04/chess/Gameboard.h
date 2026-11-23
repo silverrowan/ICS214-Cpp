@@ -68,12 +68,7 @@ public:
 
     // get the GameboardItem at a given board location
     // if the location is invalid - return nullptr
-    GameboardItem* getItem(const Point& loc)  const {
-        if (isValid(loc)) {
-            return grid[loc.getY()][loc.getX()];
-        }
-        return nullptr;
-    }
+    GameboardItem* getItem(const Point& loc)  const;
 
     // set the GameboardItem at a given square location.
     // note: can also be used to clear the location (in case an item is captured) by setting to nullptr.
@@ -94,7 +89,6 @@ public:
     bool containsChessPieceOfColorAt(const Point& squareLoc, ChessPiece::Color color) const;
     // TODO:
      
-    
     // This is a helper method that can be used to find valid moves from a starting point and heading 
     // in a certain direction.  If you wanted to attempt implmenting Rook/Queen/Bishop, you could make
     // use of this functionality.  Otherwise it isn't actually used.

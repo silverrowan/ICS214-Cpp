@@ -31,6 +31,46 @@ void ChessGame::addItemToBoard(GameboardItem* pNewItem, const Point& loc) {
     board.setItemAt(loc, pNewItem);
 }
 
+void ChessGame::update(const std::optional<sf::Event>& event) {
+
+    if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+    {
+        if (keyPressed->scancode == sf::Keyboard::Scancode::S)
+            saveToFile();
+    }
+
+    // detect left mouse button clicks
+    if (auto* mouseBtn = event->getIf<sf::Event::MouseButtonPressed>()) {
+        if (mouseBtn->button == sf::Mouse::Button::Left) {
+
+            // convert the click location to a board location
+            Point clickedBoardLoc = board.convertPixelToBoardLoc(Point(mouseBtn->position.x, mouseBtn->position.y));
+            std::cout << "clicked on board loc: [" << clickedBoardLoc.getX() << "," << clickedBoardLoc.getY() << "]\n";
+
+            // Check if there was an item at the click location (via board.Item())
+            GameboardItem* pItemClicked = board.getItem(clickedBoardLoc);
+
+            if (!pActiveChessPiece) { // if no active chess piece
+                if (pItemClicked && !dynamic_cast<Blocker*>(pItemClicked)) { // if something thats not a blocker is clicked
+                    setActiveChessPiece(dynamic_cast<ChessPiece*>(pItemClicked));
+                }
+                return;
+            }
+            else { // there *is* an active chess piece
+                if (pActiveChessPiece->isValidMove(clickedBoardLoc)) {
+                    if (pItemClicked) { // if item is clicked; is validMove contains check for blocker (->invalid move)
+                        board.captureItem(clickedBoardLoc);
+                    } // not blocker check already done... take piece & move
+                    moveActiveChessPiece(clickedBoardLoc);
+                    return;
+                }
+            }
+            clearActiveChessPiece();
+            return;
+        }
+    }
+}
+
 void ChessGame::draw(sf::RenderWindow& window) {
     board.draw(window, pActiveChessPiece);
 }
@@ -63,46 +103,6 @@ bool ChessGame::moveActiveChessPiece(const Point& pos)
         // make it so the active chess piece is no longer active.
         clearActiveChessPiece();
         return true;
-    }
-}
-
-void ChessGame::update(const std::optional<sf::Event>& event) {
-
-    if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
-    {
-        if (keyPressed->scancode == sf::Keyboard::Scancode::S)
-            saveToFile();
-    }
-
-    // detect left mouse button clicks
-    if (auto* mouseBtn = event->getIf<sf::Event::MouseButtonPressed>()) {
-        if (mouseBtn->button == sf::Mouse::Button::Left) {
-
-            // convert the click location to a board location
-            Point clickedBoardLoc = board.convertPixelToBoardLoc(Point(mouseBtn->position.x, mouseBtn->position.y));
-            std::cout << "clicked on board loc: [" << clickedBoardLoc.getX() << "," << clickedBoardLoc.getY() << "]\n";
-
-            // Check if there was an item at the click location (via board.Item())
-            GameboardItem* pItemClicked = board.getItem(clickedBoardLoc);
-
-            if (!pActiveChessPiece) { // if no active chess piece
-                if (pItemClicked && !dynamic_cast<Blocker*>(pItemClicked) ) { // if something thats not a blocker is clicked
-                    setActiveChessPiece(dynamic_cast<ChessPiece*>(pItemClicked));
-                    return;
-                }
-            }
-            else { // there *is* an active chess piece
-                if (pActiveChessPiece->isValidMove(clickedBoardLoc)) {
-                    if (pItemClicked) { // if item is clicked; is validMove contains check for blocker (->invalid move)
-                        board.captureItem(clickedBoardLoc);
-                    } // not blocker check already done... take piece & move
-                    moveActiveChessPiece(clickedBoardLoc);
-                }
-                clearActiveChessPiece();
-            }
-            clearActiveChessPiece();
-            return;
-        }
     }
 }
 

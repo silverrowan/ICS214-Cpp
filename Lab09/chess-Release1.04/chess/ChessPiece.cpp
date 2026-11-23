@@ -4,11 +4,10 @@
 #include "Gameboard.h"
 #include <cassert>
 
-ChessPiece::ChessPiece(const std::string& name, Color col) 
+ChessPiece::ChessPiece(std::string& name, Color col) 
 	: GameboardItem{ name }, color(col) {
 	loadImage(getImageFilepath());
 }
-
 
 std::string ChessPiece::getImageFilepath() {
 	std::stringstream ss;
@@ -25,7 +24,7 @@ std::string ChessPiece::getImageFilepath() {
 }
 
 bool ChessPiece::isValidMove(const Point& destination) {
-	std::vector<Point>& validMoves =  getValidMoves();
+	const std::vector<Point> validMoves = getValidMoves();
 	for (int i = 0; i < validMoves.size(); i++) {
 		if (validMoves[i] == destination) {
 			return true;
@@ -43,7 +42,7 @@ bool ChessPiece::isValidColorTarget(const Point& destination) const {
 	return true;
 }
 
-std::vector<Point>& ChessPiece::getValidColorTargets(const std::vector<Point>& offsets) const {
+std::vector<Point> ChessPiece::getValidColorTargets(const std::vector<Point>& offsets) const {
 	std::vector<Point> validMoves{};
 	if (pBoard) {
 		Point origin = getPosition();

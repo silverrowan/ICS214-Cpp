@@ -26,6 +26,7 @@ int main()
         game.addItemToBoard(new Blocker(), { 3,1 });
         game.addItemToBoard(new King(ChessPiece::Color::black), { 4,0 });
         game.addItemToBoard(new Knight(ChessPiece::Color::white), {1,0});
+        game.addItemToBoard(new Knight(ChessPiece::Color::white), {2,2});
 
       
         while (window.isOpen())

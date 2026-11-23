@@ -18,9 +18,9 @@ class King : public ChessPiece {
 public:
 	King(Color col, std::string name = "king") : ChessPiece(name, col) {};
 
-	std::vector<Point>& getValidMoves() override { 
+	const std::vector<Point> getValidMoves() const override { 
 		std::vector<Point> validOffsets{ {1,1},{1,0},{1,-1},{0,1},{0,-1},{-1,1},{-1,0},{-1,-1} };
-		std::vector<Point>& targets = getValidColorTargets(validOffsets);
+		std::vector<Point> targets = getValidColorTargets(validOffsets);
 		return targets;
 	}
 };
@@ -29,7 +29,7 @@ class Knight : public ChessPiece {
 public:
 	Knight(Color col, std::string name = "knight") : ChessPiece(name, col) {}
 
-	std::vector<Point>& getValidMoves() override {
+	const std::vector<Point> getValidMoves() const override {
 		return getValidColorTargets({ {2,1},{2,-1},{-2,1},{-2,-1},{1,2},{-1,2},{1,-2},{-1,-2} } ); // same as for king, but more concise
 	}
 };

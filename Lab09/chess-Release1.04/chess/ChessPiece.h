@@ -21,7 +21,8 @@ protected:
 
 public:
 	// constructor
-	ChessPiece(const std::string& name, Color col );
+	ChessPiece( std::string& name, Color col );
+	//virtual ~ChessPiece();
 
 	// get the color (of the chess piece)
 	Color getColor() { return color; }
@@ -36,11 +37,11 @@ public:
 		return col == Color::white ? Color::black : Color::white;
 	}
 
-	virtual std::vector<Point>& getValidMoves() = 0;
+	virtual const std::vector<Point> getValidMoves() const = 0;
 
 	bool isValidMove(const Point& destination);
 
 	bool isValidColorTarget(const Point& destination) const;
 
-	std::vector<Point>& getValidColorTargets(const std::vector<Point>& offsets) const;
+	std::vector<Point> getValidColorTargets(const std::vector<Point>& offsets) const;
 };
