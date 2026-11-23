@@ -16,19 +16,20 @@ class Gameboard;	// prevent circular references
 
 class King : public ChessPiece {
 public:
-	King(Color col, std::string name = "king") : ChessPiece(name, color) {};
+	King(Color col, std::string name = "king") : ChessPiece(name, col) {};
 
 	std::vector<Point>& getValidMoves() override { 
-		std::vector<Point> pt{};
-		return pt; }
+		std::vector<Point> validOffsets{ {1,1},{1,0},{1,-1},{0,1},{0,-1},{-1,1},{-1,0},{-1,-1} };
+		std::vector<Point>& targets = getValidColorTargets(validOffsets);
+		return targets;
+	}
 };
 
 class Knight : public ChessPiece {
 public:
-	Knight(Color col, std::string name = "knight") : ChessPiece(name, color) {}
+	Knight(Color col, std::string name = "knight") : ChessPiece(name, col) {}
 
 	std::vector<Point>& getValidMoves() override {
-		std::vector<Point> pt{};
-		return pt;
+		return getValidColorTargets({ {2,1},{2,-1},{-2,1},{-2,-1},{1,2},{-1,2},{1,-2},{-1,-2} } ); // same as for king, but more concise
 	}
 };

@@ -39,4 +39,8 @@ public:
 	virtual std::vector<Point>& getValidMoves() = 0;
 
 	bool isValidMove(const Point& destination);
+
+	bool isValidColorTarget(const Point& destination) const;
+
+	std::vector<Point>& getValidColorTargets(const std::vector<Point>& offsets) const;
 };

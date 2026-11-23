@@ -87,11 +87,11 @@ public:
 
 
     // return true if there is a blocker at the given square location (false otherwise).
-    //bool containsBlockerAt(const Point& squareLoc) const;
+    bool containsBlockerAt(const Point& squareLoc) const;
     // TODO:
     
     // return true if there is a chess piece at the given loc with the specified color. (false otherwise)
-    //bool containsChessPieceOfColorAt(const Point& squareLoc, ChessPiece::Color color) const;
+    bool containsChessPieceOfColorAt(const Point& squareLoc, ChessPiece::Color color) const;
     // TODO:
      
     

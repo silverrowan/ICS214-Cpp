@@ -85,7 +85,6 @@ void Gameboard::drawSquare(sf::RenderWindow& window, const Point& boardLoc, cons
     window.draw(square);
 }
 
-
 Point Gameboard::convertPixelToBoardLoc(const Point& pixel) {
     Point boardLoc(-1, -1);
 
@@ -101,14 +100,12 @@ Point Gameboard::convertPixelToBoardLoc(const Point& pixel) {
     return boardLoc;
 }
 
-
 bool Gameboard::isValid(const Point& squareLoc) const {
     return squareLoc.getX() >= 0 &&
         squareLoc.getX() < MAX_X &&
         squareLoc.getY() >= 0 &&
         squareLoc.getY() < MAX_Y;
 }
-
 
 void Gameboard::setItemAt(const Point& squareLoc, GameboardItem* pItem) {
 
@@ -132,16 +129,15 @@ void Gameboard::captureItem(const Point& squareLoc) {
     }
 }
 
-//bool Gameboard::containsBlockerAt(const Point& squareLoc) const {   
-//    // TODO
-//    return false;
-//}
-//
-//bool Gameboard::containsChessPieceOfColorAt(const Point& squareLoc, ChessPiece::Color color) const {
-//    // TODO
-//    return false;
-//}
+bool Gameboard::containsBlockerAt(const Point& squareLoc) const {   
+    // TODO
+    return false;
+}
 
+bool Gameboard::containsChessPieceOfColorAt(const Point& squareLoc, ChessPiece::Color color) const {
+    // TODO
+    return false;
+}
 
 
 //void Gameboard::findValidMovesInDir(std::vector<Point>& validMoves, const Point& startPos, const 
