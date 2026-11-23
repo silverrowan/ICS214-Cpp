@@ -85,24 +85,22 @@ void ChessGame::update(const std::optional<sf::Event>& event) {
             // Check if there was an item at the click location (via board.Item())
             GameboardItem* pItemClicked = board.getItem(clickedBoardLoc);
 
-            // If so, check if the clicked item is a chess piece (dynamic_cast it)
-                       
-            // TODO
 
-            // Need to handle 2 main scenarios:
-            // 1) There is no current active chess piece
-            //      if the square we clicked on contains a chess piece, set it as the active 
-            //      chess piece (setActiveChessPiece())
-            // 2) There is currently an active chess piece        
+// ========================================================================LOOK UP HOW TO DO PROPERLY============================================================
+            if (!pActiveChessPiece) {
+                if (pItemClicked && pItemClicked != Board) {
+                    setActiveChessPiece(pItemClicked);
+                }
+            }
+            else { // there *is* an active chess piece
+                if ( ( !pItemClicked || pItemClicked != Blocker) && (pActiveChessPiece->isValidMove(clickedBoardLoc))) {} // make the move // __&&__ order safe in c++?/boots out if first fails?
             //      a) if the square clicked is a potential move, potentially capture a piece 
             //         (via board.captureItem()) and then move there (via moveActiveChessPiece()).
-            //      b) otherwise clear the active chess piece    
-               
-            // TODO
+                else { setActiveChessPiece(nullptr); }
+            }
         }
     }
 }
-
 
 void ChessGame::saveToFile(const char* filename)
 {
