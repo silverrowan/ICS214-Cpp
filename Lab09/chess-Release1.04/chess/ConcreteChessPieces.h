@@ -14,13 +14,12 @@ class Gameboard;	// prevent circular references
 
 // Use these class definitions as a starting point for creating your concrete classes.
 
-//class King : public ChessPiece {
-//public:
-//	King(Color col);
-//};
+class King : public ChessPiece {
+public:
+	King(Color col, std::string name = "king") : ChessPiece(name, color) {};
+};
 
-//class Knight : public ChessPiece {
-//public:
-//	Knight(Color col);
-//};
-
+class Knight : public ChessPiece {
+public:
+	Knight(Color col, std::string name = "knight") : ChessPiece(name, color) {}
+};
