@@ -22,3 +22,13 @@ std::string ChessPiece::getImageFilepath() {
 	ss << "_" << name << ".png";
 	return ss.str();
 }
+
+bool ChessPiece::isValidMove(const Point& destination) const {
+	std::vector<Point> validMoves = getValidMoves();
+	for (int i = 0; i < validMoves.size(); i++) {
+		if (validMoves[i] == destination) {
+			return true;
+		}
+	}
+	return false;
+}

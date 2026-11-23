@@ -34,5 +34,9 @@ public:
 	// get the opposite color of the color passed in
 	static Color getOppositeColor(Color col) {
 		return col == Color::white ? Color::black : Color::white;
-	}	
+	}
+
+	virtual std::vector<Point> getValidMoves() const = 0;
+
+	bool isValidMove(const Point& destination) const;
 };
