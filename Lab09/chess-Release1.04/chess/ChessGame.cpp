@@ -85,19 +85,23 @@ void ChessGame::update(const std::optional<sf::Event>& event) {
             // Check if there was an item at the click location (via board.Item())
             GameboardItem* pItemClicked = board.getItem(clickedBoardLoc);
 
-
-// ========================================================================LOOK UP HOW TO DO PROPERLY============================================================
-            if (!pActiveChessPiece) {
-                if (pItemClicked && pItemClicked != Board) {
-                    setActiveChessPiece(pItemClicked);
+            if (!pActiveChessPiece) { // if no active chess piece
+                if (pItemClicked && !dynamic_cast<Blocker*>(pItemClicked) ) { // if something thats not a blocker is clicked
+                    setActiveChessPiece(dynamic_cast<ChessPiece*>(pItemClicked));
+                    return;
                 }
             }
             else { // there *is* an active chess piece
-                if ( ( !pItemClicked || pItemClicked != Blocker) && (pActiveChessPiece->isValidMove(clickedBoardLoc))) {} // make the move // __&&__ order safe in c++?/boots out if first fails?
-            //      a) if the square clicked is a potential move, potentially capture a piece 
-            //         (via board.captureItem()) and then move there (via moveActiveChessPiece()).
-                else { setActiveChessPiece(nullptr); }
+                if (pActiveChessPiece->isValidMove(clickedBoardLoc)) {
+                    if (pItemClicked) { // if item is clicked; is validMove contains check for blocker (->invalid move)
+                        board.captureItem(clickedBoardLoc);
+                    } // not blocker check already done... take piece & move
+                    moveActiveChessPiece(clickedBoardLoc);
+                }
+                clearActiveChessPiece();
             }
+            clearActiveChessPiece();
+            return;
         }
     }
 }
