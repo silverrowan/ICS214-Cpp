@@ -44,6 +44,9 @@ public:
 		return x == other.x && y == other.y;
 	}
 
+
+	operator sf::Vector2i() const;
+	operator sf::Vector2f() const;
 };
 
 // operator overload for adding 2 points together - written as a function

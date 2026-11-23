@@ -14,7 +14,7 @@ int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    //TestSuite::runTestSuite();
+    TestSuite::runTestSuite();
 
     try {
         sf::RenderWindow window(sf::VideoMode({ 750, 750 }), " Chess Demo");

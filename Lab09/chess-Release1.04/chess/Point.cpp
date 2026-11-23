@@ -19,3 +19,8 @@ std::ostream& operator<<(std::ostream& out, const Point& pt) {
 	out << "[" << pt.getX() << "," << pt.getY() << "]";
 	return out;
 }
+
+
+Point::operator sf::Vector2i() const { return sf::Vector2i(x, y); }
+
+Point::operator sf::Vector2f() const { return sf::Vector2f(static_cast<float>(x), static_cast<float>(y)); }

@@ -70,18 +70,18 @@ void Gameboard::drawGameboardItems(sf::RenderWindow& window) const
 void Gameboard::drawSquare(sf::RenderWindow& window, const Point& boardLoc, const sf::Color& color) const {   
     // Use a sf::Vector2f to store the square width & height 
     // This is the SFML equivalent of our Point class - except it uses floats
-    sf::Vector2f squareSize(static_cast<float>(squareWidth), static_cast<float>(squareHeight));
-    sf::RectangleShape square( squareSize );
+    sf::RectangleShape square( Point(squareWidth, squareHeight ) );
     square.setFillColor(color);
 
     // determine the pixel location that we want to draw a square at
     int pixelX = topLeftOffset.getX() + (boardLoc.getX() * squareWidth);
     int pixelY = topLeftOffset.getY() + (boardLoc.getY() * squareHeight);
+    Point pixelPos = Point(pixelX, pixelY);
           
     // Use a sf::Vector2f to store the X,Y values 
     // This is the SFML equivalent of our Point class - except it uses floats
-    sf::Vector2f newPos(static_cast<float>(pixelX), static_cast<float>(pixelY));
-    square.setPosition(newPos);   
+    //sf::Vector2f newPos(static_cast<float>(pixelX), static_cast<float>(pixelY));
+    square.setPosition( Point( pixelPos ));   
     window.draw(square);
 }
 
