@@ -2,9 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <sstream>
 #include "ChessPiece.h"
 #include "Point.h"
 #include "Constants.h"
+#include "ISerializable.h"
+
 
 class GameboardItem;
 
@@ -20,7 +23,7 @@ private:
 
     Point topLeftOffset = { 0,0 };  // pixel offset of board topLeft
 
-    GameboardItem* grid[MAX_Y][MAX_X] {};	// a 2D array of pointers to GameboardItem
+    GameboardItem* grid[MAX_Y][MAX_X]{};	// a 2D array of pointers to GameboardItem
 
 private:
     // draw an individual board square
@@ -35,16 +38,42 @@ private:
     // draw all the GameboardItems (blockers and chess pieces)
     void drawGameboardItems(sf::RenderWindow& window) const;
 
-public:     
+public:
     // constructor
-    Gameboard(int sqWidth = Constants::gameboardSquareWidth, 
-              int sqHeight = Constants::gameboardSquareHeight)
+    Gameboard(int sqWidth = Constants::gameboardSquareWidth,
+        int sqHeight = Constants::gameboardSquareHeight)
         : squareWidth{ sqWidth }, squareHeight{ sqHeight } {
     }
 
     // destructor
     ~Gameboard();
 
+    // Impliment interface ISerializable toString()
+    // Represent gamboard as a string
+
+    std::string toString() const {
+        std::stringstream boardStr{};
+
+        for (int y = 0; y < MAX_Y; y++) {
+            for (int x = 0; x < MAX_X; x++) {
+                GameboardItem* item = getItem( Point(x, y) );
+                if (item) {
+                    boardStr << (*item).toString() << " ";
+                }
+                else {
+                    boardStr << ".  ";
+                }
+
+
+            }
+        }
+        //close x loop
+        boardStr << "\n";
+        //close y loop
+        return boardStr.str();
+    }
+
+    // ========================Rendering related=================
     // set top left pixel position
     void setTopLeftOffset(const Point& pos) { topLeftOffset = pos; }
 
@@ -62,7 +91,9 @@ public:
  
     // given a screen pixel loc, convert it to a square location (XY) onto the board [0..7][0..7]
     Point convertPixelToBoardLoc(const Point& pixel);
+    // #endregion
    
+    //========================Board & Contents=====================
     // is the point passed in is a valid square location on the board [0..7][0..7]?
     bool isValid(const Point& squareLoc) const;
 
@@ -79,7 +110,6 @@ public:
     //  - remove it from the board,
     //  - deallocate the memory for it (return it to the heap).
     void captureItem(const Point& squareLoc);
-
 
     // return true if there is a blocker at the given square location (false otherwise).
     bool containsBlockerAt(const Point& squareLoc) const;

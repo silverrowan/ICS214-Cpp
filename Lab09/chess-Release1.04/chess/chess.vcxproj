@@ -37,6 +37,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Gameboard.h" />
     <ClInclude Include="GameboardItem.h" />
+    <ClInclude Include="ISerializable.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="TestSuite.h" />
   </ItemGroup>

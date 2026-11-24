@@ -3,6 +3,7 @@
 #include "SFML\Graphics.hpp"
 #include <iostream>
 #include "Point.h"
+#include "ISerializable.h"
 
   
 // If Gameboard.h #includes GameboardItem.h, and GameboardItem.h #includes Gameboard.h this causes
@@ -31,10 +32,11 @@ protected:
 	sf::Texture texture;				// a texture (to store the item's image)	
 	sf::Sprite* pSprite{ nullptr };		// a sprite (to display the texture).  This is a pointer because
 										// to construct it we first need to give it a loaded texture.
+	const std::string symbol;			// text symbol for the item
 
 public:
 	// constructor
-	GameboardItem(const std::string& name);
+	GameboardItem(const std::string& name, const std::string symbol="?");
 
 	// destructor
 	virtual ~GameboardItem();
@@ -53,6 +55,12 @@ public:
 
 	// set the position of the item (in board coordinates)
 	void setPosition(const Point& p) { position = p; }
+
+	// get the symbol for the item (char) ( alternate name for toString() )
+	const std::string& getSymbol() const { return symbol; }
+
+	//ISerializable function toString()
+	const std::string& toString() const { return symbol; }
 
 	// load the image that represents this item
 	void loadImage(const std::string& filePath);

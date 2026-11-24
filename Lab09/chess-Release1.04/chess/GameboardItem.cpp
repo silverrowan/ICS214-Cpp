@@ -1,7 +1,7 @@
 #include "GameboardItem.h"
 #include "Gameboard.h"
 
-GameboardItem::GameboardItem(const std::string& name) : name{ name } {
+GameboardItem::GameboardItem(const std::string& name, const std::string symbol) : name{ name }, symbol{ symbol } {
 }
 
 GameboardItem::~GameboardItem() {
@@ -11,7 +11,6 @@ GameboardItem::~GameboardItem() {
 		pSprite = nullptr;
 	}
 }
-
 
 void GameboardItem::loadImage(const std::string& filePath) {
 	std::cout << "loading image: " << filePath << "\n";		

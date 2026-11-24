@@ -3,7 +3,7 @@
 #include "Constants.h"
 #include <sstream>
 
-Blocker::Blocker() : GameboardItem("blocker")
+Blocker::Blocker() : GameboardItem("blocker", "#")
 {
     loadImage(getImageFilepath());
 }

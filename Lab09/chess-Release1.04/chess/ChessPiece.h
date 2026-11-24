@@ -21,7 +21,7 @@ protected:
 
 public:
 	// constructor
-	ChessPiece( const std::string& name, Color col );
+	ChessPiece( const std::string& name, const Color col, const std::string& symbol );
 	virtual ~ChessPiece() {}
 
 	// get the color (of the chess piece)
@@ -46,7 +46,7 @@ public:
 	/// </summary>
 	/// <param name="destination">Point, (x,y) coordinates of target square</param>
 	/// <returns>bool, True if placement is valid</returns>
-	bool isValidMove(const Point& destination);
+	bool isValidMove(const Point& destination) const;
 
 	/// <summary>
 	/// Checks if the location is a valid move for the calling piece
