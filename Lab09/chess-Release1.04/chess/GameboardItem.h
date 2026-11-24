@@ -37,7 +37,7 @@ public:
 	GameboardItem(const std::string& name);
 
 	// destructor
-	~GameboardItem();
+	virtual ~GameboardItem();
 
 	// tell the item that it is now on a gameboard
 	void setGameboard(Gameboard* pGB) {	pBoard = pGB; }

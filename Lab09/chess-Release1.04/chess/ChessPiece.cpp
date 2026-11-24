@@ -4,7 +4,9 @@
 #include "Gameboard.h"
 #include <cassert>
 
-ChessPiece::ChessPiece(std::string& name, Color col) 
+enum class Color { black, white };
+
+ChessPiece::ChessPiece(const std::string& name, Color col) 
 	: GameboardItem{ name }, color(col) {
 	loadImage(getImageFilepath());
 }
@@ -21,6 +23,10 @@ std::string ChessPiece::getImageFilepath() {
 	}
 	ss << "_" << name << ".png";
 	return ss.str();
+}
+
+ChessPiece::Color ChessPiece::getOppositeColor(Color col) {
+	return col == Color::white ? Color::black : Color::white;
 }
 
 bool ChessPiece::isValidMove(const Point& destination) {
